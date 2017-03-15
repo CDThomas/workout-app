@@ -20,7 +20,7 @@ const config = {
   },
 
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
     new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),

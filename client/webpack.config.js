@@ -11,7 +11,7 @@ const config = {
     'es5-shim/es5-shim',
     'es5-shim/es5-sham',
     'babel-polyfill',
-    './app/bundles/HelloWorld/startup/registration',
+    './app/bundles/App/startup/registration',
   ],
 
   output: {
@@ -20,7 +20,7 @@ const config = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js'],
   },
   plugins: [
     new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
@@ -38,7 +38,7 @@ const config = {
         },
       },
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         use: 'babel-loader',
         exclude: /node_modules/,
       },

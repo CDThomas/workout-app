@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { ExerciseList } from 'App/components'
+import './styles.css'
 
 const propTypes = {
   exercises: PropTypes.array // this is passed from the Rails view
@@ -8,7 +9,7 @@ const propTypes = {
 class App extends Component {
   render () {
     return (
-      <div>
+      <div className='App'>
         <ExerciseList exercises={this.props.exercises} />
       </div>
     )

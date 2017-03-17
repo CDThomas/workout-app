@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import './styles.css'
 
 const propTypes = {
   name: PropTypes.string
@@ -9,8 +10,8 @@ class ExerciseItem extends Component {
     const { name } = this.props
 
     return (
-      <li>
-        <h2>{name}</h2>
+      <li className='ExerciseItem'>
+        <span className='ExerciseItem__name'>{name}</span>
       </li>
     )
   }

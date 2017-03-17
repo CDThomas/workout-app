@@ -2,9 +2,10 @@
  {"functions": "never", "arrays": "only-multiline", "objects":
  "only-multiline"} ] */
 
-const webpack = require('webpack');
+const webpack = require('webpack')
+const path = require('path')
 
-const devBuild = process.env.NODE_ENV !== 'production';
+const devBuild = process.env.NODE_ENV !== 'production'
 
 const config = {
   entry: [
@@ -16,11 +17,14 @@ const config = {
 
   output: {
     filename: 'webpack-bundle.js',
-    path: '../app/assets/webpack',
+    path: path.resolve(__dirname, '../app/assets/webpack'),
   },
 
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      App: path.resolve(__dirname, './app/bundles/App'),
+    }
   },
   plugins: [
     new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
@@ -42,15 +46,19 @@ const config = {
         use: 'babel-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
     ],
   },
-};
+}
 
-module.exports = config;
+module.exports = config
 
 if (devBuild) {
-  console.log('Webpack dev build for Rails'); // eslint-disable-line no-console
-  module.exports.devtool = 'eval-source-map';
+  console.log('Webpack dev build for Rails') // eslint-disable-line no-console
+  module.exports.devtool = 'eval-source-map'
 } else {
-  console.log('Webpack production build for Rails'); // eslint-disable-line no-console
+  console.log('Webpack production build for Rails') // eslint-disable-line no-console
 }

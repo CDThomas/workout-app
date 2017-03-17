@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import ExerciseList from './ExerciseList'
+import { ExerciseList } from 'App/components'
 
 const propTypes = {
   exercises: PropTypes.array // this is passed from the Rails view

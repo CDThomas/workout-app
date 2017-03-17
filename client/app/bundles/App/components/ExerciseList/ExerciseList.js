@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import ExerciseItem from './ExerciseItem'
+import { ExerciseItem } from 'App/components'
 
 const propTypes = {
   exercises: PropTypes.array

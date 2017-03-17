@@ -1,7 +1,7 @@
-import ReactOnRails from 'react-on-rails';
+import ReactOnRails from 'react-on-rails'
 
-import App from '../components/App';
+import { App } from 'App/components'
 
 ReactOnRails.register({
-  App,
-});
+  App
+})

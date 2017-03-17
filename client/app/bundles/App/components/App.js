@@ -1,42 +1,19 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
+import ExerciseList from './ExerciseList'
 
-export default class App extends React.Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired, // this is passed from the Rails view
-  };
+const propTypes = {
+  exercises: PropTypes.array // this is passed from the Rails view
+}
 
-  /**
-   * @param props - Comes from your rails view.
-   * @param _railsContext - Comes from React on Rails
-   */
-  constructor(props, _railsContext) {
-    super(props);
-    this.state = { name: this.props.name };
-  }
-
-  updateName = (name) => {
-    this.setState({ name });
-  };
-
-  render() {
+class App extends Component {
+  render () {
     return (
       <div>
-        <h3>
-          Hello, {this.state.name}!
-        </h3>
-        <hr />
-        <form >
-          <label htmlFor="name">
-            Say hello to:
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={this.state.name}
-            onChange={(e) => this.updateName(e.target.value)}
-          />
-        </form>
+        <ExerciseList exercises={this.props.exercises} />
       </div>
-    );
+    )
   }
 }
+App.propTypes = propTypes
+
+export default App

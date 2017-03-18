@@ -11,7 +11,11 @@ class ExerciseItem extends Component {
 
     return (
       <li className='ExerciseItem'>
-        <span className='ExerciseItem__name'>{name}</span>
+        <div className='ExerciseItem__thumbnail' />
+        <div className='ExerciseItem__content'>
+          <span className='ExerciseItem__name'>{name}</span>
+          <span className='ExerciseItem__musclesTargeted'>Placeholder text</span>
+        </div>
       </li>
     )
   }

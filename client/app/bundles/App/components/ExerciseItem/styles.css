@@ -4,8 +4,30 @@
   display: flex;
 }
 
+.ExerciseItem__thumbnail {
+  width: 75px;
+  height: 75px;
+  background-color: rgb(217, 217, 217);
+  margin-right: 25px;
+}
+
+.ExerciseItem__content {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .ExerciseItem__name {
   font-size: 20px;
   font-weight: 200;
   letter-spacing: .2px;
+  margin-bottom: 4px;
+}
+
+.ExerciseItem__musclesTargeted {
+  color: #999;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
 }

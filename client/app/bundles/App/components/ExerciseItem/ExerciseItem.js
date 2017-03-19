@@ -4,12 +4,12 @@ import { capitalize } from 'lodash'
 
 const propTypes = {
   name: PropTypes.string,
-  main_muscle_worked: PropTypes.string
+  mainMuscleWorked: PropTypes.string
 }
 
 class ExerciseItem extends Component {
   render () {
-    const { name, main_muscle_worked } = this.props
+    const { name, mainMuscleWorked } = this.props
 
     return (
       <li className='ExerciseItem'>
@@ -17,7 +17,7 @@ class ExerciseItem extends Component {
         <div className='ExerciseItem__content'>
           <span className='ExerciseItem__name'>{name}</span>
           <span className='ExerciseItem__mainMuscleWorked'>
-            {capitalize(main_muscle_worked).replace('_', ' ')}
+            {capitalize(mainMuscleWorked).replace('_', ' ')}
           </span>
         </div>
       </li>

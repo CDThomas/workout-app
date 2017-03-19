@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   def index
-    @app_props = { exercises: Exercise.all }
+    exercises = Exercise.order(name: :asc).limit(10)
+    serialized_exercises = ActiveModelSerializers::SerializableResource.new(exercises).serializable_hash
+    @app_props = serialized_exercises
   end
 end

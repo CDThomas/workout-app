@@ -24,6 +24,11 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_model_serializers (0.10.2)
+      actionpack (>= 4.1, < 6)
+      activemodel (>= 4.1, < 6)
+      jsonapi (~> 0.1.1.beta2)
+      railties (>= 4.1, < 6)
     activejob (5.0.2)
       activesupport (= 5.0.2)
       globalid (>= 0.3.6)
@@ -60,9 +65,9 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     i18n (0.8.1)
-    jbuilder (2.6.0)
-      activesupport (>= 3.0.0, < 5.1)
-      multi_json (~> 1.2)
+    json (1.8.3)
+    jsonapi (0.1.1.beta2)
+      json (~> 1.8)
     libv8 (5.3.332.38.5)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -79,7 +84,6 @@ GEM
     mini_racer (0.1.9)
       libv8 (~> 5.3)
     minitest (5.10.1)
-    multi_json (1.12.1)
     nio4r (2.0.0)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -183,11 +187,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10.0)
   awesome_print
   byebug
   database_cleaner
   factory_girl_rails (~> 4.0)
-  jbuilder (~> 2.5)
   listen (~> 3.0.5)
   mini_racer
   pg

@@ -11,10 +11,9 @@ gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
 
 gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
 
 gem 'react_on_rails', '~>6'         # use latest gem version > 6
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'

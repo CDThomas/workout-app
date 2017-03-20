@@ -1,0 +1,27 @@
+.SearchBar {
+  position: relative;
+  display: flex;
+}
+
+.SearchBar__input {
+  flex: 1;
+  padding: 4px 5px 4px 25px;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  font-weight: 300;
+  font-size: 14px;
+  color: #5f5f5f;
+}
+
+.SearchBar__input::-webkit-input-placeholder {
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.SearchBar__icon {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a9a9a9;
+}

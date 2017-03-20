@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { ExerciseList } from 'App/components'
+import 'normalize.css'
 import './styles.css'
 
 const propTypes = {

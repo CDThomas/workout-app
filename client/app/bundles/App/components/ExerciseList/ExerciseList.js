@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { ExerciseItem } from 'App/components'
+import { ExerciseItem, SearchBar } from 'App/components'
 import './styles.css'
 
 const propTypes = {
@@ -13,6 +13,7 @@ class ExerciseList extends Component {
       <div className='ExerciseList'>
         <header className='ExerciseList__header'>
           <span className='ExerciseList__title'>Exercises</span>
+          <SearchBar className='ExerciseList__search' />
         </header>
         <ul>
           {exercises.map(exercise => {

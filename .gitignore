@@ -25,3 +25,7 @@ node_modules
 
 # Generated js bundles
 /app/assets/webpack/*
+
+# dotenv (both for Rails and the React client)
+.env
+client/.env

@@ -27,3 +27,6 @@
 - [ ] webpack optimization stuff
   - lodash
 - [ ] add autoprefixer
+- readme
+  - [ ] .env
+  - [ ] startup

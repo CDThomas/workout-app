@@ -4,10 +4,20 @@ import classNames from 'classnames'
 import './styles.css'
 
 const propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  onChange: PropTypes.func
 }
 
 class SearchBar extends Component {
+  constructor (props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange (evt) {
+    this.props.onChange && this.props.onChange(evt)
+  }
+
   render () {
     const searchBarClass = classNames(
       'SearchBar',
@@ -20,6 +30,7 @@ class SearchBar extends Component {
           type='text'
           className='SearchBar__input'
           placeholder='Find an exercise...'
+          onChange={this.handleChange}
         />
         <SearchIcon className='SearchBar__icon' />
       </form>

@@ -29,3 +29,6 @@ node_modules
 # dotenv (both for Rails and the React client)
 .env
 client/.env
+
+# VS Code config
+.vscode

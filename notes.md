@@ -14,11 +14,18 @@
 - [x] serialize data for the FE
   - Because snake case in JS annoys me and leads to inconsitency/bugs. And the linter yells at me.
   - And because exercise names have underscores in them (like lower_back)
-- [ ] add search to exercises
-  - [ ] API get endpoint that supports query param
-  - [ ] search UI
+- [x] add search to exercises
+  - [x] API get endpoint that supports query param
+  - [x] search UI
+- [ ] user can create new exercises
+  - I'm thinking there should be an "add new" button that pulls up a modal
+  - This lets the user stay in the context of creating the routine (don't have to leave the routine
+    creation page to add new exercises for that routine)
+- [ ] paginate exercises
   - [ ] pagination BE
   - [ ] pagination FE (infinate scroll or "load more")
+- [ ] search on `main_mucle_worked` as well as `name`
+- [ ] animate search on the exercise list? eh?
 - [ ] add authentication
   - [Knock](https://github.com/nsarno/knock) looks like a good start. Can roll my own later if I want.
 - [ ] add routines and sets to db/models

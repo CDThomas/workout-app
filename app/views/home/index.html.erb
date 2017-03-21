@@ -1,1 +1,8 @@
-<%= react_component("App", props: @app_props, prerender: false) %>
+<%=
+  react_component(
+    "App",
+    props: @app_props,
+    html_options: {class: 'react-root'},
+    prerender: false
+  )
+%>

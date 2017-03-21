@@ -11,16 +11,27 @@ class ExerciseList extends Component {
   constructor (props) {
     super(props)
     this.handleSearchChange = this.handleSearchChange.bind(this)
+
+    // Setting state from props because these props are only passed on initial load.
+    // So right now there's not a scenario where this component will receive new props.
+    // This might change.
+    this.state = {
+      exercises: this.props.exercises
+    }
   }
 
   handleSearchChange (evt) {
-    fetchExercises().then(exercises => {
-      console.log(exercises)
+    const query = evt.target.value
+
+    fetchExercises(query).then(data => {
+      this.setState({
+        exercises: data.exercises
+      })
     })
   }
 
   render () {
-    const { exercises } = this.props
+    const { exercises } = this.state
     return (
       <div className='ExerciseList'>
         <header className='ExerciseList__header'>

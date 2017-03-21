@@ -7,6 +7,10 @@ const path = require('path')
 
 const devBuild = process.env.NODE_ENV !== 'production'
 
+if (devBuild) {
+  require('dotenv').config()
+}
+
 const config = {
   entry: [
     'es5-shim/es5-shim',
@@ -27,7 +31,10 @@ const config = {
     }
   },
   plugins: [
-    new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
+    new webpack.EnvironmentPlugin([
+      'NODE_ENV',
+      'API_URL'
+    ]),
   ],
   module: {
     rules: [

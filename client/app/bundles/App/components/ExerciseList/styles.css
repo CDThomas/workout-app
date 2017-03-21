@@ -23,6 +23,20 @@
   letter-spacing: .2px;
 }
 
+.ExerciseList__headerText {
+  margin: 0 5px 0 8px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.ExerciseList__createExerciseLink {
+  font-size: 14px;
+  font-weight: 400;
+  color: #005eaf;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .ExerciseList__search {
   flex: 1;
   margin-left: 20px;

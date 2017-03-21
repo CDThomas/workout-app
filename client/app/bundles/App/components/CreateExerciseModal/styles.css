@@ -1,0 +1,49 @@
+/* Be aware of https://github.com/reactjs/react-modal#using-css-classes */
+
+.CreateExerciseModal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.CreateExerciseModal {
+  margin: 100px auto;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,.09);
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.04);
+  background: #fff;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  outline: none;
+  padding: 20px;
+  width: 600px;
+}
+
+.CreateExerciseModal__closeBtn {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  z-index: 200;
+  background-color: #bbbbbb;
+  border-radius: 50%;
+  padding: 14px 14px 13px 14px;
+  width: 12px;
+  height: 12px;
+}
+
+.CreateExerciseModal__closeBtn:hover {
+  background-color: #ea532a;
+}
+
+.CreateExerciseModal__closeIcon {
+  width: 25px;
+  height: 25px;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  color: #fff;
+}

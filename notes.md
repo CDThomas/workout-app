@@ -11,6 +11,7 @@
   - this is simpler than going with muscles targeted (many to many)
   - starting here and can change later if I really need to support multiple (start simple and
     move to complex)
+  - changed from enum to a one-to-many association
 - [x] serialize data for the FE
   - Because snake case in JS annoys me and leads to inconsitency/bugs. And the linter yells at me.
   - And because exercise names have underscores in them (like lower_back)
@@ -21,6 +22,11 @@
   - I'm thinking there should be an "add new" button that pulls up a modal
   - This lets the user stay in the context of creating the routine (don't have to leave the routine
     creation page to add new exercises for that routine)
+  - [ ] form in UI
+    - will need to load muscle group options from BE
+  - [ ] API endpoints
+    - [ ] POST /exercises
+    - [ ] GET /muscles
 - [ ] paginate exercises
   - [ ] pagination BE
   - [ ] pagination FE (infinate scroll or "load more")
@@ -31,6 +37,11 @@
 - [ ] add routines and sets to db/models
 - [ ] click exercise on left to add to sets on right
 - [ ] drag and drop sets
+- [ ] add images to exercises
+  - I'm thinking google cloud storage because it'd be free
+  - can use carrierwave/fog
+  - or paperclip/fog
+  - or cloudinary
 - [ ] webpack optimization stuff
   - lodash
 - [ ] add autoprefixer

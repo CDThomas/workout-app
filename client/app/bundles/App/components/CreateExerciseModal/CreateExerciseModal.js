@@ -9,6 +9,19 @@ const propTypes = {
 }
 
 class CreateExerciseModal extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      muscleOptions: [
+        'Chest',
+        'Back',
+        'Biceps',
+        'Triceps',
+        'Shoulders'
+      ]
+    }
+  }
   render () {
     return (
       <div>
@@ -25,8 +38,35 @@ class CreateExerciseModal extends Component {
           >
             <CloseIcon className='CreateExerciseModal__closeIcon' />
           </a>
-          <h1>Hi!</h1>
-          <p>The form will go here 😄</p>
+          <div className='CreateExerciseModal__heading'>
+            New Exercise
+          </div>
+          <form>
+            <div className='CreateExerciseModal__field'>
+              <label htmlFor='name' className='CreateExerciseModal__label'>
+                Exercise name
+              </label>
+              <input
+                type='text'
+                className='CreateExerciseModal__textInput'
+                placeholder='Ex: Bench press'
+              />
+            </div>
+            <div className='CreateExerciseModal__field'>
+              <label htmlFor='mainMuscleWorked' className='CreateExerciseModal__label'>
+                Main muscle worked
+              </label>
+              <select name='mainMuscleWorked' className='CreateExerciseModal__select'>
+                {this.state.muscleOptions.map((option, i) => {
+                  return (
+                    <option key={i} value={option}>
+                      {option}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+          </form>
         </Modal>
       </div>
     )

@@ -36,7 +36,9 @@
 }
 
 .CreateExerciseModal__closeBtn:hover {
-  background-color: #ea532a;
+  /* Blue from https://www.bigbinary.com/ */
+  /* Stumbled across their blog and I like some of their design */
+  background-color: #0f82e6;
 }
 
 .CreateExerciseModal__closeIcon {

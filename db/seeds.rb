@@ -1,8 +1,8 @@
 muscles = [
   'chest',
   'lats',
-  'middle_back',
-  'lower_back',
+  'middle back',
+  'lower back',
   'traps',
   'biceps',
   'triceps',
@@ -69,7 +69,7 @@ exercises = [
   },
   {
     name: 'Bent-over row',
-    main_muscle_worked: 'middle_back'
+    main_muscle_worked: 'middle back'
   },
   {
     name: 'Upright row',
@@ -117,7 +117,7 @@ exercises = [
   },
   {
     name: 'Back extension',
-    main_muscle_worked: 'lower_back'
+    main_muscle_worked: 'lower back'
   }
 ]
 

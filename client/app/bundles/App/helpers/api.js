@@ -7,5 +7,11 @@ export function fetchExercises (query) {
 
   return fetch(`${API_URL}/exercises${queryParams}`)
     .then(res => res.json())
-    .then(json => json)
+    .then(exercises => exercises)
+}
+
+export function fetchMuscles () {
+  return fetch(`${API_URL}/muscles`)
+    .then(res => res.json())
+    .then(muscles => muscles)
 }

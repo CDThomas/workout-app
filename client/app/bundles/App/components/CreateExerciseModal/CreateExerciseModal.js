@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import CloseIcon from 'react-icons/lib/md/close'
 import Modal from 'react-modal'
+import { fetchMuscles } from 'App/helpers/api'
+import { capitalize } from 'lodash'
 import './styles.css'
 
 const propTypes = {
@@ -13,15 +15,18 @@ class CreateExerciseModal extends Component {
     super(props)
 
     this.state = {
-      muscleOptions: [
-        'Chest',
-        'Back',
-        'Biceps',
-        'Triceps',
-        'Shoulders'
-      ]
+      muscleOptions: []
     }
   }
+
+  componentDidMount () {
+    fetchMuscles().then((data) => {
+      this.setState({
+        muscleOptions: data.muscles
+      })
+    })
+  }
+
   render () {
     return (
       <div>
@@ -57,15 +62,17 @@ class CreateExerciseModal extends Component {
                 Main muscle worked
               </label>
               <select name='mainMuscleWorked' className='CreateExerciseModal__select'>
-                {this.state.muscleOptions.map((option, i) => {
+                {this.state.muscleOptions.map((muscle) => {
+                  const { id, name } = muscle
                   return (
-                    <option key={i} value={option}>
-                      {option}
+                    <option key={id} value={id}>
+                      {capitalize(name)}
                     </option>
                   )
                 })}
               </select>
             </div>
+            {/* Merp, I need a submit button :S */}
           </form>
         </Modal>
       </div>

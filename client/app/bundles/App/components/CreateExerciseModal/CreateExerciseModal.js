@@ -72,7 +72,9 @@ class CreateExerciseModal extends Component {
                 })}
               </select>
             </div>
-            {/* Merp, I need a submit button :S */}
+            <button className='CreateExerciseModal__submitBtn'>
+              Create
+            </button>
           </form>
         </Modal>
       </div>

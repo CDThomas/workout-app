@@ -17,7 +17,7 @@ class ExerciseItem extends Component {
         <div className='ExerciseItem__content'>
           <span className='ExerciseItem__name'>{name}</span>
           <span className='ExerciseItem__mainMuscleWorked'>
-            {capitalize(mainMuscleWorked).replace('_', ' ')}
+            {capitalize(mainMuscleWorked)}
           </span>
         </div>
       </li>

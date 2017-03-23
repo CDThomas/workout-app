@@ -11,16 +11,29 @@
   - this is simpler than going with muscles targeted (many to many)
   - starting here and can change later if I really need to support multiple (start simple and
     move to complex)
+  - changed from enum to a one-to-many association
 - [x] serialize data for the FE
   - Because snake case in JS annoys me and leads to inconsitency/bugs. And the linter yells at me.
   - And because exercise names have underscores in them (like lower_back)
 - [x] add search to exercises
   - [x] API get endpoint that supports query param
   - [x] search UI
-- [ ] user can create new exercises
+- [x] user can create new exercises
   - I'm thinking there should be an "add new" button that pulls up a modal
   - This lets the user stay in the context of creating the routine (don't have to leave the routine
     creation page to add new exercises for that routine)
+  - [x] form in UI
+    - will need to load muscle group options from BE
+  - [x] API endpoints
+    - [x] POST /exercises
+    - [x] GET /muscles
+- [ ] something to make it more obvious that the newly created exercise is at the top of the list
+      would be helpful. Maybe animate it or highlight it?
+  - sliding the new exercise in after the modal has closed sounds like a good option
+  - or I could just apply a generally animation to the list for things being added/removed, and this
+    could handle itself. The only other time this animation would fire is during search though.
+- [ ] Better error handling
+- [ ] Add tests for more than just models
 - [ ] paginate exercises
   - [ ] pagination BE
   - [ ] pagination FE (infinate scroll or "load more")
@@ -31,6 +44,11 @@
 - [ ] add routines and sets to db/models
 - [ ] click exercise on left to add to sets on right
 - [ ] drag and drop sets
+- [ ] add images to exercises
+  - I'm thinking google cloud storage because it'd be free
+  - can use carrierwave/fog
+  - or paperclip/fog
+  - or cloudinary
 - [ ] webpack optimization stuff
   - lodash
 - [ ] add autoprefixer

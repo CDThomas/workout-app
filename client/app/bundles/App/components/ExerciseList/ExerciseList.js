@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { ExerciseItem, SearchBar } from 'App/components'
-import { fetchExercises } from 'App/helpers/api'
+import { ExerciseItem, SearchBar, CreateExerciseModal } from 'App/components'
+import { getExercises } from 'App/helpers/api'
 import './styles.css'
 
 const propTypes = {
@@ -11,27 +11,52 @@ class ExerciseList extends Component {
   constructor (props) {
     super(props)
     this.handleSearchChange = this.handleSearchChange.bind(this)
+    this.handleCreateExerciseClick = this.handleCreateExerciseClick.bind(this)
+    this.handleCloseModal = this.handleCloseModal.bind(this)
+    this.handleExerciseCreated = this.handleExerciseCreated.bind(this)
 
     // Setting state from props because these props are only passed on initial load.
     // So right now there's not a scenario where this component will receive new props.
     // This might change.
     this.state = {
-      exercises: this.props.exercises
+      exercises: this.props.exercises,
+      isModalOpen: false
     }
   }
 
   handleSearchChange (evt) {
     const query = evt.target.value
 
-    fetchExercises(query).then(data => {
+    getExercises(query).then(data => {
       this.setState({
         exercises: data.exercises
       })
     })
   }
 
+  handleCreateExerciseClick (evt) {
+    evt.preventDefault()
+    this.setState({
+      isModalOpen: !this.state.isModalOpen
+    })
+  }
+
+  handleCloseModal () {
+    this.setState({
+      isModalOpen: false
+    })
+  }
+
+  handleExerciseCreated (exercise) {
+    const newExercises = [exercise, ...this.state.exercises]
+    this.setState({
+      exercises: newExercises,
+      isModalOpen: false
+    })
+  }
+
   render () {
-    const { exercises } = this.state
+    const { exercises, isModalOpen } = this.state
     return (
       <div className='ExerciseList'>
         <header className='ExerciseList__header'>
@@ -39,7 +64,16 @@ class ExerciseList extends Component {
           <SearchBar
             className='ExerciseList__search'
             onChange={this.handleSearchChange}
-           />
+          />
+          <span className='ExerciseList__headerText'>or</span>
+          <a className='ExerciseList__createExerciseLink' onClick={this.handleCreateExerciseClick}>
+            create one
+          </a>
+          <CreateExerciseModal
+            isOpen={isModalOpen}
+            onRequestClose={this.handleCloseModal}
+            onExerciseCreated={this.handleExerciseCreated}
+          />
         </header>
         <ul>
           {exercises.map(exercise => {

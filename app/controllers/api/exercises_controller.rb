@@ -3,7 +3,24 @@ class Api::ExercisesController < Api::BaseController
     # TODO: paginate
     exercises =
       if params[:query].present?
-        Exercise.where('name ~* ?', params[:query]).limit(10)
+        # Exercise
+          # .joins(:main_muscle_worked)
+          # .where(
+          #   'lower(exercises.name) LIKE :query OR lower(muscles.name) LIKE :query',
+          #   query: "%#{params[:query].downcase}%"
+          # )
+          # .limit(10)
+        Exercise.find_by_sql(['
+          SELECT "exercises".* FROM exercises
+          INNER JOIN muscles ON exercises.main_muscle_worked_id = muscles.id
+          WHERE lower(exercises.name) LIKE :query OR lower(muscles.name) LIKE :query
+          ORDER BY
+            CASE
+              WHEN lower(exercises.name) LIKE :query THEN 0
+              ELSE 1
+            END,
+            exercises.name ASC
+        ', { query: "%#{params[:query].downcase}%" }])
       else
         Exercise.order(name: :asc).limit(10)
       end

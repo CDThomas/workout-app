@@ -20,7 +20,7 @@ class ExerciseList extends Component {
     // This might change.
     this.state = {
       exercises: this.props.exercises,
-      isModalOpen: false // not really sure where I want the modal to live, yet
+      isModalOpen: false
     }
   }
 

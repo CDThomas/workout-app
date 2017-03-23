@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { ExerciseItem, SearchBar, CreateExerciseModal } from 'App/components'
-import { fetchExercises } from 'App/helpers/api'
+import { getExercises } from 'App/helpers/api'
 import './styles.css'
 
 const propTypes = {
@@ -26,7 +26,7 @@ class ExerciseList extends Component {
   handleSearchChange (evt) {
     const query = evt.target.value
 
-    fetchExercises(query).then(data => {
+    getExercises(query).then(data => {
       this.setState({
         exercises: data.exercises
       })

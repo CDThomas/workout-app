@@ -27,6 +27,7 @@
   - [ ] API endpoints
     - [ ] POST /exercises
     - [ ] GET /muscles
+- [ ] Add tests for more than just models
 - [ ] paginate exercises
   - [ ] pagination BE
   - [ ] pagination FE (infinate scroll or "load more")

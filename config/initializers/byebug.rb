@@ -1,5 +1,6 @@
 ## Uncomment below for debugging with byebug.
 ## This is jank, but works until I find a better solution
+## `$ bundle exec byebug -R localhost:3031`
 
 # require 'byebug/core'
 

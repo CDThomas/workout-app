@@ -18,15 +18,16 @@
 - [x] add search to exercises
   - [x] API get endpoint that supports query param
   - [x] search UI
-- [ ] user can create new exercises
+- [x] user can create new exercises
   - I'm thinking there should be an "add new" button that pulls up a modal
   - This lets the user stay in the context of creating the routine (don't have to leave the routine
     creation page to add new exercises for that routine)
-  - [ ] form in UI
+  - [x] form in UI
     - will need to load muscle group options from BE
-  - [ ] API endpoints
-    - [ ] POST /exercises
-    - [ ] GET /muscles
+  - [x] API endpoints
+    - [x] POST /exercises
+    - [x] GET /muscles
+- [ ] Better error handling
 - [ ] Add tests for more than just models
 - [ ] paginate exercises
   - [ ] pagination BE

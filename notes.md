@@ -27,6 +27,11 @@
   - [x] API endpoints
     - [x] POST /exercises
     - [x] GET /muscles
+- [ ] something to make it more obvious that the newly created exercise is at the top of the list
+      would be helpful. Maybe animate it or highlight it?
+  - sliding the new exercise in after the modal has closed sounds like a good option
+  - or I could just apply a generally animation to the list for things being added/removed, and this
+    could handle itself. The only other time this animation would fire is during search though.
 - [ ] Better error handling
 - [ ] Add tests for more than just models
 - [ ] paginate exercises

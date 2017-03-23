@@ -13,6 +13,7 @@ class ExerciseList extends Component {
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.handleCreateExerciseClick = this.handleCreateExerciseClick.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
+    this.handleExerciseCreated = this.handleExerciseCreated.bind(this)
 
     // Setting state from props because these props are only passed on initial load.
     // So right now there's not a scenario where this component will receive new props.
@@ -46,6 +47,14 @@ class ExerciseList extends Component {
     })
   }
 
+  handleExerciseCreated (exercise) {
+    const newExercises = [exercise, ...this.state.exercises]
+    this.setState({
+      exercises: newExercises,
+      isModalOpen: false
+    })
+  }
+
   render () {
     const { exercises, isModalOpen } = this.state
     return (
@@ -60,7 +69,11 @@ class ExerciseList extends Component {
           <a className='ExerciseList__createExerciseLink' onClick={this.handleCreateExerciseClick}>
             create one
           </a>
-          <CreateExerciseModal isOpen={isModalOpen} onRequestClose={this.handleCloseModal} />
+          <CreateExerciseModal
+            isOpen={isModalOpen}
+            onRequestClose={this.handleCloseModal}
+            onExerciseCreated={this.handleExerciseCreated}
+          />
         </header>
         <ul>
           {exercises.map(exercise => {

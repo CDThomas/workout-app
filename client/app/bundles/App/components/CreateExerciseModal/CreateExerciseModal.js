@@ -5,13 +5,17 @@ import { getMuscles, createExercise } from 'App/helpers/api'
 import { capitalize } from 'lodash'
 import './styles.css'
 
-// TODO: handle submit success
 // TODO: better error handling
+// TODO: loading icon and better loading experience
+//   - disable inputs and submit button while submitting
 // TODO: refactor. this is getting cray
+//   - container and display
+//   - pull buttons, labels, title, etc into re-usable components
 
 const propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  onRequestClose: PropTypes.func
+  onRequestClose: PropTypes.func.isRequired,
+  onExerciseCreated: PropTypes.func.isRequired
 }
 
 class CreateExerciseModal extends Component {
@@ -21,8 +25,9 @@ class CreateExerciseModal extends Component {
     this.state = {
       muscleOptions: [],
       name: '',
-      mainMuscleWorked: null,
-      errors: []
+      mainMuscleWorkedId: null,
+      errors: [],
+      isSubmitting: false
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -47,13 +52,24 @@ class CreateExerciseModal extends Component {
   handleSubmit (evt) {
     evt.preventDefault()
     const { name, mainMuscleWorkedId } = this.state
+    this.setState({ isSubmitting: true })
+
     createExercise({ name, mainMuscleWorkedId })
       .then(response => {
+        this.setState({ isSubmitting: false })
+
         if (response.errors) {
           this.setState({errors: response.errors})
         } else {
-          this.setState({errors: []})
-          console.log(response)
+          // reset form state
+          this.setState({
+            errors: [],
+            name: '',
+            mainMuscleWorkedId: this.state.muscleOptions[0].id
+          })
+
+          // Call cb from parent
+          this.props.onExerciseCreated(response.exercise)
         }
       })
   }

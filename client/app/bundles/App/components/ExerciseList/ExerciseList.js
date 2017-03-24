@@ -12,7 +12,7 @@ function ExerciseList ({ exercises, onCreateExerciseClick }) {
   if (exercises === undefined || exercises.length === 0) {
     return (
       <div className='ExerciseList--empty'>
-        Looks like that exercise isn't here.
+        {'Looks like that exercise isn\'t here.'}
         <a
           className='ExerciseList__createExerciseLink'
           onClick={onCreateExerciseClick}

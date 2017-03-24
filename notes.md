@@ -33,6 +33,7 @@
   - or I could just apply a generally animation to the list for things being added/removed, and this
     could handle itself. The only other time this animation would fire is during search though.
 - [ ] Better error handling
+- [ ] Handle empty list state in ExerciseList
 - [ ] Add tests for more than just models
 - [ ] paginate exercises
   - [ ] pagination BE

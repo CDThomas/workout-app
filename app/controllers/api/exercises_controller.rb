@@ -3,24 +3,43 @@ class Api::ExercisesController < Api::BaseController
     # TODO: paginate
     exercises =
       if params[:query].present?
-        # Exercise
-          # .joins(:main_muscle_worked)
-          # .where(
-          #   'lower(exercises.name) LIKE :query OR lower(muscles.name) LIKE :query',
-          #   query: "%#{params[:query].downcase}%"
-          # )
-          # .limit(10)
-        Exercise.find_by_sql(['
+        # TODO: refactor into query object
+        # NOTE: using ORDER BY but not LIMIT so that I can paginate later
+
+        # This returns exercises that:
+        # - have the query in the exercise name
+        # - have the query in the muscle name
+        # Ordering (from first to last):
+        # - Records with the query at the beginning of the exercise name
+        # - Records with the query anywhere in the exercise name
+        # - Records with the query anywere in the muscle name
+        # - These groups are sub-ordered by the exercise name (case insensitive)
+        #   - Case insensitive because of possible weird names like RDL
+        #   - might change this behavior later and just lowercase all names before saving to the DB
+        # - I considered using muscle name in ordering, but decided not to because if I want exercies
+        #   for a specific muscle, I can type of the full muscle name (in the case of lower back,
+        #   middle back, etc)
+        sql_query = <<~SQL
           SELECT "exercises".* FROM exercises
-          INNER JOIN muscles ON exercises.main_muscle_worked_id = muscles.id
-          WHERE lower(exercises.name) LIKE :query OR lower(muscles.name) LIKE :query
-          ORDER BY
-            CASE
-              WHEN lower(exercises.name) LIKE :query THEN 0
-              ELSE 1
-            END,
-            exercises.name ASC
-        ', { query: "%#{params[:query].downcase}%" }])
+            INNER JOIN muscles ON exercises.main_muscle_worked_id = muscles.id
+            WHERE lower(exercises.name) LIKE :query_in_any_position
+              OR lower(muscles.name) LIKE :query_in_any_position
+            ORDER BY
+              CASE
+                WHEN lower(exercises.name) LIKE :query_at_beginning THEN 0
+                WHEN lower(exercises.name) LIKE :query_in_any_position THEN 1
+                ELSE 2
+              END,
+              lower(exercises.name) ASC
+        SQL
+
+        Exercise.find_by_sql([
+          sql_query,
+          {
+            query_in_any_position: "%#{params[:query].downcase}%",
+            query_at_beginning: "#{params[:query].downcase}%"
+          }
+        ])
       else
         Exercise.order(name: :asc).limit(10)
       end

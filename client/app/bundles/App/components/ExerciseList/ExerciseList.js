@@ -27,6 +27,9 @@ class ExerciseList extends Component {
   handleSearchChange (evt) {
     const query = evt.target.value
 
+    // TODO: Handle the case that the search is successful, but returns no results.
+    //       Right now this throws an error (because you can't call map on undefined).
+    //       So just need to handle an empty list
     getExercises(query).then(data => {
       this.setState({
         exercises: data.exercises

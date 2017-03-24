@@ -11,6 +11,8 @@ import './styles.css'
 // TODO: refactor. this is getting cray
 //   - container and display
 //   - pull buttons, labels, title, etc into re-usable components
+// TODO: clear state on close
+// TODO: handle exercise edits
 
 const propTypes = {
   isOpen: PropTypes.bool.isRequired,
@@ -88,10 +90,11 @@ class CreateExerciseModal extends Component {
             placeholder='Ex: Bench press'
             onChange={this.handleInputChange}
             value={this.state.name}
+            autoFocus
           />
         </div>
         <div className='CreateExerciseModal__field'>
-          <label htmlFor='mainMuscleWorked' className='CreateExerciseModal__label'>
+          <label htmlFor='mainMuscleWorkedId' className='CreateExerciseModal__label'>
             Main muscle worked
           </label>
           <select

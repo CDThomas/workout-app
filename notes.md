@@ -28,17 +28,18 @@
     - [x] POST /exercises
     - [x] GET /muscles
 - [x] search on `main_mucle_worked` as well as `name`
+- [x] Handle empty list state in ExercisePanel
 - [ ] something to make it more obvious that the newly created exercise is at the top of the list
       would be helpful. Maybe animate it or highlight it?
   - sliding the new exercise in after the modal has closed sounds like a good option
   - or I could just apply a generally animation to the list for things being added/removed, and this
     could handle itself. The only other time this animation would fire is during search though.
 - [ ] Better error handling
-- [ ] Handle empty list state in ExerciseList
 - [ ] Add tests for more than just models
 - [ ] paginate exercises
   - [ ] pagination BE
   - [ ] pagination FE (infinate scroll or "load more")
+- [ ] user can edit exercises
 - [ ] animate search on the exercise list? eh?
 - [ ] add authentication
   - [Knock](https://github.com/nsarno/knock) looks like a good start. Can roll my own later if I want.
@@ -53,6 +54,7 @@
 - [ ] webpack optimization stuff
   - lodash
 - [ ] add autoprefixer
+- [ ] Could show user names of similar exercises that have been created while creating an exercise
 - readme
   - [ ] .env
   - [ ] startup

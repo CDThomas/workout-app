@@ -14,6 +14,7 @@
 */
 
 export { default as App } from './App/App'
+export { default as ExercisePanel } from './ExercisePanel/ExercisePanel'
 export { default as ExerciseList } from './ExerciseList/ExerciseList'
 export { default as ExerciseItem } from './ExerciseItem/ExerciseItem'
 export { default as SearchBar } from './SearchBar/SearchBar'

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { ExerciseList } from 'App/components'
+import { ExercisePanel } from 'App/components'
 import 'normalize.css'
 import './styles.css'
 
@@ -11,7 +11,7 @@ class App extends Component {
   render () {
     return (
       <div className='App'>
-        <ExerciseList exercises={this.props.exercises} />
+        <ExercisePanel exercises={this.props.exercises} />
       </div>
     )
   }

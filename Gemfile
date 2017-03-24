@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+ruby '2.3.3'
+# See https://devcenter.heroku.com/articles/ruby-versions for more information.
+
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"

@@ -27,6 +27,7 @@
   - [x] API endpoints
     - [x] POST /exercises
     - [x] GET /muscles
+- [x] search on `main_mucle_worked` as well as `name`
 - [ ] something to make it more obvious that the newly created exercise is at the top of the list
       would be helpful. Maybe animate it or highlight it?
   - sliding the new exercise in after the modal has closed sounds like a good option
@@ -38,7 +39,6 @@
 - [ ] paginate exercises
   - [ ] pagination BE
   - [ ] pagination FE (infinate scroll or "load more")
-- [ ] search on `main_mucle_worked` as well as `name`
 - [ ] animate search on the exercise list? eh?
 - [ ] add authentication
   - [Knock](https://github.com/nsarno/knock) looks like a good start. Can roll my own later if I want.

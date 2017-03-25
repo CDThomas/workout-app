@@ -29,12 +29,13 @@
     - [x] GET /muscles
 - [x] search on `main_mucle_worked` as well as `name`
 - [x] Handle empty list state in ExercisePanel
+- [ ] Better error handling
+  - Something similar to: https://react.semantic-ui.com/collections/message#message-example-error
 - [ ] something to make it more obvious that the newly created exercise is at the top of the list
       would be helpful. Maybe animate it or highlight it?
   - sliding the new exercise in after the modal has closed sounds like a good option
   - or I could just apply a generally animation to the list for things being added/removed, and this
     could handle itself. The only other time this animation would fire is during search though.
-- [ ] Better error handling
 - [ ] Add tests for more than just models
 - [ ] paginate exercises
   - [ ] pagination BE
@@ -43,18 +44,26 @@
 - [ ] animate search on the exercise list? eh?
 - [ ] add authentication
   - [Knock](https://github.com/nsarno/knock) looks like a good start. Can roll my own later if I want.
-- [ ] add routines and sets to db/models
-- [ ] click exercise on left to add to sets on right
-- [ ] drag and drop sets
+- [ ] user can create routines
+  - [ ] add routines and sets to db/models
+  - [ ] click exercise on left to add to sets on right
+  - [ ] drag and drop sets to change order
+- [ ] user can view routines they have created
+- [ ] user can edit routines
 - [ ] add images to exercises
   - I'm thinking google cloud storage because it'd be free
   - can use carrierwave/fog
   - or paperclip/fog
   - or cloudinary
+- [ ] exercise details component
+  - I'm thinking a modal (like how Product Hunt's product details work)
+  - Details could include instructions, your performances/history, etc
 - [ ] webpack optimization stuff
   - lodash
 - [ ] add autoprefixer
 - [ ] Could show user names of similar exercises that have been created while creating an exercise
+- [ ] Favicon
 - readme
   - [ ] .env
   - [ ] startup
+  - [ ] deployment

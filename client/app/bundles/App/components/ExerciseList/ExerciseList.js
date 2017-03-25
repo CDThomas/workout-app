@@ -24,7 +24,7 @@ function ExerciseList ({ exercises, onCreateExerciseClick }) {
   }
 
   return (
-    <ul>
+    <ul className='ExerciseList'>
       {exercises.map(exercise => {
         return <ExerciseItem key={exercise.id} {...exercise} />
       })}

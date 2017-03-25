@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { ExercisePanel, Header } from 'App/components'
+import { RoutineEditor, Header } from 'App/components'
 import 'normalize.css'
 import './styles.css'
 
@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div className='App'>
         <Header />
-        <ExercisePanel exercises={this.props.exercises} />
+        <RoutineEditor exercises={this.props.exercises} />
       </div>
     )
   }

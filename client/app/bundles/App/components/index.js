@@ -15,6 +15,7 @@
 
 export { default as App } from './App/App'
 export { default as Header } from './Header/Header'
+export { default as RoutineEditor } from './RoutineEditor/RoutineEditor'
 export { default as ExercisePanel } from './ExercisePanel/ExercisePanel'
 export { default as ExerciseList } from './ExerciseList/ExerciseList'
 export { default as ExerciseItem } from './ExerciseItem/ExerciseItem'

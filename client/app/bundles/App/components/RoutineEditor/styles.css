@@ -1,0 +1,20 @@
+.RoutineEditor__main {
+  padding-left: 420px;
+}
+
+.RoutineEditor__content {
+  padding: 15px 20px;
+}
+
+.RoutineEditor__routineNameInput {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #5f5f5f;
+  font-size: 24px;
+  color: #5f5f5f;
+  padding: 0 0 2px 0;
+}
+
+.RoutineEditor__routineNameInput:focus {
+  outline: none;
+}

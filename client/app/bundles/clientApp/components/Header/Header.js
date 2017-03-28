@@ -4,7 +4,7 @@ import './styles.css'
 function Header () {
   return (
     <header className='Header'>
-      Header
+      FAF
     </header>
   )
 }

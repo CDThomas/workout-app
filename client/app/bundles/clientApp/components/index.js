@@ -3,7 +3,7 @@
   http://stackoverflow.com/questions/34072598/es6-exporting-importing-in-index-file .
 
   This along with Resolve.alias in my webpack config, this lets me say things like:
-  import { MyComponent } from 'App/components'
+  import { MyComponent } from 'clientApp/components'
 
   The docs for Resolve.alias are here:
   https://webpack.js.org/configuration/resolve/#resolve-alias
@@ -13,7 +13,7 @@
   but really could just get annoying.
 */
 
-export { default as App } from './App/App'
+export { default as AppMain } from './AppMain/AppMain'
 export { default as Header } from './Header/Header'
 export { default as RoutineEditor } from './RoutineEditor/RoutineEditor'
 export { default as ExercisePanel } from './ExercisePanel/ExercisePanel'

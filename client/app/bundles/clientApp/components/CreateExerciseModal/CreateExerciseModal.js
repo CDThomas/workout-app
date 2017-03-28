@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import CloseIcon from 'react-icons/lib/md/close'
 import Modal from 'react-modal'
-import { getMuscles, createExercise } from 'App/helpers/api'
+import { getMuscles, createExercise } from 'clientApp/helpers/api'
 import { capitalize } from 'lodash'
 import './styles.css'
 

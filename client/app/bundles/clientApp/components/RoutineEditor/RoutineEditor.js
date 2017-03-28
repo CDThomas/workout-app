@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { ExercisePanel, SetList } from 'App/components'
+import { ExercisePanel, SetList } from 'clientApp/components'
 import './styles.css'
 
 const propTypes = {

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { RoutineEditor, Header } from 'App/components'
+import { RoutineEditor, Header } from 'clientApp/components'
 import 'normalize.css'
 import './styles.css'
 
@@ -7,7 +7,7 @@ const propTypes = {
   exercises: PropTypes.array // this is passed from the Rails view
 }
 
-class App extends Component {
+class AppMain extends Component {
   render () {
     return (
       <div className='App'>
@@ -19,6 +19,6 @@ class App extends Component {
     )
   }
 }
-App.propTypes = propTypes
+AppMain.propTypes = propTypes
 
-export default App
+export default AppMain

@@ -1,4 +1,4 @@
-import { API_URL } from 'App/config/constants'
+import { API_URL } from 'clientApp/config/constants'
 // TODO: ugh, fetch might not be what I want rn. Unless I build a utility on top of it to
 //       handle errors (non 200 status codes), headers, and stringifying data automatically
 

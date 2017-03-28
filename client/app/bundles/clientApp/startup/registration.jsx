@@ -1,7 +1,7 @@
 import ReactOnRails from 'react-on-rails'
 
-import { App } from 'App/components'
+import { AppMain } from 'clientApp/components'
 
 ReactOnRails.register({
-  App
+  AppMain
 })

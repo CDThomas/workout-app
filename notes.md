@@ -46,7 +46,8 @@
   - [Knock](https://github.com/nsarno/knock) looks like a good start. Can roll my own later if I want.
 - [ ] user can create routines
   - [ ] add routines and sets to db/models
-  - [ ] click exercise on left to add to sets on right
+  - [ ] click exercise on left to add to end of sets on right
+  - [ ] drag exercise from list to place in order in sets on right
   - [ ] drag and drop sets to change order
 - [ ] user can view routines they have created
 - [ ] user can edit routines
@@ -67,3 +68,4 @@
   - [ ] .env
   - [ ] startup
   - [ ] deployment
+- draft routines?

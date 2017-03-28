@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { ExerciseList, SearchBar, CreateExerciseModal } from 'App/components'
-import { getExercises } from 'App/helpers/api'
+import { ExerciseList, SearchBar, CreateExerciseModal } from 'clientApp/components'
+import { getExercises } from 'clientApp/helpers/api'
 import './styles.css'
 
 const propTypes = {

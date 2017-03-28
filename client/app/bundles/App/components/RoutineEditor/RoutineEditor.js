@@ -1,10 +1,49 @@
 import React, { Component, PropTypes } from 'react'
-import { ExercisePanel } from 'App/components'
+import { ExercisePanel, SetList } from 'App/components'
 import './styles.css'
 
 const propTypes = {
   exercises: PropTypes.array
 }
+
+const sets = [
+  {
+    exerciseName: 'Bench press',
+    mainMuscleWorked: 'Chest'
+  },
+  {
+    exerciseName: 'Bench press',
+    mainMuscleWorked: 'Chest'
+  },
+  {
+    exerciseName: 'Bench press',
+    mainMuscleWorked: 'Chest'
+  },
+  {
+    exerciseName: 'Pull-ups',
+    mainMuscleWorked: 'Lats'
+  },
+  {
+    exerciseName: 'Pull-ups',
+    mainMuscleWorked: 'Lats'
+  },
+  {
+    exerciseName: 'Pull-ups',
+    mainMuscleWorked: 'Lats'
+  },
+  {
+    exerciseName: 'Incline bench press',
+    mainMuscleWorked: 'Chest'
+  },
+  {
+    exerciseName: 'Incline bench press',
+    mainMuscleWorked: 'Chest'
+  },
+  {
+    exerciseName: 'Incline bench press',
+    mainMuscleWorked: 'Chest'
+  }
+]
 
 class RoutineEditor extends Component {
   constructor (props) {
@@ -13,6 +52,14 @@ class RoutineEditor extends Component {
     this.state = {
       routineName: 'Routine Name'
     }
+
+    this.handleChangeRoutineName = this.handleChangeRoutineName.bind(this)
+  }
+
+  handleChangeRoutineName (evt) {
+    this.setState({
+      routineName: evt.target.value
+    })
   }
 
   render () {
@@ -21,12 +68,15 @@ class RoutineEditor extends Component {
         <ExercisePanel exercises={this.props.exercises} />
         <div className='RoutineEditor__main'>
           <div className='RoutineEditor__content'>
+            {/* Maybe RoutineEditor__controls or RoutineEditor__header */}
             <input
               className='RoutineEditor__routineNameInput'
               type='text'
-              name='routineName'
+              onChange={this.handleChangeRoutineName}
               value={this.state.routineName}
             />
+
+            <SetList sets={sets} />
           </div>
         </div>
       </div>

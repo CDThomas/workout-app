@@ -12,7 +12,9 @@ class App extends Component {
     return (
       <div className='App'>
         <Header />
-        <RoutineEditor exercises={this.props.exercises} />
+        <div className='App__content'>
+          <RoutineEditor exercises={this.props.exercises} />
+        </div>
       </div>
     )
   }

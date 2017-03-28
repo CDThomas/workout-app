@@ -24,3 +24,9 @@ ul {
   background-color: #f9f9f9;
   min-height: 100%;
 }
+
+.App__content {
+  position: relative;
+  padding-top: 50px;
+  z-index: 0;
+}

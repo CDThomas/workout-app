@@ -6,54 +6,29 @@ const propTypes = {
   exercises: PropTypes.array
 }
 
-const sets = [
-  {
-    exerciseName: 'Bench press',
-    mainMuscleWorked: 'Chest'
-  },
-  {
-    exerciseName: 'Bench press',
-    mainMuscleWorked: 'Chest'
-  },
-  {
-    exerciseName: 'Bench press',
-    mainMuscleWorked: 'Chest'
-  },
-  {
-    exerciseName: 'Pull-ups',
-    mainMuscleWorked: 'Lats'
-  },
-  {
-    exerciseName: 'Pull-ups',
-    mainMuscleWorked: 'Lats'
-  },
-  {
-    exerciseName: 'Pull-ups',
-    mainMuscleWorked: 'Lats'
-  },
-  {
-    exerciseName: 'Incline bench press',
-    mainMuscleWorked: 'Chest'
-  },
-  {
-    exerciseName: 'Incline bench press',
-    mainMuscleWorked: 'Chest'
-  },
-  {
-    exerciseName: 'Incline bench press',
-    mainMuscleWorked: 'Chest'
-  }
-]
-
 class RoutineEditor extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      routineName: 'Routine Name'
+      routineName: 'Routine Name',
+      sets: []
     }
 
     this.handleChangeRoutineName = this.handleChangeRoutineName.bind(this)
+    this.handleExerciseClick = this.handleExerciseClick.bind(this)
+  }
+
+  // Eh, I don't think I like passing this down so many levels
+  handleExerciseClick (exercise) {
+    const newSet = {
+      exerciseName: exercise.name,
+      mainMuscleWorked: exercise.mainMuscleWorked
+    }
+
+    this.setState({
+      sets: [...this.state.sets, newSet]
+    })
   }
 
   handleChangeRoutineName (evt) {
@@ -65,7 +40,11 @@ class RoutineEditor extends Component {
   render () {
     return (
       <div className='RoutineEditor'>
-        <ExercisePanel exercises={this.props.exercises} />
+        <ExercisePanel
+          exercises={this.props.exercises}
+          onExerciseClick={this.handleExerciseClick}
+        />
+
         <div className='RoutineEditor__main'>
           <div className='RoutineEditor__content'>
             {/* Maybe RoutineEditor__controls or RoutineEditor__header */}
@@ -76,7 +55,7 @@ class RoutineEditor extends Component {
               value={this.state.routineName}
             />
 
-            <SetList sets={sets} />
+            <SetList sets={this.state.sets} />
           </div>
         </div>
       </div>

@@ -5,10 +5,11 @@ import './styles.css'
 const propTypes = {
   exercises: PropTypes.array,
   // I'll probably remove this cb function and dispatch an action instead if I add Redux
-  onCreateExerciseClick: PropTypes.func.isRequired
+  onCreateExerciseClick: PropTypes.func.isRequired,
+  onExerciseClick: PropTypes.func.isRequired
 }
 
-function ExerciseList ({ exercises, onCreateExerciseClick }) {
+function ExerciseList ({ exercises, onCreateExerciseClick, onExerciseClick }) {
   if (exercises === undefined || exercises.length === 0) {
     return (
       <div className='ExerciseList--empty'>
@@ -26,7 +27,13 @@ function ExerciseList ({ exercises, onCreateExerciseClick }) {
   return (
     <ul className='ExerciseList'>
       {exercises.map(exercise => {
-        return <ExerciseItem key={exercise.id} {...exercise} />
+        return (
+          <ExerciseItem
+            onClick={onExerciseClick}
+            key={exercise.id}
+            exercise={exercise}
+          />
+        )
       })}
     </ul>
   )

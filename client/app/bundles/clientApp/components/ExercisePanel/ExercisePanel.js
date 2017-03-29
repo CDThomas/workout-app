@@ -4,7 +4,8 @@ import { getExercises } from 'clientApp/helpers/api'
 import './styles.css'
 
 const propTypes = {
-  exercises: PropTypes.array
+  exercises: PropTypes.array,
+  onExerciseClick: PropTypes.func.isRequired
 }
 
 class ExercisePanel extends Component {
@@ -82,6 +83,7 @@ class ExercisePanel extends Component {
         <ExerciseList
           exercises={exercises}
           onCreateExerciseClick={this.handleCreateExerciseClick}
+          onExerciseClick={this.props.onExerciseClick}
         />
       </div>
     )

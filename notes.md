@@ -29,6 +29,13 @@
     - [x] GET /muscles
 - [x] search on `main_mucle_worked` as well as `name`
 - [x] Handle empty list state in ExercisePanel
+- [ ] user can create routines
+  - [ ] add routines and sets to db/models
+  - [x] click exercise on left to add to end of exercises on right
+- [ ] user can remove an exercise in the RoutineExerciseList
+- [ ] Add drag-and-drop support
+  - [ ] drag exercise from list to place in order in sets on right
+  - [ ] drag and drop sets to change order
 - [ ] Better error handling
   - Something similar to: https://react.semantic-ui.com/collections/message#message-example-error
 - [ ] something to make it more obvious that the newly created exercise is at the top of the list
@@ -44,11 +51,6 @@
 - [ ] animate search on the exercise list? eh?
 - [ ] add authentication
   - [Knock](https://github.com/nsarno/knock) looks like a good start. Can roll my own later if I want.
-- [ ] user can create routines
-  - [ ] add routines and sets to db/models
-  - [ ] click exercise on left to add to end of sets on right
-  - [ ] drag exercise from list to place in order in sets on right
-  - [ ] drag and drop sets to change order
 - [ ] user can view routines they have created
 - [ ] user can edit routines
 - [ ] add images to exercises

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import CloseIcon from 'react-icons/lib/md/close'
 import Modal from 'react-modal'
+import { Button } from 'clientApp/components'
 import { getMuscles, createExercise } from 'clientApp/helpers/api'
 import { capitalize } from 'lodash'
 import './styles.css'
@@ -113,9 +114,10 @@ class CreateExerciseModal extends Component {
             })}
           </select>
         </div>
-        <button className='CreateExerciseModal__submitBtn' type='submit'>
+        <Button type='submit' className='CreateExerciseModal__submitBtn'>
           Create
-        </button>
+        </Button>
+
       </form>
     )
   }

@@ -101,32 +101,6 @@
 }
 
 .CreateExerciseModal__submitBtn {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .6px;
-  line-height: 16px;
-  text-transform: uppercase;
-  border-radius: 3px;
-  border: 1px solid transparent;
-  box-sizing: border-box;
-  outline: 0;
   display: block;
   margin-left: auto;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  text-decoration: none;
-  height: 34px;
-  padding: 0 13px;
-  color: #fff;
-  background-color: #0f82e6;
-  border-color: #0f82e6;
-  cursor: pointer;
-}
-
-.CreateExerciseModal__submitBtn:hover {
-  /* TODO: lighten and darken color fn's would be nice */
-  /* This is darkened 10% */
-  background-color: #0069CD;
-  border-color: #0069CD;
 }

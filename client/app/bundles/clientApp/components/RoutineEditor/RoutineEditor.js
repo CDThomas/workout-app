@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react'
-import { ExercisePanel, SetList } from 'clientApp/components'
+import { ExercisePanel, SetList, Button } from 'clientApp/components'
 import './styles.css'
 
 const propTypes = {
   exercises: PropTypes.array
 }
+
 
 class RoutineEditor extends Component {
   constructor (props) {
@@ -17,12 +18,14 @@ class RoutineEditor extends Component {
 
     this.handleChangeRoutineName = this.handleChangeRoutineName.bind(this)
     this.handleExerciseClick = this.handleExerciseClick.bind(this)
+    this.handleCreateRoutineClick = this.handleCreateRoutineClick.bind(this)
   }
 
   // Eh, I don't think I like passing this down so many levels
   handleExerciseClick (exercise) {
     const newSet = {
       exerciseName: exercise.name,
+      exerciseId: exercise.id,
       mainMuscleWorked: exercise.mainMuscleWorked
     }
 
@@ -37,6 +40,15 @@ class RoutineEditor extends Component {
     })
   }
 
+  handleCreateRoutineClick () {
+    console.log({
+      routine: {
+        routineName: this.state.routineName,
+        sets: this.state.sets
+      }
+    })
+  }
+
   render () {
     return (
       <div className='RoutineEditor'>
@@ -45,16 +57,19 @@ class RoutineEditor extends Component {
           onExerciseClick={this.handleExerciseClick}
         />
 
-        <div className='RoutineEditor__main'>
-          <div className='RoutineEditor__content'>
-            {/* Maybe RoutineEditor__controls or RoutineEditor__header */}
-            <input
-              className='RoutineEditor__routineNameInput'
-              type='text'
-              onChange={this.handleChangeRoutineName}
-              value={this.state.routineName}
-            />
-
+        <div className='RoutineEditor__exercisePanelOffset'>
+          <div className='RoutineEditor__container'>
+            <div className='RoutineEditor__header'>
+              <input
+                className='RoutineEditor__routineNameInput'
+                type='text'
+                onChange={this.handleChangeRoutineName}
+                value={this.state.routineName}
+              />
+              <Button onClick={this.handleCreateRoutineClick}>
+                Create Routine
+              </Button>
+            </div>
             <SetList sets={this.state.sets} />
           </div>
         </div>

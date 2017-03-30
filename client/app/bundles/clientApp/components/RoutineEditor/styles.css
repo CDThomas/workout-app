@@ -1,9 +1,15 @@
-.RoutineEditor__main {
+.RoutineEditor__exercisePanelOffset {
   padding-left: 420px;
 }
 
-.RoutineEditor__content {
+.RoutineEditor__container {
   padding: 25px 30px;
+}
+
+.RoutineEditor__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .RoutineEditor__routineNameInput {
@@ -13,7 +19,6 @@
   font-size: 24px;
   color: #5f5f5f;
   padding: 0 0 2px 0;
-  margin-bottom: 20px;
 }
 
 .RoutineEditor__routineNameInput:focus {

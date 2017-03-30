@@ -2,6 +2,11 @@
   padding: 25px;
   border-bottom: 1px solid #e8e8e8;
   display: flex;
+  cursor: pointer;
+}
+
+.ExerciseItem:hover {
+  background-color: #f9f9f9;
 }
 
 .ExerciseItem__thumbnail {

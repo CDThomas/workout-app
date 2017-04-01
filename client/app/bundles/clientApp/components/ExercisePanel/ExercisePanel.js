@@ -11,10 +11,6 @@ const propTypes = {
 class ExercisePanel extends Component {
   constructor (props) {
     super(props)
-    this.handleSearchChange = this.handleSearchChange.bind(this)
-    this.handleCreateExerciseClick = this.handleCreateExerciseClick.bind(this)
-    this.handleCloseModal = this.handleCloseModal.bind(this)
-    this.handleExerciseCreated = this.handleExerciseCreated.bind(this)
 
     // Setting state from props because these props are only passed on initial load.
     // So right now there's not a scenario where this component will receive new props.
@@ -23,6 +19,11 @@ class ExercisePanel extends Component {
       exercises: this.props.exercises || [],
       isModalOpen: false
     }
+
+    this.handleSearchChange = this.handleSearchChange.bind(this)
+    this.handleCreateExerciseClick = this.handleCreateExerciseClick.bind(this)
+    this.handleCloseModal = this.handleCloseModal.bind(this)
+    this.handleExerciseCreated = this.handleExerciseCreated.bind(this)
   }
 
   handleSearchChange (evt) {

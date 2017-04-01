@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { ExercisePanel, SetList, Button } from 'clientApp/components'
 import './styles.css'
+import { createRoutine } from 'clientApp/helpers/api'
 
 const propTypes = {
   exercises: PropTypes.array
@@ -13,7 +14,9 @@ class RoutineEditor extends Component {
 
     this.state = {
       routineName: 'Routine Name',
-      sets: []
+      sets: [],
+      errors: [],
+      isLoading: false
     }
 
     this.handleChangeRoutineName = this.handleChangeRoutineName.bind(this)
@@ -41,12 +44,32 @@ class RoutineEditor extends Component {
   }
 
   handleCreateRoutineClick () {
-    console.log({
+    const routine = {
       routine: {
-        routineName: this.state.routineName,
-        sets: this.state.sets
+        name: this.state.routineName,
+        fafSetsAttributes: this.state.sets
       }
-    })
+    }
+
+    this.setState({ isLoading: true })
+
+    // TODO: display success or error in Message Component
+    createRoutine(routine)
+      .then(data => {
+        console.log('Success!')
+        console.log(data)
+      })
+      .catch(error => {
+        const response = error.response
+        if (response && response.status === 422) {
+          this.setState({
+            errors: response.errors
+          })
+        } else {
+          console.error(error)
+        }
+      })
+      .then(() => this.setState({ isLoading: false }))
   }
 
   render () {

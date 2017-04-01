@@ -59,22 +59,27 @@ class CreateExerciseModal extends Component {
 
     createExercise({ name, mainMuscleWorkedId })
       .then(response => {
-        this.setState({ isSubmitting: false })
+        // reset form state
+        this.setState({
+          errors: [],
+          name: '',
+          mainMuscleWorkedId: this.state.muscleOptions[0].id
+        })
 
-        if (response.errors) {
-          this.setState({errors: response.errors})
-        } else {
-          // reset form state
-          this.setState({
-            errors: [],
-            name: '',
-            mainMuscleWorkedId: this.state.muscleOptions[0].id
+        // Call cb from parent
+        this.props.onExerciseCreated(response.exercise)
+      })
+      .catch(error => {
+        const response = error.response
+        if (response && response.status === 422) {
+          response.json().then(body => {
+            this.setState({errors: body.errors})
           })
-
-          // Call cb from parent
-          this.props.onExerciseCreated(response.exercise)
+        } else {
+          console.error(error)
         }
       })
+      .then(() => this.setState({isSubmitting: false}))
   }
 
   renderForm () {

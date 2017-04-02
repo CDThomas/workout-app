@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { ExercisePanel, SetList, Button } from 'clientApp/components'
+import { ExercisePanel, SetList, Button, Message } from 'clientApp/components'
 import './styles.css'
 import { createRoutine } from 'clientApp/helpers/api'
 
@@ -16,6 +16,7 @@ class RoutineEditor extends Component {
       routineName: 'Routine Name',
       sets: [],
       errors: [],
+      info: '',
       isLoading: false
     }
 
@@ -53,17 +54,22 @@ class RoutineEditor extends Component {
 
     this.setState({ isLoading: true })
 
-    // TODO: display success or error in Message Component
     createRoutine(routine)
       .then(data => {
-        console.log('Success!')
+        this.setState({
+          info: 'Workout was created successfully!',
+          errors: []
+        })
         console.log(data)
       })
       .catch(error => {
         const response = error.response
         if (response && response.status === 422) {
-          this.setState({
-            errors: response.errors
+          response.json().then(body => {
+            this.setState({
+              errors: body.errors,
+              info: ''
+            })
           })
         } else {
           console.error(error)
@@ -93,6 +99,18 @@ class RoutineEditor extends Component {
                 Create Routine
               </Button>
             </div>
+
+            {this.state.info && (
+              <Message success>
+                {this.state.info}
+              </Message>
+            )}
+
+            {this.state.errors && this.state.errors.length > 0 && (
+              <Message error>
+                {this.state.errors.map(e => e.message).join('. ')}
+              </Message>
+            )}
             <SetList sets={this.state.sets} />
           </div>
         </div>

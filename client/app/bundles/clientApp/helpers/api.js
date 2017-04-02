@@ -1,7 +1,5 @@
 import { request } from './request'
 import { API_URL } from 'clientApp/config/constants'
-// TODO: make a utility (prob just called request) that handles errors and res.json()
-//       see: https://developers.google.com/web/updates/2015/03/introduction-to-fetch
 
 const API_HEADERS = {
   'Accept': 'application/json',

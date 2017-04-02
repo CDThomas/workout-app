@@ -24,3 +24,4 @@ export { default as CreateExerciseModal } from './CreateExerciseModal/CreateExer
 export { default as SetList } from './SetList/SetList'
 export { default as SetItem } from './SetItem/SetItem'
 export { default as Button } from './Button/Button'
+export { default as Message } from './Message/Message'

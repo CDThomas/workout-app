@@ -12,7 +12,7 @@ class SetList extends Component {
       <ul className='SetList'>
         {this.props.sets.map((set, i) => {
           return (
-            <SetItem {...set} setNumber={i} key={i} />
+            <SetItem {...set} setNumber={i + 1} key={i} />
           )
         })}
       </ul>

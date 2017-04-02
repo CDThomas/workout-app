@@ -20,12 +20,12 @@ ul {
   padding: 0;
 }
 
-.App {
+.AppMain {
   background-color: #f9f9f9;
   min-height: 100%;
 }
 
-.App__content {
+.AppMain__content {
   position: relative;
   padding-top: 50px;
   z-index: 0;

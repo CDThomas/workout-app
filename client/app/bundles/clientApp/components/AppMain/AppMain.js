@@ -10,9 +10,9 @@ const propTypes = {
 class AppMain extends Component {
   render () {
     return (
-      <div className='App'>
+      <div className='AppMain'>
         <Header />
-        <div className='App__content'>
+        <div className='AppMain__content'>
           <RoutineEditor exercises={this.props.exercises} />
         </div>
       </div>

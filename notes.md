@@ -29,6 +29,17 @@
     - [x] GET /muscles
 - [x] search on `main_mucle_worked` as well as `name`
 - [x] Handle empty list state in ExercisePanel
+- [ ] user can create routines
+  - [x] add routines and sets to db/models
+  - [x] click exercise on left to add to end of exercises on right
+- [ ] user can remove an exercise in the RoutineExerciseList
+- [ ] try using JSON schemas for validation (ex: in POST to routines#create)
+  - I think this would be cleaner than `accepts_nested_attributes_for` because the FE can send nicely
+    formatted JSON without using rails conventions
+    - specifically, `{ "fafSetsAttributes": { ... } }` is awkward
+- [ ] Add drag-and-drop support
+  - [ ] drag exercise from list to place in order in sets on right
+  - [ ] drag and drop sets to change order
 - [ ] Better error handling
   - Something similar to: https://react.semantic-ui.com/collections/message#message-example-error
 - [ ] something to make it more obvious that the newly created exercise is at the top of the list
@@ -44,10 +55,6 @@
 - [ ] animate search on the exercise list? eh?
 - [ ] add authentication
   - [Knock](https://github.com/nsarno/knock) looks like a good start. Can roll my own later if I want.
-- [ ] user can create routines
-  - [ ] add routines and sets to db/models
-  - [ ] click exercise on left to add to sets on right
-  - [ ] drag and drop sets to change order
 - [ ] user can view routines they have created
 - [ ] user can edit routines
 - [ ] add images to exercises
@@ -63,7 +70,14 @@
 - [ ] add autoprefixer
 - [ ] Could show user names of similar exercises that have been created while creating an exercise
 - [ ] Favicon
+- [ ] prevent scrolling on parent elements (document body) when ExercisePanel reaches its boundaries
+  - Can terribly hackily toggle `overflow: hidden` on `document.body` on mouse enter/leave
+  - can do something like on of these in a HOC
+    - http://jsbin.com/itajok/539/edit?html,js,output (best looking so far)
+    - https://codepen.io/somethingkindawierd/post/react-mixin-scroll-lock
+    - https://dimakuzmich.wordpress.com/2013/07/16/prevent-scrolling-of-parent-element-with-javascript/
 - readme
   - [ ] .env
   - [ ] startup
   - [ ] deployment
+- draft routines?

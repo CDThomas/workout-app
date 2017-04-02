@@ -1,0 +1,32 @@
+/* Base styles are here for now, but this will probably change */
+/* Really considering handling these with rails. I'm more OK with this now. The .react-root
+   class is added in a rails view */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif;
+  color: #5f5f5f;
+}
+
+.react-root {
+  height: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.AppMain {
+  background-color: #f9f9f9;
+  min-height: 100%;
+}
+
+.AppMain__content {
+  position: relative;
+  padding-top: 50px;
+  z-index: 0;
+}

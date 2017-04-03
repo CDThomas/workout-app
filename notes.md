@@ -29,9 +29,11 @@
     - [x] GET /muscles
 - [x] search on `main_mucle_worked` as well as `name`
 - [x] Handle empty list state in ExercisePanel
-- [ ] user can create routines
+- [x] user can create routines
   - [x] add routines and sets to db/models
   - [x] click exercise on left to add to end of exercises on right
+- [x] Better error handling
+  - Something similar to: https://react.semantic-ui.com/collections/message#message-example-error
 - [ ] user can remove an exercise in the RoutineExerciseList
 - [ ] try using JSON schemas for validation (ex: in POST to routines#create)
   - I think this would be cleaner than `accepts_nested_attributes_for` because the FE can send nicely
@@ -40,8 +42,6 @@
 - [ ] Add drag-and-drop support
   - [ ] drag exercise from list to place in order in sets on right
   - [ ] drag and drop sets to change order
-- [ ] Better error handling
-  - Something similar to: https://react.semantic-ui.com/collections/message#message-example-error
 - [ ] something to make it more obvious that the newly created exercise is at the top of the list
       would be helpful. Maybe animate it or highlight it?
   - sliding the new exercise in after the modal has closed sounds like a good option
@@ -53,6 +53,8 @@
   - [ ] pagination FE (infinate scroll or "load more")
 - [ ] user can edit exercises
 - [ ] animate search on the exercise list? eh?
+- [ ] animate Message component entering dom
+  - https://facebook.github.io/react/docs/animation.html
 - [ ] add authentication
   - [Knock](https://github.com/nsarno/knock) looks like a good start. Can roll my own later if I want.
 - [ ] user can view routines they have created

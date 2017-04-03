@@ -1,19 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 import CloseIcon from 'react-icons/lib/md/close'
 import Modal from 'react-modal'
-import { Button } from 'clientApp/components'
+import { Button, Message } from 'clientApp/components'
 import { getMuscles, createExercise } from 'clientApp/helpers/api'
 import { capitalize } from 'lodash'
 import './styles.css'
 
-// TODO: better error handling
+// TODO: handle exercise edits
 // TODO: loading icon and better loading experience
 //   - disable inputs and submit button while submitting
 // TODO: refactor. this is getting cray
 //   - container and display
 //   - pull buttons, labels, title, etc into re-usable components
-// TODO: clear state on close
-// TODO: handle exercise edits
 
 const propTypes = {
   isOpen: PropTypes.bool.isRequired,
@@ -33,6 +31,7 @@ class CreateExerciseModal extends Component {
       isSubmitting: false
     }
 
+    this.handleRequestClose = this.handleRequestClose.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -44,6 +43,18 @@ class CreateExerciseModal extends Component {
         mainMuscleWorkedId: data.muscles[0].id
       })
     })
+  }
+
+  handleRequestClose () {
+    // Resest form state
+    this.setState({
+      errors: [],
+      name: '',
+      mainMuscleWorkedId: this.state.muscleOptions[0].id
+    })
+
+    // Call cb from parent
+    this.props.onRequestClose()
   }
 
   handleInputChange (evt) {
@@ -119,6 +130,17 @@ class CreateExerciseModal extends Component {
             })}
           </select>
         </div>
+
+        {this.state.errors.length > 0 && (
+          <Message
+            error
+            header={this.state.errors.length > 1
+              ? 'There were some errors with your submission:'
+              : 'There was an error with your submission:'}
+            list={this.state.errors.map(err => err.message)}
+          />
+        )}
+
         <Button type='submit' className='CreateExerciseModal__submitBtn'>
           Create
         </Button>
@@ -135,25 +157,21 @@ class CreateExerciseModal extends Component {
           overlayClassName='CreateExerciseModal__overlay'
           isOpen={this.props.isOpen}
           contentLabel='Modal'
-          onRequestClose={this.props.onRequestClose}
+          onRequestClose={this.handleRequestClose}
         >
           <a
             className='CreateExerciseModal__closeBtn'
-            onClick={this.props.onRequestClose}
+            onClick={this.handleRequestClose}
           >
             <CloseIcon className='CreateExerciseModal__closeIcon' />
           </a>
           <div className='CreateExerciseModal__heading'>
             New Exercise
           </div>
+
           {this.state.muscleOptions.length === 0
             ? <p>Loading...</p>
             : this.renderForm()}
-          {this.state.errors.length === 0
-            ? null
-            : <pre><code>
-              {JSON.stringify(this.state.errors, null, 4)}
-            </code></pre>}
         </Modal>
       </div>
     )

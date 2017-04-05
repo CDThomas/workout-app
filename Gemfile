@@ -18,6 +18,8 @@ gem 'turbolinks', '~> 5'
 
 gem 'react_on_rails', '~>6'         # use latest gem version > 6
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'knock'
+gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'

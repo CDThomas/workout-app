@@ -146,7 +146,7 @@ class CreateExerciseModal extends Component {
           />
         )}
 
-        <Button type='submit' className='CreateExerciseModal__submitBtn'>
+        <Button type='submit' floated='right'>
           Create
         </Button>
 

@@ -24,11 +24,11 @@ class Header extends Component {
           <div className='Header__navRight'>
             {auth.isAuthenticated() ? (
               <Link onClick={this.handleLogout} to='/login'>
-                <Button>Logout</Button>
+                <Button>Log Out</Button>
               </Link>
             ) : (
               <Link to='/login'>
-                <Button>Login</Button>
+                <Button>Log In</Button>
               </Link>
             )}
           </div>

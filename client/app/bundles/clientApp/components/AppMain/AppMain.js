@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { RoutineEditor, Header } from 'clientApp/components'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { RoutineEditor, Header, Login } from 'clientApp/components'
 import 'normalize.css'
 import './styles.css'
 
@@ -10,12 +11,20 @@ const propTypes = {
 class AppMain extends Component {
   render () {
     return (
-      <div className='AppMain'>
-        <Header />
-        <div className='AppMain__content'>
-          <RoutineEditor exercises={this.props.exercises} />
+      <Router>
+        <div className='AppMain'>
+          <Header />
+          <div className='AppMain__content'>
+            <Route
+              exact
+              path='/'
+              component={() => <RoutineEditor exercises={this.props.exercises} />}
+            />
+            <Route path='/login' component={Login} />
+            {/* TODO: not found route */}
+          </div>
         </div>
-      </div>
+      </Router>
     )
   }
 }

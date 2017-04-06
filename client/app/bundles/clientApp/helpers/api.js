@@ -2,11 +2,12 @@ import { request } from './request'
 import auth from './authentication'
 import { API_URL, API_HEADERS } from 'clientApp/config/constants'
 
-const token = auth.getToken()
-
-const headersWithAuth = {
-  ...API_HEADERS,
-  'Authorization': `Bearer ${token}`
+function headersWithAuth () {
+  const token = auth.getToken()
+  return {
+    ...API_HEADERS,
+    'Authorization': `Bearer ${token}`
+  }
 }
 
 export function getExercises (query) {
@@ -14,13 +15,13 @@ export function getExercises (query) {
     ? `?query=${query}`
     : ''
 
-  return request(`${API_URL}/exercises${queryParams}`, { headers: headersWithAuth })
+  return request(`${API_URL}/exercises${queryParams}`, { headers: headersWithAuth() })
 }
 
 export function createExercise ({ name, mainMuscleWorkedId }) {
   const options = {
     method: 'POST',
-    headers: headersWithAuth,
+    headers: headersWithAuth(),
     body: JSON.stringify({ exercise: { name, mainMuscleWorkedId } })
   }
 
@@ -29,13 +30,13 @@ export function createExercise ({ name, mainMuscleWorkedId }) {
 
 // GET 💪🏼
 export function getMuscles () {
-  return request(`${API_URL}/muscles`, { headers: headersWithAuth })
+  return request(`${API_URL}/muscles`, { headers: headersWithAuth() })
 }
 
 export function createRoutine (routine) {
   const options = {
     method: 'POST',
-    headers: headersWithAuth,
+    headers: headersWithAuth(),
     body: JSON.stringify(routine)
   }
 

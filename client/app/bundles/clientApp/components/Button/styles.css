@@ -26,3 +26,8 @@
   background-color: #0069CD;
   border-color: #0069CD;
 }
+
+.Button > a {
+  color: inherit;
+  text-decoration: none;
+}

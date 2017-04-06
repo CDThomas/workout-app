@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Button } from 'clientApp/components'
 import auth from 'clientApp/helpers/authentication'
 import './styles.css'
 
@@ -16,10 +17,22 @@ class Header extends Component {
   render () {
     return (
       <header className='Header'>
-        <Link to='/'>FAF</Link>
-        {auth.isAuthenticated
-          ? <Link onClick={this.handleLogout} to='/login'>Logout</Link>
-          : <Link to='/login'>Login</Link>}
+        <nav className='Header__nav'>
+          <div className='Header__navLeft'>
+            <Link to='/' className='Header__logo'>FA</Link>
+          </div>
+          <div className='Header__navRight'>
+            {auth.isAuthenticated() ? (
+              <Link onClick={this.handleLogout} to='/login'>
+                <Button>Logout</Button>
+              </Link>
+            ) : (
+              <Link to='/login'>
+                <Button>Login</Button>
+              </Link>
+            )}
+          </div>
+        </nav>
       </header>
     )
   }

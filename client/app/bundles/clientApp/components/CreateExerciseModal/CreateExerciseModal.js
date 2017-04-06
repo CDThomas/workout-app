@@ -1,7 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import CloseIcon from 'react-icons/lib/md/close'
 import Modal from 'react-modal'
-import { Button, Message } from 'clientApp/components'
+import {
+  Button,
+  Field,
+  Heading,
+  Input,
+  Label,
+  Message
+} from 'clientApp/components'
 import { getMuscles, createExercise } from 'clientApp/helpers/api'
 import { capitalize } from 'lodash'
 import './styles.css'
@@ -9,9 +16,6 @@ import './styles.css'
 // TODO: handle exercise edits
 // TODO: loading icon and better loading experience
 //   - disable inputs and submit button while submitting
-// TODO: refactor. this is getting cray
-//   - container and display
-//   - pull buttons, labels, title, etc into re-usable components
 
 const propTypes = {
   isOpen: PropTypes.bool.isRequired,
@@ -98,24 +102,23 @@ class CreateExerciseModal extends Component {
   renderForm () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className='CreateExerciseModal__field'>
-          <label htmlFor='name' className='CreateExerciseModal__label'>
+        <Field>
+          <Label htmlFor='name'>
             Exercise name
-          </label>
-          <input
+          </Label>
+          <Input
             type='text'
             name='name'
-            className='CreateExerciseModal__textInput'
             placeholder='Ex: Bench press'
             onChange={this.handleInputChange}
             value={this.state.name}
             autoFocus
           />
-        </div>
-        <div className='CreateExerciseModal__field'>
-          <label htmlFor='mainMuscleWorkedId' className='CreateExerciseModal__label'>
+        </Field>
+        <Field>
+          <Label htmlFor='mainMuscleWorkedId'>
             Main muscle worked
-          </label>
+          </Label>
           <select
             name='mainMuscleWorkedId'
             className='CreateExerciseModal__select'
@@ -131,7 +134,7 @@ class CreateExerciseModal extends Component {
               )
             })}
           </select>
-        </div>
+        </Field>
 
         {this.state.errors.length > 0 && (
           <Message
@@ -167,9 +170,9 @@ class CreateExerciseModal extends Component {
           >
             <CloseIcon className='CreateExerciseModal__closeIcon' />
           </a>
-          <div className='CreateExerciseModal__heading'>
+          <Heading>
             New Exercise
-          </div>
+          </Heading>
 
           {this.state.muscleOptions.length === 0
             ? <p>Loading...</p>

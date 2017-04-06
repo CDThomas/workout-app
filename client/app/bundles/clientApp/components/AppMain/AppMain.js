@@ -1,6 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { RoutineEditor, Header, Login } from 'clientApp/components'
+import {
+  RoutineEditor,
+  Header,
+  Login,
+  PrivateRoute
+} from 'clientApp/components'
 import 'normalize.css'
 import './styles.css'
 
@@ -15,7 +20,7 @@ class AppMain extends Component {
         <div className='AppMain'>
           <Header />
           <div className='AppMain__content'>
-            <Route
+            <PrivateRoute
               exact
               path='/'
               component={() => <RoutineEditor exercises={this.props.exercises} />}

@@ -37,12 +37,14 @@ class CreateExerciseModal extends Component {
   }
 
   componentDidMount () {
-    getMuscles().then((data) => {
-      this.setState({
-        muscleOptions: data.muscles,
-        mainMuscleWorkedId: data.muscles[0].id
+    getMuscles()
+      .then((data) => {
+        this.setState({
+          muscleOptions: data.muscles,
+          mainMuscleWorkedId: data.muscles[0].id
+        })
       })
-    })
+      .catch(error => console.warn(error))
   }
 
   handleRequestClose () {
@@ -50,7 +52,7 @@ class CreateExerciseModal extends Component {
     this.setState({
       errors: [],
       name: '',
-      mainMuscleWorkedId: this.state.muscleOptions[0].id
+      mainMuscleWorkedId: this.state.muscleOptions.length ? this.state.muscleOptions[0].id : null
     })
 
     // Call cb from parent

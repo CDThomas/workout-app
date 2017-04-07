@@ -4,6 +4,7 @@ import Modal from 'react-modal'
 import {
   Button,
   Field,
+  Header,
   Heading,
   Input,
   Label,
@@ -170,9 +171,9 @@ class CreateExerciseModal extends Component {
           >
             <CloseIcon className='CreateExerciseModal__closeIcon' />
           </a>
-          <Heading>
-            New Exercise
-          </Heading>
+          <Header>
+            <Heading>New Exercises</Heading>
+          </Header>
 
           {this.state.muscleOptions.length === 0
             ? <p>Loading...</p>

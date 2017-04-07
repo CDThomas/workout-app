@@ -1,29 +1,4 @@
 .Header {
-  background: #fff;
   border-bottom: 1px solid #e8e8e8;
-  height: 50px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  position: fixed;
-  z-index: 1;
-}
-
-.Header__nav {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 7px 20px 8px;
-}
-
-.Header__logo {
-  color: #fff;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 8px;
-  border-radius: 50%;
-  background-color: #0f82e6;
-  text-decoration: none;
-  letter-spacing: -1px;
+  padding: 15px 0;
 }

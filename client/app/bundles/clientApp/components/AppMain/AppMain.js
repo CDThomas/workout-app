@@ -2,10 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import {
   RoutineEditor,
-  Header,
+  PageHeader,
   Login,
   PrivateRoute
 } from 'clientApp/components'
+import {
+  RoutinesPage
+} from 'clientApp/pages'
 import 'normalize.css'
 import './styles.css'
 
@@ -18,13 +21,14 @@ class AppMain extends Component {
     return (
       <Router>
         <div className='AppMain'>
-          <Header />
+          <PageHeader />
           <div className='AppMain__content'>
             <PrivateRoute
               exact
               path='/'
               component={() => <RoutineEditor exercises={this.props.exercises} />}
             />
+            <PrivateRoute path='/routines' component={RoutinesPage} />
             <Route path='/login' component={Login} />
             {/* TODO: not found route */}
           </div>

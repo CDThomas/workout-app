@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import {
   Panel,
+  Header,
   Heading,
   Field,
   Label,
@@ -64,7 +65,9 @@ class Login extends Component {
   render () {
     return (
       <Panel>
-        <Heading>Log In</Heading>
+        <Header>
+          <Heading>Log In</Heading>
+        </Header>
         <form onSubmit={this.handleSubmit}>
           <Field>
             <Label htmlFor='email'>Email</Label>

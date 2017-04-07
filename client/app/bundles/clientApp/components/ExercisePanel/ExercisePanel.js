@@ -3,6 +3,8 @@ import { ExerciseList, SearchBar, CreateExerciseModal } from 'clientApp/componen
 import { getExercises } from 'clientApp/helpers/api'
 import './styles.css'
 
+// TODO: refactor to use Panel
+
 const propTypes = {
   exercises: PropTypes.array,
   onExerciseClick: PropTypes.func.isRequired

@@ -1,11 +1,31 @@
 .Panel {
-  margin: 100px auto;
+  margin: 0 auto;
   border-radius: 3px;
   border: 1px solid rgba(0,0,0,.09);
   box-shadow: 0 1px 4px 0 rgba(0,0,0,.04);
   background: #fff;
   outline: none;
-  padding: 0 20px 20px;
   width: 600px;
+}
+
+.Panel__header {
+  padding: 15px 0;
+  margin: 0 20px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.Panel__content {
+  padding: 0 20px 20px;
   overflow: auto;
+}
+
+.Panel__listItem {
+  padding: 25px;
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  cursor: pointer;
+}
+
+.Panel__listItem:hover {
+  background-color: #f9f9f9;
 }

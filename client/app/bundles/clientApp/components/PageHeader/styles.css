@@ -27,3 +27,15 @@
   text-decoration: none;
   letter-spacing: -1px;
 }
+
+.PageHeader__navLink {
+  padding: 1px 0px;
+  margin: 0 20px;
+  text-decoration: none;
+  color: #5f5f5f;
+}
+
+.PageHeader__navLink--active {
+  border-bottom: 3px solid #0f82e6;
+  color: black;
+}

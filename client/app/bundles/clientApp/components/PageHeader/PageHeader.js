@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Button } from 'clientApp/components'
 import auth from 'clientApp/helpers/authentication'
 import './styles.css'
@@ -20,6 +20,13 @@ class PageHeader extends Component {
         <nav className='PageHeader__nav'>
           <div className='PageHeader__navLeft'>
             <Link to='/' className='PageHeader__logo'>FA</Link>
+            <NavLink
+              to='/routines'
+              className='PageHeader__navLink'
+              activeClassName='PageHeader__navLink--active'
+            >
+              Routines
+            </NavLink>
           </div>
           <div className='PageHeader__navRight'>
             {auth.isAuthenticated() ? (

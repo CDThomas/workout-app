@@ -20,9 +20,17 @@
   cursor: pointer;
 }
 
-.Button:hover {
+.Button:hover, .Button:focus {
   /* TODO: lighten and darken color fn's would be nice */
   /* This is darkened 10% */
   background-color: #0069CD;
   border-color: #0069CD;
+}
+
+.Button--floatedLeft {
+  float: left;
+}
+
+.Button--floatedRight {
+  float: right;
 }

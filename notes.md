@@ -34,6 +34,13 @@
   - [x] click exercise on left to add to end of exercises on right
 - [x] Better error handling
   - Something similar to: https://react.semantic-ui.com/collections/message#message-example-error
+- [x] add authentication
+  - [x] [Knock](https://github.com/nsarno/knock) looks like a good start. Can roll my own later if I want.
+  - [x] Login page
+  - [x] Logout link
+  - [x] protected routes
+- [ ] client-side validation of forms/inputs with feedback for user
+- [ ] ErrorMessage component
 - [ ] user can remove an exercise in the RoutineExerciseList
 - [ ] try using JSON schemas for validation (ex: in POST to routines#create)
   - I think this would be cleaner than `accepts_nested_attributes_for` because the FE can send nicely
@@ -55,8 +62,6 @@
 - [ ] animate search on the exercise list? eh?
 - [ ] animate Message component entering dom
   - https://facebook.github.io/react/docs/animation.html
-- [ ] add authentication
-  - [Knock](https://github.com/nsarno/knock) looks like a good start. Can roll my own later if I want.
 - [ ] user can view routines they have created
 - [ ] user can edit routines
 - [ ] add images to exercises
@@ -83,3 +88,4 @@
   - [ ] startup
   - [ ] deployment
 - draft routines?
+- TODO's anywhere in code

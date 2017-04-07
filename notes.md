@@ -39,6 +39,8 @@
   - [x] Login page
   - [x] Logout link
   - [x] protected routes
+- [ ] client-side validation of forms/inputs with feedback for user
+- [ ] ErrorMessage component
 - [ ] user can remove an exercise in the RoutineExerciseList
 - [ ] try using JSON schemas for validation (ex: in POST to routines#create)
   - I think this would be cleaner than `accepts_nested_attributes_for` because the FE can send nicely

@@ -1,5 +1,13 @@
 import React, { Component, PropTypes } from 'react'
-import { Panel, Heading, Field, Label, Input, Button } from 'clientApp/components'
+import {
+  Panel,
+  Heading,
+  Field,
+  Label,
+  Input,
+  Button,
+  Message
+} from 'clientApp/components'
 import auth from 'clientApp/helpers/authentication'
 import './styles.css'
 
@@ -17,7 +25,8 @@ class Login extends Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      errors: []
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -39,9 +48,17 @@ class Login extends Component {
           auth.finishAuth(jwt)
           this.props.history.push('/')
         })
-        .catch(error => console.warn(error))
+        .catch(error => {
+          const { response } = error
+          if (response && response.status === 404) {
+            this.setState({
+              errors: ['Invalid email or password']
+            })
+          } else {
+            console.warn(error)
+          }
+        })
     }
-    // TODO: handle client-side validation errors (no email or password)
   }
 
   render () {
@@ -68,6 +85,15 @@ class Login extends Component {
               onChange={this.handleInputChange}
             />
           </Field>
+          {this.state.errors.length > 0 && (
+            <Message
+              error
+              header={this.state.errors.length > 1
+                ? 'There were some errors with your submission:'
+                : 'There was an error with your submission:'}
+              list={this.state.errors}
+            />
+          )}
           <Button type='submit' floated='right'>
             Submit
           </Button>

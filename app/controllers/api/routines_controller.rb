@@ -10,6 +10,11 @@ class Api::RoutinesController < Api::BaseController
     render json: routines, each_serializer: RoutineSerializer, status: 200
   end
 
+  def show
+    routine = Routine.find(params[:id])
+    render json: routine, status: 200
+  end
+
   def create
     routine = Routine.new(routine_params)
     if routine.save

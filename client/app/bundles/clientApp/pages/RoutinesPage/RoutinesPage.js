@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
   Heading,
   Panel,
-  SearchBar
+  SearchBar,
+  Title
 } from 'clientApp/components'
 import { Link } from 'react-router-dom'
 import { getRoutines } from 'clientApp/helpers/api'
@@ -54,7 +55,7 @@ class RoutinesPage extends Component {
             {this.state.routines.map(routine => {
               return (
                 <Panel.ListItem key={routine.id}>
-                  {routine.name}
+                  <Title>{routine.name}</Title>
                 </Panel.ListItem>
               )
             })}

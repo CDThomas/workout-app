@@ -1,3 +1,22 @@
 .RoutinesPage {
-  padding-top: 100px;
+  padding: 100px 0;
+}
+
+.RoutinesPage__searchBar {
+  flex: 1;
+  margin: 0 20px;
+}
+
+.RoutinesPage__text {
+  margin-right: 5px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.RoutinesPage__link {
+  font-size: 14px;
+  font-weight: 400;
+  color: #005eaf;
+  text-decoration: underline;
+  cursor: pointer;
 }

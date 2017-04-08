@@ -33,6 +33,14 @@ export function getMuscles () {
   return request(`${API_URL}/muscles`, { headers: headersWithAuth() })
 }
 
+export function getRoutines (query) {
+  const queryParams = query !== undefined
+    ? `?query=${query}`
+    : ''
+
+  return request(`${API_URL}/routines${queryParams}`, { headers: headersWithAuth() })
+}
+
 export function createRoutine (routine) {
   const options = {
     method: 'POST',

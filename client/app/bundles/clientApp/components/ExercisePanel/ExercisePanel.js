@@ -31,11 +31,13 @@ class ExercisePanel extends Component {
   handleSearchChange (evt) {
     const query = evt.target.value
 
-    getExercises(query).then(data => {
-      this.setState({
-        exercises: data.exercises || []
+    getExercises(query)
+      .then(data => {
+        this.setState({
+          exercises: data.exercises || []
+        })
       })
-    })
+      .catch(error => console.warn(error))
   }
 
   handleCreateExerciseClick (evt) {
@@ -71,6 +73,7 @@ class ExercisePanel extends Component {
           <SearchBar
             className='ExercisePanel__search'
             onChange={this.handleSearchChange}
+            placeholder='Find an exercise...'
           />
           <span className='ExercisePanel__headerText'>or</span>
           <a className='ExercisePanel__createExerciseLink' onClick={this.handleCreateExerciseClick}>

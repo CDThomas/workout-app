@@ -1,10 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import { ExercisePanel, SetList, Button, Message } from 'clientApp/components'
 import './styles.css'
-import { createRoutine } from 'clientApp/helpers/api'
+import { createRoutine, getRoutine } from 'clientApp/helpers/api'
 
 const propTypes = {
-  exercises: PropTypes.array
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string
+    })
+  })
 }
 
 
@@ -13,7 +17,7 @@ class RoutineEditor extends Component {
     super(props)
 
     this.state = {
-      routineName: 'Routine Name',
+      routineName: '',
       sets: [],
       errors: [],
       info: '',
@@ -23,6 +27,25 @@ class RoutineEditor extends Component {
     this.handleChangeRoutineName = this.handleChangeRoutineName.bind(this)
     this.handleExerciseClick = this.handleExerciseClick.bind(this)
     this.handleCreateRoutineClick = this.handleCreateRoutineClick.bind(this)
+  }
+
+  componentDidMount () {
+    const { id } = this.props.match.params
+
+    if (id) {
+      getRoutine(id)
+        .then(data => {
+          if (data.routine) {
+            const { name, sets } = data.routine
+            this.setState({
+              routineName: name,
+              sets
+            })
+          }
+        })
+        // TODO: handle 404 (routine not found)
+        .catch(error => console.warn(error))
+    }
   }
 
   // Eh, I don't think I like passing this down so many levels
@@ -82,7 +105,6 @@ class RoutineEditor extends Component {
     return (
       <div className='RoutineEditor'>
         <ExercisePanel
-          exercises={this.props.exercises}
           onExerciseClick={this.handleExerciseClick}
         />
 
@@ -92,6 +114,7 @@ class RoutineEditor extends Component {
               <input
                 className='RoutineEditor__routineNameInput'
                 type='text'
+                placeholder='Unnamed Routine'
                 onChange={this.handleChangeRoutineName}
                 value={this.state.routineName}
               />

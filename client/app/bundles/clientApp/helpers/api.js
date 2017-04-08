@@ -41,6 +41,10 @@ export function getRoutines (query) {
   return request(`${API_URL}/routines${queryParams}`, { headers: headersWithAuth() })
 }
 
+export function getRoutine (routineId) {
+  return request(`${API_URL}/routines/${routineId}`, { headers: headersWithAuth() })
+}
+
 export function createRoutine (routine) {
   const options = {
     method: 'POST',

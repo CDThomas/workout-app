@@ -1,5 +1,11 @@
 import React, { Component, PropTypes } from 'react'
-import { ExerciseList, SearchBar, CreateExerciseModal } from 'clientApp/components'
+import {
+  ExerciseList,
+  SearchBar,
+  CreateExerciseModal,
+  Panel,
+  Heading
+} from 'clientApp/components'
 import { getExercises } from 'clientApp/helpers/api'
 import './styles.css'
 
@@ -67,9 +73,9 @@ class ExercisePanel extends Component {
   render () {
     const { exercises, isModalOpen } = this.state
     return (
-      <div className='ExercisePanel'>
-        <header className='ExercisePanel__header'>
-          <span className='ExercisePanel__title'>Exercises</span>
+      <Panel className='ExercisePanel'>
+        <Panel.Header className='ExercisePanel__header'>
+          <Heading>Exercises</Heading>
           <SearchBar
             className='ExercisePanel__search'
             onChange={this.handleSearchChange}
@@ -84,14 +90,14 @@ class ExercisePanel extends Component {
             onRequestClose={this.handleCloseModal}
             onExerciseCreated={this.handleExerciseCreated}
           />
-        </header>
+        </Panel.Header>
 
         <ExerciseList
           exercises={exercises}
           onCreateExerciseClick={this.handleCreateExerciseClick}
           onExerciseClick={this.props.onExerciseClick}
         />
-      </div>
+      </Panel>
     )
   }
 }

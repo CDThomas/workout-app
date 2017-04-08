@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { Title } from 'clientApp/components'
 import './styles.css'
 import { capitalize } from 'lodash'
 
@@ -28,7 +29,7 @@ class ExerciseItem extends Component {
       <li className='ExerciseItem' onClick={this.handleClick}>
         <div className='ExerciseItem__thumbnail' />
         <div className='ExerciseItem__content'>
-          <span className='ExerciseItem__name'>{name}</span>
+          <Title>{name}</Title>
           <span className='ExerciseItem__mainMuscleWorked'>
             {capitalize(mainMuscleWorked)}
           </span>

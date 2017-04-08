@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import {
   RoutineEditor,
@@ -12,10 +12,6 @@ import {
 import 'normalize.css'
 import './styles.css'
 
-const propTypes = {
-  exercises: PropTypes.array // this is passed from the Rails view
-}
-
 class AppMain extends Component {
   render () {
     return (
@@ -26,9 +22,13 @@ class AppMain extends Component {
             <PrivateRoute
               exact
               path='/'
-              component={() => <RoutineEditor exercises={this.props.exercises} />}
+              component={RoutineEditor}
             />
-            <PrivateRoute path='/routines' component={RoutinesPage} />
+            <PrivateRoute exact path='/routines' component={RoutinesPage} />
+            <PrivateRoute
+              path='/routines/:id'
+              component={RoutineEditor}
+            />
             <Route path='/login' component={Login} />
             {/* TODO: not found route */}
           </div>
@@ -37,6 +37,5 @@ class AppMain extends Component {
     )
   }
 }
-AppMain.propTypes = propTypes
 
 export default AppMain

@@ -9,10 +9,8 @@ import {
 import { getExercises } from 'clientApp/helpers/api'
 import './styles.css'
 
-// TODO: refactor to use Panel
-
 const propTypes = {
-  exercises: PropTypes.array,
+  // exercises: PropTypes.array,
   onExerciseClick: PropTypes.func.isRequired
 }
 
@@ -24,7 +22,7 @@ class ExercisePanel extends Component {
     // So right now there's not a scenario where this component will receive new props.
     // This might change.
     this.state = {
-      exercises: this.props.exercises || [],
+      exercises: [],
       isModalOpen: false
     }
 
@@ -32,6 +30,16 @@ class ExercisePanel extends Component {
     this.handleCreateExerciseClick = this.handleCreateExerciseClick.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
     this.handleExerciseCreated = this.handleExerciseCreated.bind(this)
+  }
+
+  componentDidMount () {
+    getExercises()
+      .then(data => {
+        this.setState({
+          exercises: data.exercises || []
+        })
+      })
+      .catch(error => console.warn(error))
   }
 
   handleSearchChange (evt) {

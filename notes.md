@@ -39,6 +39,12 @@
   - [x] Login page
   - [x] Logout link
   - [x] protected routes
+- [x] user can view routines they have created
+  - This is just in a list for now. Might add a details page/modal later if I want more than the
+    editing page
+- [ ] add more details to list on RoutinesPage
+  - Number of sets in the routine, all muscles worked, number of times completed, created at,
+    last performed, etc
 - [ ] client-side validation of forms/inputs with feedback for user
 - [ ] ErrorMessage component
 - [ ] user can remove an exercise in the RoutineExerciseList
@@ -68,7 +74,6 @@
 - [ ] animate search on the exercise list? eh?
 - [ ] animate Message component entering dom
   - https://facebook.github.io/react/docs/animation.html
-- [ ] user can view routines they have created
 - [ ] user can edit routines
 - [ ] add images to exercises
   - I'm thinking google cloud storage because it'd be free

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import {
   Panel,
+  Header,
   Heading,
   Field,
   Label,
@@ -63,42 +64,48 @@ class Login extends Component {
 
   render () {
     return (
-      <Panel>
-        <Heading>Log In</Heading>
-        <form onSubmit={this.handleSubmit}>
-          <Field>
-            <Label htmlFor='email'>Email</Label>
-            <Input
-              type='text'
-              name='email'
-              value={this.state.email}
-              onChange={this.handleInputChange}
-              autoFocus
-            />
-          </Field>
-          <Field>
-            <Label htmlFor='password'>Password</Label>
-            <Input
-              type='password'
-              name='password'
-              value={this.state.password}
-              onChange={this.handleInputChange}
-            />
-          </Field>
-          {this.state.errors.length > 0 && (
-            <Message
-              error
-              header={this.state.errors.length > 1
-                ? 'There were some errors with your submission:'
-                : 'There was an error with your submission:'}
-              list={this.state.errors}
-            />
-          )}
-          <Button type='submit' floated='right'>
-            Submit
-          </Button>
-        </form>
-      </Panel>
+      <div className='Login'>
+        <Panel>
+          <Panel.Header>
+            <Heading>Log In</Heading>
+          </Panel.Header>
+          <Panel.Content>
+            <form onSubmit={this.handleSubmit}>
+              <Field>
+                <Label htmlFor='email'>Email</Label>
+                <Input
+                  type='text'
+                  name='email'
+                  value={this.state.email}
+                  onChange={this.handleInputChange}
+                  autoFocus
+                />
+              </Field>
+              <Field>
+                <Label htmlFor='password'>Password</Label>
+                <Input
+                  type='password'
+                  name='password'
+                  value={this.state.password}
+                  onChange={this.handleInputChange}
+                />
+              </Field>
+              {this.state.errors.length > 0 && (
+                <Message
+                  error
+                  header={this.state.errors.length > 1
+                    ? 'There were some errors with your submission:'
+                    : 'There was an error with your submission:'}
+                  list={this.state.errors}
+                />
+              )}
+              <Button type='submit' floated='right'>
+                Submit
+              </Button>
+            </form>
+          </Panel.Content>
+        </Panel>
+      </div>
     )
   }
 }

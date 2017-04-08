@@ -1,4 +1,15 @@
 class Api::RoutinesController < Api::BaseController
+  def index
+    routines =
+      if params[:query].present?
+        Routine.where('lower(name) LIKE ?', "%#{params[:query].downcase}%")
+      else
+        Routine.all.order(name: :asc).limit(10)
+      end
+
+    render json: routines, each_serializer: RoutineSerializer, status: 200
+  end
+
   def create
     routine = Routine.new(routine_params)
     if routine.save

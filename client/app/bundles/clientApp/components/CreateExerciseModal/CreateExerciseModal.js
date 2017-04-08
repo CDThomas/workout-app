@@ -7,7 +7,8 @@ import {
   Heading,
   Input,
   Label,
-  Message
+  Message,
+  Panel
 } from 'clientApp/components'
 import { getMuscles, createExercise } from 'clientApp/helpers/api'
 import { capitalize } from 'lodash'
@@ -170,13 +171,17 @@ class CreateExerciseModal extends Component {
           >
             <CloseIcon className='CreateExerciseModal__closeIcon' />
           </a>
-          <Heading>
-            New Exercise
-          </Heading>
+          <Panel>
+            <Panel.Header>
+              <Heading>New Exercise</Heading>
+            </Panel.Header>
 
-          {this.state.muscleOptions.length === 0
-            ? <p>Loading...</p>
-            : this.renderForm()}
+            <Panel.Content>
+              {this.state.muscleOptions.length === 0
+                ? <p>Loading...</p>
+                : this.renderForm()}
+            </Panel.Content>
+          </Panel>
         </Modal>
       </div>
     )

@@ -1,7 +1,15 @@
 import React, { Component, PropTypes } from 'react'
-import { ExerciseList, SearchBar, CreateExerciseModal } from 'clientApp/components'
+import {
+  ExerciseList,
+  SearchBar,
+  CreateExerciseModal,
+  Panel,
+  Heading
+} from 'clientApp/components'
 import { getExercises } from 'clientApp/helpers/api'
 import './styles.css'
+
+// TODO: refactor to use Panel
 
 const propTypes = {
   exercises: PropTypes.array,
@@ -29,11 +37,13 @@ class ExercisePanel extends Component {
   handleSearchChange (evt) {
     const query = evt.target.value
 
-    getExercises(query).then(data => {
-      this.setState({
-        exercises: data.exercises || []
+    getExercises(query)
+      .then(data => {
+        this.setState({
+          exercises: data.exercises || []
+        })
       })
-    })
+      .catch(error => console.warn(error))
   }
 
   handleCreateExerciseClick (evt) {
@@ -63,12 +73,13 @@ class ExercisePanel extends Component {
   render () {
     const { exercises, isModalOpen } = this.state
     return (
-      <div className='ExercisePanel'>
-        <header className='ExercisePanel__header'>
-          <span className='ExercisePanel__title'>Exercises</span>
+      <Panel className='ExercisePanel'>
+        <Panel.Header className='ExercisePanel__header'>
+          <Heading>Exercises</Heading>
           <SearchBar
             className='ExercisePanel__search'
             onChange={this.handleSearchChange}
+            placeholder='Find an exercise...'
           />
           <span className='ExercisePanel__headerText'>or</span>
           <a className='ExercisePanel__createExerciseLink' onClick={this.handleCreateExerciseClick}>
@@ -79,14 +90,14 @@ class ExercisePanel extends Component {
             onRequestClose={this.handleCloseModal}
             onExerciseCreated={this.handleExerciseCreated}
           />
-        </header>
+        </Panel.Header>
 
         <ExerciseList
           exercises={exercises}
           onCreateExerciseClick={this.handleCreateExerciseClick}
           onExerciseClick={this.props.onExerciseClick}
         />
-      </div>
+      </Panel>
     )
   }
 }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Button } from 'clientApp/components'
 import auth from 'clientApp/helpers/authentication'
 import './styles.css'
 
-class Header extends Component {
+class PageHeader extends Component {
   constructor (props) {
     super(props)
     this.handleLogout = this.handleLogout.bind(this)
@@ -16,12 +16,19 @@ class Header extends Component {
 
   render () {
     return (
-      <header className='Header'>
-        <nav className='Header__nav'>
-          <div className='Header__navLeft'>
-            <Link to='/' className='Header__logo'>FA</Link>
+      <header className='PageHeader'>
+        <nav className='PageHeader__nav'>
+          <div className='PageHeader__navLeft'>
+            <Link to='/' className='PageHeader__logo'>FA</Link>
+            <NavLink
+              to='/routines'
+              className='PageHeader__navLink'
+              activeClassName='PageHeader__navLink--active'
+            >
+              Routines
+            </NavLink>
           </div>
-          <div className='Header__navRight'>
+          <div className='PageHeader__navRight'>
             {auth.isAuthenticated() ? (
               <Link onClick={this.handleLogout} to='/login'>
                 <Button>Log Out</Button>
@@ -38,4 +45,4 @@ class Header extends Component {
   }
 }
 
-export default Header
+export default PageHeader

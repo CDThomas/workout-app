@@ -3,9 +3,11 @@ import SearchIcon from 'react-icons/lib/md/search'
 import classNames from 'classnames'
 import './styles.css'
 
+const { string, func } = PropTypes
 const propTypes = {
-  className: PropTypes.string,
-  onChange: PropTypes.func
+  className: string,
+  onChange: func,
+  placeholder: string
 }
 
 class SearchBar extends Component {
@@ -29,7 +31,7 @@ class SearchBar extends Component {
         <input
           type='text'
           className='SearchBar__input'
-          placeholder='Find an exercise...'
+          placeholder={this.props.placeholder}
           onChange={this.handleChange}
         />
         <SearchIcon className='SearchBar__icon' />

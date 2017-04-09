@@ -6,7 +6,7 @@ import { updateRoutine, getRoutine } from 'clientApp/helpers/api'
 const propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.string
+      id: PropTypes.string.isRequired
     })
   })
 }
@@ -33,21 +33,17 @@ class RoutineEditor extends Component {
   componentDidMount () {
     const { id } = this.props.match.params
 
-    if (id) {
-      getRoutine(id)
-        .then(data => {
-          if (data.routine) {
-            const { id, name, sets } = data.routine
-            this.setState({
-              routineId: id,
-              routineName: name,
-              sets
-            })
-          }
+    getRoutine(id)
+      .then(({ routine }) => {
+        const { id, name, sets } = routine
+        this.setState({
+          routineId: id,
+          routineName: name || '',
+          sets
         })
-        // TODO: handle 404 (routine not found)
-        .catch(error => console.warn(error))
-    }
+      })
+      // TODO: handle 404 (routine not found)
+      .catch(error => console.warn(error))
   }
 
   // Eh, I don't think I like passing this down so many levels
@@ -118,7 +114,6 @@ class RoutineEditor extends Component {
               <input
                 className='RoutineEditor__routineNameInput'
                 type='text'
-                placeholder='Unnamed Routine'
                 onChange={this.handleChangeRoutineName}
                 value={this.state.routineName}
               />

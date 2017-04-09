@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import {
   Heading,
   Panel,
@@ -6,8 +6,12 @@ import {
   Title
 } from 'clientApp/components'
 import { Link } from 'react-router-dom'
-import { getRoutines } from 'clientApp/helpers/api'
+import { getRoutines, createRoutine } from 'clientApp/helpers/api'
 import './styles.css'
+
+const propTypes = {
+  history: PropTypes.object.isRequired
+}
 
 class RoutinesPage extends Component {
   constructor (props) {
@@ -18,6 +22,7 @@ class RoutinesPage extends Component {
     }
 
     this.handleSearchChange = this.handleSearchChange.bind(this)
+    this.handleCreateRoutineClick = this.handleCreateRoutineClick.bind(this)
   }
 
   componentDidMount () {
@@ -37,6 +42,15 @@ class RoutinesPage extends Component {
       .catch(error => console.warn(error))
   }
 
+  handleCreateRoutineClick (evt) {
+    evt.preventDefault()
+    createRoutine()
+      .then(({ routine }) => {
+        this.props.history.push(`/routines/${routine.id}`)
+      })
+      .catch(error => console.warn(error))
+  }
+
   render () {
     return (
       <div className='RoutinesPage'>
@@ -49,13 +63,18 @@ class RoutinesPage extends Component {
               placeholder='Find a routine...'
             />
             <span className='RoutinesPage__text'>or</span>
-            <Link to='/' className='RoutinesPage__link'>create one</Link>
+            <a onClick={this.handleCreateRoutineClick} className='RoutinesPage__createRoutineLink'>
+              create one
+            </a>
           </Panel.Header>
           <Panel.List>
             {this.state.routines.map(routine => {
+              const { id, name } = routine
               return (
-                <Panel.ListItem key={routine.id}>
-                  <Title>{routine.name}</Title>
+                <Panel.ListItem key={id}>
+                  <Link to={`/routines/${id}`} className='RoutinesPage__link'>
+                    <Title>{name}</Title>
+                  </Link>
                 </Panel.ListItem>
               )
             })}
@@ -65,5 +84,6 @@ class RoutinesPage extends Component {
     )
   }
 }
+RoutinesPage.propTypes = propTypes
 
 export default RoutinesPage

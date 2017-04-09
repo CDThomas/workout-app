@@ -45,11 +45,10 @@ export function getRoutine (routineId) {
   return request(`${API_URL}/routines/${routineId}`, { headers: headersWithAuth() })
 }
 
-export function createRoutine (routine) {
+export function createRoutine () {
   const options = {
     method: 'POST',
-    headers: headersWithAuth(),
-    body: JSON.stringify(routine)
+    headers: headersWithAuth()
   }
 
   return request(`${API_URL}/routines`, options)

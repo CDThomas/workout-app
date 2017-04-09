@@ -7,7 +7,7 @@ const propTypes = {
     PropTypes.instanceOf(Component),
     PropTypes.func
   ]),
-  location: PropTypes.string
+  location: PropTypes.object
 }
 
 function PrivateRoute ({ component, ...rest }) {

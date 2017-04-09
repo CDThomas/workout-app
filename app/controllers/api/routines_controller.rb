@@ -16,7 +16,7 @@ class Api::RoutinesController < Api::BaseController
   end
 
   def create
-    routine = Routine.new(routine_create_params)
+    routine = Routine.new()
     if routine.save
       render json: routine, status: 201
     else
@@ -31,6 +31,12 @@ class Api::RoutinesController < Api::BaseController
 
     # Validating with a JSON schema and extracting the transaction into a service object would
     # probably help clean this up.
+
+    # Another alternative would be updating the routine after each change in the UI automatically,
+    # rather than having a "save" button that does all of this. Would I want this if an individual
+    # update fails? So instead, adding a set would just create a new faf_set rather than waiting to
+    # hit save and checking to whole routine for changes. Same thing with updating other things, like
+    # deleting sets, or changing the routine name
 
     routine = Routine.find(params[:id])
 
@@ -47,14 +53,14 @@ class Api::RoutinesController < Api::BaseController
     routine.transaction do
       # 1)
       # update account name if changed
-      routine.update!(name: routine_update_params[:name])
+      routine.update!(name: routine_params[:name])
 
       # 2)
       # delete sets that aren't in the request body
       previous_set_ids = routine.faf_sets.map { |s| s.id }
       params_set_ids =
-        if routine_update_params[:faf_sets_attributes]
-          routine_update_params[:faf_sets_attributes]
+        if routine_params[:faf_sets_attributes]
+          routine_params[:faf_sets_attributes]
             .select { |s| s[:id] != nil } # sets with ids
             .map { |s| s[:id] }
         else
@@ -66,8 +72,8 @@ class Api::RoutinesController < Api::BaseController
 
      # 3)
      # update or create sets included in the request body
-      unless routine_update_params[:faf_sets_attributes] == nil
-        routine_update_params[:faf_sets_attributes].each do |faf_set|
+      unless routine_params[:faf_sets_attributes] == nil
+        routine_params[:faf_sets_attributes].each do |faf_set|
           if faf_set[:id]
             # TODO: update order in routine if changed.
             #       Right now there isn't anything keeping track of the order, so will need to
@@ -92,11 +98,7 @@ class Api::RoutinesController < Api::BaseController
   end
 
   private
-    def routine_create_params
-      params.require(:routine).permit(:name, faf_sets_attributes: [:exercise_id])
-    end
-
-    def routine_update_params
+    def routine_params
       params.require(:routine).permit(:name, faf_sets_attributes: [:id, :exercise_id])
     end
 end

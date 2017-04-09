@@ -21,6 +21,7 @@ class PageHeader extends Component {
           <div className='PageHeader__navLeft'>
             <Link to='/' className='PageHeader__logo'>FA</Link>
             <NavLink
+              exact
               to='/routines'
               className='PageHeader__navLink'
               activeClassName='PageHeader__navLink--active'

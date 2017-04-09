@@ -43,6 +43,9 @@
   - This is just in a list for now. Might add a details page/modal later if I want more than the
     editing page
 - [ ] user can delete routines
+- [ ] User can sort routines list by date created
+  - [ ] paginate routines
+  - [ ] add sort param for searching
 - [ ] add more details to list on RoutinesPage
   - Number of sets in the routine, all muscles worked, number of times completed, created at,
     last performed, etc

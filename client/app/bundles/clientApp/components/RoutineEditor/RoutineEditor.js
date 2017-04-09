@@ -83,7 +83,6 @@ class RoutineEditor extends Component {
           routineName: name,
           sets
         })
-        console.log(routine)
       })
       .catch(error => {
         const response = error.response

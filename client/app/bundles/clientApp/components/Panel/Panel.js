@@ -18,6 +18,7 @@ function Panel (props) {
   //       is the opposite of what I wanted. I don't really like this
   //       solution (inconsistent), so I'll look into it.
   //       Styled components has a solution: https://github.com/styled-components/styled-components#overriding-component-styles
+  //       Could also look at how React Semantic UI handles this
   const panelClass = props.className
     ? props.className
     : 'Panel'

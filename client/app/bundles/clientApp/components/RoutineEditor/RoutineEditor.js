@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { ExercisePanel, SetList, Button, Message } from 'clientApp/components'
 import './styles.css'
-import { createRoutine, getRoutine } from 'clientApp/helpers/api'
+import { updateRoutine, getRoutine } from 'clientApp/helpers/api'
 
 const propTypes = {
   match: PropTypes.shape({
@@ -17,6 +17,7 @@ class RoutineEditor extends Component {
     super(props)
 
     this.state = {
+      routineId: null,
       routineName: '',
       sets: [],
       errors: [],
@@ -36,8 +37,9 @@ class RoutineEditor extends Component {
       getRoutine(id)
         .then(data => {
           if (data.routine) {
-            const { name, sets } = data.routine
+            const { id, name, sets } = data.routine
             this.setState({
+              routineId: id,
               routineName: name,
               sets
             })
@@ -69,21 +71,23 @@ class RoutineEditor extends Component {
 
   handleCreateRoutineClick () {
     const routine = {
-      routine: {
-        name: this.state.routineName,
-        fafSetsAttributes: this.state.sets
-      }
+      id: this.state.routineId,
+      name: this.state.routineName,
+      fafSetsAttributes: this.state.sets
     }
 
     this.setState({ isLoading: true })
 
-    createRoutine(routine)
-      .then(data => {
+    updateRoutine(routine)
+      .then(({ routine }) => {
+        const { name, sets } = routine
         this.setState({
-          info: 'Workout was created successfully!',
-          errors: []
+          info: 'Workout was updated successfully!',
+          errors: [],
+          routineName: name,
+          sets
         })
-        console.log(data)
+        console.log(routine)
       })
       .catch(error => {
         const response = error.response
@@ -119,7 +123,7 @@ class RoutineEditor extends Component {
                 value={this.state.routineName}
               />
               <Button onClick={this.handleCreateRoutineClick}>
-                Create Routine
+                Save Routine
               </Button>
             </div>
 

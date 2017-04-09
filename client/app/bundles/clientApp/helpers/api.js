@@ -54,3 +54,13 @@ export function createRoutine (routine) {
 
   return request(`${API_URL}/routines`, options)
 }
+
+export function updateRoutine (routine) {
+  const options = {
+    method: 'PUT',
+    headers: headersWithAuth(),
+    body: JSON.stringify({ routine })
+  }
+
+  return request(`${API_URL}/routines/${routine.id}`, options)
+}

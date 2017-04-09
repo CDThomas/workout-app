@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     post 'user_token' => 'user_token#create'
     resources :exercises, only: [:index, :create]
     resources :muscles, only: :index
-    resources :routines, only: [:index, :show, :create]
+    resources :routines, only: [:index, :show, :update, :create]
   end
 
   # This sends all other routes to React Router

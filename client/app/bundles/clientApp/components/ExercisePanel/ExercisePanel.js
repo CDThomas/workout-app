@@ -10,7 +10,6 @@ import { getExercises } from 'clientApp/helpers/api'
 import './styles.css'
 
 const propTypes = {
-  // exercises: PropTypes.array,
   onExerciseClick: PropTypes.func.isRequired
 }
 

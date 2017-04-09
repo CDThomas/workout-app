@@ -42,6 +42,7 @@
 - [x] user can view routines they have created
   - This is just in a list for now. Might add a details page/modal later if I want more than the
     editing page
+- [ ] user can delete routines
 - [ ] add more details to list on RoutinesPage
   - Number of sets in the routine, all muscles worked, number of times completed, created at,
     last performed, etc

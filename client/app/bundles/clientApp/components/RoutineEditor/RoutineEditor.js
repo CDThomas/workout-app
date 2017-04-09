@@ -11,7 +11,6 @@ const propTypes = {
   })
 }
 
-
 class RoutineEditor extends Component {
   constructor (props) {
     super(props)

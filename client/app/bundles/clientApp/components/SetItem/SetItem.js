@@ -2,13 +2,26 @@ import React, { Component, PropTypes } from 'react'
 import { Title, Button } from 'clientApp/components'
 import './styles.css'
 
+const { string, number, func } = PropTypes
+
 const propTypes = {
-  exerciseName: PropTypes.string,
-  mainMuscleWorked: PropTypes.string,
-  setNumber: PropTypes.number
+  exerciseName: string,
+  mainMuscleWorked: string,
+  setNumber: number,
+  onDeleteClick: func
 }
 
 class SetItem extends Component {
+  constructor (props) {
+    super(props)
+
+    this.handleDeleteClick = this.handleDeleteClick.bind(this)
+  }
+
+  handleDeleteClick () {
+    this.props.onDeleteClick(this.props.setNumber)
+  }
+
   render () {
     const { exerciseName, mainMuscleWorked, setNumber } = this.props
     return (
@@ -24,6 +37,7 @@ class SetItem extends Component {
           <Button
             size='small'
             color='white'
+            onClick={this.handleDeleteClick}
           >
             Delete
           </Button>

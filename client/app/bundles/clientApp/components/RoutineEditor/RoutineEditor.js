@@ -26,6 +26,7 @@ class RoutineEditor extends Component {
 
     this.handleChangeRoutineName = this.handleChangeRoutineName.bind(this)
     this.handleExerciseClick = this.handleExerciseClick.bind(this)
+    this.handleDeleteSetClick = this.handleDeleteSetClick.bind(this)
     this.handleCreateRoutineClick = this.handleCreateRoutineClick.bind(this)
   }
 
@@ -45,7 +46,6 @@ class RoutineEditor extends Component {
       .catch(error => console.warn(error))
   }
 
-  // Eh, I don't think I like passing this down so many levels
   handleExerciseClick (exercise) {
     const newSet = {
       exerciseName: exercise.name,
@@ -55,6 +55,16 @@ class RoutineEditor extends Component {
 
     this.setState({
       sets: [...this.state.sets, newSet]
+    })
+  }
+
+  handleDeleteSetClick (setNumber) {
+    const { sets } = this.state
+    const setIndex = setNumber - 1
+    const newSets = [...sets.slice(0, setIndex), ...sets.slice(setIndex + 1)]
+
+    this.setState({
+      sets: newSets
     })
   }
 
@@ -131,7 +141,10 @@ class RoutineEditor extends Component {
                 {this.state.errors.map(e => e.message).join('. ')}
               </Message>
             )}
-            <SetList sets={this.state.sets} />
+            <SetList
+              sets={this.state.sets}
+              onDeleteSetClick={this.handleDeleteSetClick}
+            />
           </div>
         </div>
       </div>

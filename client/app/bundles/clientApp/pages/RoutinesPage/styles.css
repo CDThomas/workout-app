@@ -13,10 +13,16 @@
   font-weight: 300;
 }
 
-.RoutinesPage__link {
+.RoutinesPage__createRoutineLink {
   font-size: 14px;
   font-weight: 400;
   color: #005eaf;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.RoutinesPage__link {
+  padding: 25px;
+  display: flex;
+  text-decoration: none;
 }

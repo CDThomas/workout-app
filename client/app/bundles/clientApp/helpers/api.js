@@ -41,12 +41,25 @@ export function getRoutines (query) {
   return request(`${API_URL}/routines${queryParams}`, { headers: headersWithAuth() })
 }
 
-export function createRoutine (routine) {
+export function getRoutine (routineId) {
+  return request(`${API_URL}/routines/${routineId}`, { headers: headersWithAuth() })
+}
+
+export function createRoutine () {
   const options = {
     method: 'POST',
-    headers: headersWithAuth(),
-    body: JSON.stringify(routine)
+    headers: headersWithAuth()
   }
 
   return request(`${API_URL}/routines`, options)
+}
+
+export function updateRoutine (routine) {
+  const options = {
+    method: 'PUT',
+    headers: headersWithAuth(),
+    body: JSON.stringify({ routine })
+  }
+
+  return request(`${API_URL}/routines/${routine.id}`, options)
 }

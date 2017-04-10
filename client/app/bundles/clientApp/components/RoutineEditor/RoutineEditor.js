@@ -1,19 +1,23 @@
 import React, { Component, PropTypes } from 'react'
 import { ExercisePanel, SetList, Button, Message } from 'clientApp/components'
 import './styles.css'
-import { createRoutine } from 'clientApp/helpers/api'
+import { updateRoutine, getRoutine } from 'clientApp/helpers/api'
 
 const propTypes = {
-  exercises: PropTypes.array
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })
+  })
 }
-
 
 class RoutineEditor extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      routineName: 'Routine Name',
+      routineId: null,
+      routineName: '',
       sets: [],
       errors: [],
       info: '',
@@ -23,6 +27,22 @@ class RoutineEditor extends Component {
     this.handleChangeRoutineName = this.handleChangeRoutineName.bind(this)
     this.handleExerciseClick = this.handleExerciseClick.bind(this)
     this.handleCreateRoutineClick = this.handleCreateRoutineClick.bind(this)
+  }
+
+  componentDidMount () {
+    const { id } = this.props.match.params
+
+    getRoutine(id)
+      .then(({ routine }) => {
+        const { id, name, sets } = routine
+        this.setState({
+          routineId: id,
+          routineName: name || '',
+          sets
+        })
+      })
+      // TODO: handle 404 (routine not found)
+      .catch(error => console.warn(error))
   }
 
   // Eh, I don't think I like passing this down so many levels
@@ -46,21 +66,22 @@ class RoutineEditor extends Component {
 
   handleCreateRoutineClick () {
     const routine = {
-      routine: {
-        name: this.state.routineName,
-        fafSetsAttributes: this.state.sets
-      }
+      id: this.state.routineId,
+      name: this.state.routineName,
+      fafSetsAttributes: this.state.sets
     }
 
     this.setState({ isLoading: true })
 
-    createRoutine(routine)
-      .then(data => {
+    updateRoutine(routine)
+      .then(({ routine }) => {
+        const { name, sets } = routine
         this.setState({
-          info: 'Workout was created successfully!',
-          errors: []
+          info: 'Workout was updated successfully!',
+          errors: [],
+          routineName: name,
+          sets
         })
-        console.log(data)
       })
       .catch(error => {
         const response = error.response
@@ -82,7 +103,6 @@ class RoutineEditor extends Component {
     return (
       <div className='RoutineEditor'>
         <ExercisePanel
-          exercises={this.props.exercises}
           onExerciseClick={this.handleExerciseClick}
         />
 
@@ -96,7 +116,7 @@ class RoutineEditor extends Component {
                 value={this.state.routineName}
               />
               <Button onClick={this.handleCreateRoutineClick}>
-                Create Routine
+                Save Routine
               </Button>
             </div>
 

@@ -8,12 +8,21 @@ const propTypes = {
   onClick: func,
   type: string,
   className: string,
-  floated: oneOf(['left', 'right'])
+  floated: oneOf(['left', 'right']),
+  size: oneOf(['small', 'medium']),
+  color: oneOf(['blue', 'white'])
+}
+
+const defaultProps = {
+  size: 'medium',
+  color: 'blue'
 }
 
 function Button (props) {
   const btnClass = classNames(
     'Button',
+    `Button--${props.size}`,
+    `Button--${props.color}`,
     { 'Button--floatedLeft': props.floated === 'left' },
     { 'Button--floatedRight': props.floated === 'right' },
     props.className
@@ -30,5 +39,6 @@ function Button (props) {
   )
 }
 Button.propTypes = propTypes
+Button.defaultProps = defaultProps
 
 export default Button

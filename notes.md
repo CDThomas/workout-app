@@ -42,6 +42,13 @@
 - [x] user can view routines they have created
   - This is just in a list for now. Might add a details page/modal later if I want more than the
     editing page
+- [x] user can delete a set from a routine
+- [ ] add Redux for state management
+  - I think Redux would be a good fit for the routine editor
+    - optimistic updates
+    - should be useful for 'undo' feature
+    - keeping state changes organized and understandable as I add features to the editor
+    - routine caching
 - [ ] user can delete routines
 - [ ] User can sort routines list by date created
   - [ ] paginate routines

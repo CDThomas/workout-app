@@ -97,6 +97,11 @@ class Api::RoutinesController < Api::BaseController
     render json: { errors: [{ message: e.message }] }, status: 422
   end
 
+  def destroy
+    Routine.find(params[:id]).destroy
+    head no_content
+  end
+
   private
     def routine_params
       params.require(:routine).permit(:name, faf_sets_attributes: [:id, :exercise_id])

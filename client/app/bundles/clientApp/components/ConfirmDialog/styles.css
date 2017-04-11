@@ -1,0 +1,8 @@
+.ConfirmDialog__buttonWrapper {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.ConfirmDialog__confirmButton {
+  margin-left: 10px;
+}

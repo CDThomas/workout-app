@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import CloseIcon from 'react-icons/lib/md/close'
-import Modal from 'react-modal'
 import {
   Button,
   Field,
@@ -8,6 +7,7 @@ import {
   Input,
   Label,
   Message,
+  Modal,
   Panel
 } from 'clientApp/components'
 import { getMuscles, createExercise } from 'clientApp/helpers/api'
@@ -157,33 +157,29 @@ class CreateExerciseModal extends Component {
 
   render () {
     return (
-      <div>
-        <Modal
-          className='CreateExerciseModal'
-          overlayClassName='CreateExerciseModal__overlay'
-          isOpen={this.props.isOpen}
-          contentLabel='Modal'
-          onRequestClose={this.handleRequestClose}
+      <Modal
+        isOpen={this.props.isOpen}
+        contentLabel='Modal'
+        onRequestClose={this.handleRequestClose}
+      >
+        <a
+          className='CreateExerciseModal__closeBtn'
+          onClick={this.handleRequestClose}
         >
-          <a
-            className='CreateExerciseModal__closeBtn'
-            onClick={this.handleRequestClose}
-          >
-            <CloseIcon className='CreateExerciseModal__closeIcon' />
-          </a>
-          <Panel>
-            <Panel.Header>
-              <Heading>New Exercise</Heading>
-            </Panel.Header>
+          <CloseIcon className='CreateExerciseModal__closeIcon' />
+        </a>
+        <Panel>
+          <Panel.Header>
+            <Heading>New Exercise</Heading>
+          </Panel.Header>
 
-            <Panel.Content>
-              {this.state.muscleOptions.length === 0
-                ? <p>Loading...</p>
-                : this.renderForm()}
-            </Panel.Content>
-          </Panel>
-        </Modal>
-      </div>
+          <Panel.Content>
+            {this.state.muscleOptions.length === 0
+              ? <p>Loading...</p>
+              : this.renderForm()}
+          </Panel.Content>
+        </Panel>
+      </Modal>
     )
   }
 }

@@ -2,12 +2,18 @@ import { request } from './request'
 import auth from './authentication'
 import { API_URL, API_HEADERS } from 'clientApp/config/constants'
 
-function headersWithAuth () {
-  const token = auth.getToken()
-  return {
-    ...API_HEADERS,
-    'Authorization': `Bearer ${token}`
+function authenticatedRequest (endpoint, options = {}) {
+  const url = API_URL + endpoint
+  const headers = { ...API_HEADERS }
+
+  if (auth.isAuthenticated()) {
+    headers['Authorization'] = `Bearer ${auth.getToken()}`
   }
+
+  return request(url, {
+    headers,
+    ...options
+  })
 }
 
 export function getExercises (query) {
@@ -15,22 +21,21 @@ export function getExercises (query) {
     ? `?query=${query}`
     : ''
 
-  return request(`${API_URL}/exercises${queryParams}`, { headers: headersWithAuth() })
+  return authenticatedRequest(`/exercises${queryParams}`)
 }
 
 export function createExercise ({ name, mainMuscleWorkedId }) {
   const options = {
     method: 'POST',
-    headers: headersWithAuth(),
     body: JSON.stringify({ exercise: { name, mainMuscleWorkedId } })
   }
 
-  return request(`${API_URL}/exercises`, options)
+  return authenticatedRequest('/exercises', options)
 }
 
 // GET 💪🏼
 export function getMuscles () {
-  return request(`${API_URL}/muscles`, { headers: headersWithAuth() })
+  return authenticatedRequest('/muscles')
 }
 
 export function getRoutines (query) {
@@ -38,28 +43,22 @@ export function getRoutines (query) {
     ? `?query=${query}`
     : ''
 
-  return request(`${API_URL}/routines${queryParams}`, { headers: headersWithAuth() })
+  return authenticatedRequest(`/routines${queryParams}`)
 }
 
 export function getRoutine (routineId) {
-  return request(`${API_URL}/routines/${routineId}`, { headers: headersWithAuth() })
+  return authenticatedRequest(`/routines/${routineId}`)
 }
 
 export function createRoutine () {
-  const options = {
-    method: 'POST',
-    headers: headersWithAuth()
-  }
-
-  return request(`${API_URL}/routines`, options)
+  return authenticatedRequest('/routines', { method: 'POST' })
 }
 
 export function updateRoutine (routine) {
   const options = {
     method: 'PUT',
-    headers: headersWithAuth(),
     body: JSON.stringify({ routine })
   }
 
-  return request(`${API_URL}/routines/${routine.id}`, options)
+  return authenticatedRequest(`/routines/${routine.id}`, options)
 }

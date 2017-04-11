@@ -3,16 +3,24 @@ import { SetItem } from 'clientApp/components'
 import './styles.css'
 
 const propTypes = {
-  sets: PropTypes.array
+  sets: PropTypes.array,
+  onDeleteSetClick: PropTypes.func
 }
 
 class SetList extends Component {
   render () {
+    const { sets, onDeleteSetClick } = this.props
+
     return (
       <ul className='SetList'>
-        {this.props.sets.map((set, i) => {
+        {sets.map((set, i) => {
           return (
-            <SetItem {...set} setNumber={i + 1} key={i} />
+            <SetItem
+              {...set}
+              setNumber={i + 1}
+              key={i}
+              onDeleteClick={onDeleteSetClick}
+            />
           )
         })}
       </ul>

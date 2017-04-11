@@ -3,36 +3,45 @@ import SearchIcon from 'react-icons/lib/md/search'
 import classNames from 'classnames'
 import './styles.css'
 
-const { string, func } = PropTypes
+const { string, func, bool } = PropTypes
 const propTypes = {
   className: string,
   onChange: func,
-  placeholder: string
+  placeholder: string,
+  autoFocus: bool
 }
 
 class SearchBar extends Component {
   constructor (props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange (evt) {
     this.props.onChange && this.props.onChange(evt)
   }
 
+  handleSubmit (evt) {
+    // Prevent a page refresh, but don't do anything else
+    evt.preventDefault()
+  }
+
   render () {
+    const { className, placeholder, autoFocus } = this.props
     const searchBarClass = classNames(
       'SearchBar',
-      this.props.className
+      className
     )
 
     return (
-      <form className={searchBarClass} >
+      <form className={searchBarClass} onSubmit={this.handleSubmit} >
         <input
           type='text'
           className='SearchBar__input'
-          placeholder={this.props.placeholder}
+          placeholder={placeholder}
           onChange={this.handleChange}
+          autoFocus={autoFocus}
         />
         <SearchIcon className='SearchBar__icon' />
       </form>

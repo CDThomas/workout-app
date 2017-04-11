@@ -61,6 +61,7 @@ class RoutinesPage extends Component {
               className='RoutinesPage__searchBar'
               onChange={this.handleSearchChange}
               placeholder='Find a routine...'
+              autoFocus
             />
             <span className='RoutinesPage__text'>or</span>
             <a onClick={this.handleCreateRoutineClick} className='RoutinesPage__createRoutineLink'>

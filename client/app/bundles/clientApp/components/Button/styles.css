@@ -58,6 +58,16 @@
   border-color: #e8e8e8;
 }
 
+.Button--red {
+  background-color: #fff;
+  border: 1px solid #db2828;
+  color: #db2828;
+}
+
+.Button--red:hover, .Button--red:focus {
+  background-color: #fff0f0;
+}
+
 .Button--floatedLeft {
   float: left;
 }

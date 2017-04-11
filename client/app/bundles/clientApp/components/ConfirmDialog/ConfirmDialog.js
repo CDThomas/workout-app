@@ -2,13 +2,21 @@ import React, { PropTypes } from 'react'
 import { Modal, Panel, Button, Title } from 'clientApp/components'
 import './styles.css'
 
-const { bool, func, string } = PropTypes
+const { bool, func, string, oneOf } = PropTypes
 const propTypes = {
   isOpen: bool,
   text: string,
+  confirmButtonText: string,
+  confirmButtonColor: oneOf(['blue', 'white', 'red']),
   onRequestClose: func,
   onConfirm: func,
   onCancel: func
+}
+
+const defaultProps = {
+  text: 'Are you sure?',
+  confirmButtonColor: 'blue',
+  confirmButtonText: 'Yes'
 }
 
 function ConfirmDialog (props) {
@@ -17,7 +25,9 @@ function ConfirmDialog (props) {
     text,
     onRequestClose,
     onConfirm,
-    onCancel
+    onCancel,
+    confirmButtonColor,
+    confirmButtonText
   } = props
 
   return (
@@ -43,8 +53,9 @@ function ConfirmDialog (props) {
             <Button
               className='ConfirmDialog__confirmButton'
               onClick={onConfirm}
+              color={confirmButtonColor}
             >
-              Yes
+              {confirmButtonText}
             </Button>
           </div>
         </Panel.Content>
@@ -53,5 +64,6 @@ function ConfirmDialog (props) {
   )
 }
 ConfirmDialog.propTypes = propTypes
+ConfirmDialog.defaultProps = defaultProps
 
 export default ConfirmDialog

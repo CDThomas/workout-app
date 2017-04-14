@@ -43,6 +43,9 @@
   - This is just in a list for now. Might add a details page/modal later if I want more than the
     editing page
 - [x] user can delete a set from a routine
+- [ ] make UX for multiple saves while editing a routine more intuitive
+  - right now the first success message appears to stay up until there's an error, so it's not clear that
+    each save after the first save actually worked
 - [ ] add Redux for state management
   - I think Redux would be a good fit for the routine editor
     - optimistic updates
@@ -50,6 +53,8 @@
     - keeping state changes organized and understandable as I add features to the editor
     - routine caching
 - [ ] user can delete routines
+- [ ] routine list empty state (for when no routines have been created or search returns nothing)
+- [ ] on routine editor, scroll down if new set is added out of view
 - [ ] User can sort routines list by date created
   - [ ] paginate routines
   - [ ] add sort param for searching

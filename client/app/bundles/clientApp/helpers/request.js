@@ -9,6 +9,9 @@ function status (response) {
 }
 
 function json (response) {
+  // If there's no content in the body, just return so that chaining still works
+  if (response.status === 204) return
+
   return response.json()
 }
 

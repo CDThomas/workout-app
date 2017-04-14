@@ -8,6 +8,9 @@ import './styles.css'
 // Item might have a title, subtext, thumbnail, etc
 // How to handle controls? I'll let it sit for now and see if a pattern shows up
 
+// Yep, I'm thinking that SearchableList and Panel will be two separate components.
+// Both can share a base Header component, Title, etc
+
 const { node, string } = PropTypes
 
 function Panel (props) {

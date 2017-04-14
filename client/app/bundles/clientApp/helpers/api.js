@@ -62,3 +62,7 @@ export function updateRoutine (routine) {
 
   return authenticatedRequest(`/routines/${routine.id}`, options)
 }
+
+export function deleteRoutine (routineId) {
+  return authenticatedRequest(`/routines/${routineId}`, { method: 'DELETE' })
+}

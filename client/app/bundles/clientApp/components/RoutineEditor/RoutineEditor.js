@@ -1,14 +1,21 @@
 import React, { Component, PropTypes } from 'react'
-import { ExercisePanel, SetList, Button, Message } from 'clientApp/components'
+import {
+  ExercisePanel,
+  SetList,
+  Button,
+  Message,
+  ConfirmDialog
+} from 'clientApp/components'
 import './styles.css'
-import { updateRoutine, getRoutine } from 'clientApp/helpers/api'
+import { updateRoutine, getRoutine, deleteRoutine } from 'clientApp/helpers/api'
 
 const propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
     })
-  })
+  }),
+  history: PropTypes.object
 }
 
 class RoutineEditor extends Component {
@@ -21,13 +28,17 @@ class RoutineEditor extends Component {
       sets: [],
       errors: [],
       info: '',
-      isLoading: false
+      isLoading: false,
+      isDeleteRoutineConfirmOpen: false
     }
 
     this.handleChangeRoutineName = this.handleChangeRoutineName.bind(this)
     this.handleExerciseClick = this.handleExerciseClick.bind(this)
     this.handleDeleteSetClick = this.handleDeleteSetClick.bind(this)
     this.handleCreateRoutineClick = this.handleCreateRoutineClick.bind(this)
+    this.handleDeleteRoutineClick = this.handleDeleteRoutineClick.bind(this)
+    this.handleDeleteRoutineConfirm = this.handleDeleteRoutineConfirm.bind(this)
+    this.handleDeleteRoutineCancel = this.handleDeleteRoutineCancel.bind(this)
   }
 
   componentDidMount () {
@@ -65,6 +76,38 @@ class RoutineEditor extends Component {
 
     this.setState({
       sets: newSets
+    })
+  }
+
+  handleDeleteRoutineClick () {
+    this.setState({
+      isDeleteRoutineConfirmOpen: true
+    })
+  }
+
+  handleDeleteRoutineConfirm () {
+    deleteRoutine(this.state.routineId)
+      .then(() => {
+        // TODO: Flash message for successful delete on next route.
+        //       Something like a toast.
+        //       Prob will wait until I've implemented redux for this. That should simplify adding
+        //       and clearing toasts.
+        console.log(`Routine with ID ${this.state.routineId} deleted.`)
+
+        this.props.history.push('/routines')
+      })
+      .catch(() => {
+        console.log('catch cb called')
+        this.setState({
+          errors: [{ message: 'Unable to delete this routine' }],
+          isDeleteRoutineConfirmOpen: false
+        })
+      })
+  }
+
+  handleDeleteRoutineCancel () {
+    this.setState({
+      isDeleteRoutineConfirmOpen: false
     })
   }
 
@@ -125,9 +168,26 @@ class RoutineEditor extends Component {
                 onChange={this.handleChangeRoutineName}
                 value={this.state.routineName}
               />
-              <Button onClick={this.handleCreateRoutineClick}>
-                Save Routine
-              </Button>
+              <div className='RoutineEditor__controls'>
+                <Button onClick={this.handleDeleteRoutineClick} color='red'>
+                  Delete Routine
+                </Button>
+                <ConfirmDialog
+                  text='Are you sure you want to delete this routine?'
+                  confirmButtonText='Delete'
+                  confirmButtonColor='red'
+                  isOpen={this.state.isDeleteRoutineConfirmOpen}
+                  onConfirm={this.handleDeleteRoutineConfirm}
+                  onCancel={this.handleDeleteRoutineCancel}
+                  onRequestClose={this.handleDeleteRoutineCancel}
+                />
+                <Button
+                  className='RoutineEditor__saveButton'
+                  onClick={this.handleCreateRoutineClick}
+                >
+                  Save Routine
+                </Button>
+              </div>
             </div>
 
             {this.state.info && (

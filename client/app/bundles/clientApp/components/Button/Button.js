@@ -10,7 +10,7 @@ const propTypes = {
   className: string,
   floated: oneOf(['left', 'right']),
   size: oneOf(['small', 'medium']),
-  color: oneOf(['blue', 'white'])
+  color: oneOf(['blue', 'white', 'red'])
 }
 
 const defaultProps = {

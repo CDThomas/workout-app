@@ -24,3 +24,7 @@
 .RoutineEditor__routineNameInput:focus {
   outline: none;
 }
+
+.RoutineEditor__saveButton {
+  margin-left: 10px;
+}

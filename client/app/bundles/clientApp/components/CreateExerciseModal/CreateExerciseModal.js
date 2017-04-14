@@ -159,7 +159,7 @@ class CreateExerciseModal extends Component {
     return (
       <Modal
         isOpen={this.props.isOpen}
-        contentLabel='Modal'
+        contentLabel='Create exercise modal'
         onRequestClose={this.handleRequestClose}
       >
         <a

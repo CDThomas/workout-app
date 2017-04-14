@@ -33,7 +33,7 @@ function ConfirmDialog (props) {
   return (
     <Modal
       isOpen={isOpen}
-      contentLabel='Modal2'
+      contentLabel='Confirmation dialog'
       onRequestClose={onRequestClose}
     >
       <Panel>

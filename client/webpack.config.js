@@ -16,7 +16,7 @@ const config = {
     'es5-shim/es5-shim',
     'es5-shim/es5-sham',
     'babel-polyfill',
-    './app/bundles/clientApp/startup/registration',
+    './src/startup/registration',
   ],
 
   output: {
@@ -25,9 +25,10 @@ const config = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    extensions: ['.js'],
     alias: {
-      clientApp: path.resolve(__dirname, './app/bundles/clientApp'),
+      clientApp: path.resolve(__dirname, 'src'),
     }
   },
   plugins: [

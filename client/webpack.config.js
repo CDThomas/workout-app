@@ -26,17 +26,16 @@ const config = {
 
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-    extensions: ['.js'],
-    alias: {
-      clientApp: path.resolve(__dirname, 'src'),
-    }
+    extensions: ['.js']
   },
+
   plugins: [
     new webpack.EnvironmentPlugin([
       'NODE_ENV',
       'API_URL'
     ]),
   ],
+
   module: {
     rules: [
       {

@@ -3,7 +3,7 @@
   http://stackoverflow.com/questions/34072598/es6-exporting-importing-in-index-file .
 
   This along with Resolve.alias in my webpack config, this lets me say things like:
-  import { MyComponent } from 'clientApp/components'
+  import { MyComponent } from 'components'
 
   The docs for Resolve.alias are here:
   https://webpack.js.org/configuration/resolve/#resolve-alias

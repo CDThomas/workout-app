@@ -4,9 +4,9 @@ import {
   Panel,
   SearchBar,
   Title
-} from 'clientApp/components'
+} from 'components'
 import { Link } from 'react-router-dom'
-import { getRoutines, createRoutine } from 'clientApp/helpers/api'
+import { getRoutines, createRoutine } from 'helpers/api'
 import './styles.css'
 
 const propTypes = {

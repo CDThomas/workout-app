@@ -9,8 +9,8 @@ import {
   Message,
   Modal,
   Panel
-} from 'clientApp/components'
-import { getMuscles, createExercise } from 'clientApp/helpers/api'
+} from 'components'
+import { getMuscles, createExercise } from 'helpers/api'
 import { capitalize } from 'lodash'
 import './styles.css'
 

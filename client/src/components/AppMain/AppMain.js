@@ -10,10 +10,10 @@ import {
   PageHeader,
   Login,
   PrivateRoute
-} from 'clientApp/components'
+} from 'components'
 import {
   RoutinesPage
-} from 'clientApp/pages'
+} from 'pages'
 import 'normalize.css'
 import './styles.css'
 

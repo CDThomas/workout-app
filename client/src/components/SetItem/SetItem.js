@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Title, Button } from 'clientApp/components'
+import { Title, Button } from 'components'
 import './styles.css'
 
 const { string, number, func } = PropTypes

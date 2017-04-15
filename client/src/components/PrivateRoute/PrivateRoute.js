@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import auth from 'clientApp/helpers/authentication'
+import auth from 'helpers/authentication'
 
 const propTypes = {
   component: PropTypes.oneOfType([

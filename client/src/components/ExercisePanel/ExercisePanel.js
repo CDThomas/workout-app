@@ -5,8 +5,8 @@ import {
   CreateExerciseModal,
   Panel,
   Heading
-} from 'clientApp/components'
-import { getExercises } from 'clientApp/helpers/api'
+} from 'components'
+import { getExercises } from 'helpers/api'
 import './styles.css'
 
 const propTypes = {

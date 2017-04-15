@@ -1,6 +1,6 @@
 import { request } from './request'
 import auth from './authentication'
-import { API_URL, API_HEADERS } from 'clientApp/config/constants'
+import { API_URL, API_HEADERS } from 'config/constants'
 
 function authenticatedRequest (endpoint, options = {}) {
   const url = API_URL + endpoint

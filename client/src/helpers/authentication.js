@@ -1,6 +1,6 @@
 import { request } from './request'
 import { isTokenExpired } from './jwt'
-import { API_URL, API_HEADERS } from 'clientApp/config/constants'
+import { API_URL, API_HEADERS } from 'config/constants'
 
 function login (email, password) {
   const options = {

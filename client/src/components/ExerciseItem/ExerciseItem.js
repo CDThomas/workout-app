@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Title } from 'clientApp/components'
+import { Title } from 'components'
 import './styles.css'
 import { capitalize } from 'lodash'
 

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { ExerciseItem } from 'clientApp/components'
+import { ExerciseItem } from 'components'
 import './styles.css'
 
 const propTypes = {

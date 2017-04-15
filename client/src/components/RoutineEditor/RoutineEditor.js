@@ -5,9 +5,9 @@ import {
   Button,
   Message,
   ConfirmDialog
-} from 'clientApp/components'
+} from 'components'
 import './styles.css'
-import { updateRoutine, getRoutine, deleteRoutine } from 'clientApp/helpers/api'
+import { updateRoutine, getRoutine, deleteRoutine } from 'helpers/api'
 
 const propTypes = {
   match: PropTypes.shape({

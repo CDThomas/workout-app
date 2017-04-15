@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Button } from 'clientApp/components'
-import auth from 'clientApp/helpers/authentication'
+import { Button } from 'components'
+import auth from 'helpers/authentication'
 import './styles.css'
 
 class PageHeader extends Component {

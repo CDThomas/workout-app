@@ -8,8 +8,8 @@ import {
   Input,
   Button,
   Message
-} from 'clientApp/components'
-import auth from 'clientApp/helpers/authentication'
+} from 'components'
+import auth from 'helpers/authentication'
 import './styles.css'
 
 // TODO: handle referrer

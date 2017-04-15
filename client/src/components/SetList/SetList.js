@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { SetItem } from 'clientApp/components'
+import { SetItem } from 'components'
 import './styles.css'
 
 const propTypes = {

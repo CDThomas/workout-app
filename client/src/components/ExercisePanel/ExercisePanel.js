@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import {
-  ExerciseList,
   SearchBar,
-  CreateExerciseModal,
   Panel,
   Heading
 } from 'components'
+import ExerciseList from './ExerciseList/ExerciseList'
+import CreateExerciseModal from './CreateExerciseModal/CreateExerciseModal'
 import { getExercises } from 'helpers/api'
 import './styles.css'
 

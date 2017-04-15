@@ -6,12 +6,12 @@ import {
   Switch
 } from 'react-router-dom'
 import {
-  RoutineEditor,
   PageHeader,
-  Login,
   PrivateRoute
 } from 'components'
 import {
+  Login,
+  RoutineEditor,
   RoutinesPage
 } from 'pages'
 import 'normalize.css'

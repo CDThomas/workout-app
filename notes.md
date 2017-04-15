@@ -43,16 +43,17 @@
   - This is just in a list for now. Might add a details page/modal later if I want more than the
     editing page
 - [x] user can delete a set from a routine
+- [x] user can delete routines
 - [ ] make UX for multiple saves while editing a routine more intuitive
   - right now the first success message appears to stay up until there's an error, so it's not clear that
     each save after the first save actually worked
+  - I'm thinking that toasts might be nice for this too, which I'll add when I add redux
 - [ ] add Redux for state management
   - I think Redux would be a good fit for the routine editor
     - optimistic updates
     - should be useful for 'undo' feature
     - keeping state changes organized and understandable as I add features to the editor
     - routine caching
-- [ ] user can delete routines
 - [ ] routine list empty state (for when no routines have been created or search returns nothing)
 - [ ] on routine editor, scroll down if new set is added out of view
 - [ ] User can sort routines list by date created
@@ -110,6 +111,13 @@
     - http://jsbin.com/itajok/539/edit?html,js,output (best looking so far)
     - https://codepen.io/somethingkindawierd/post/react-mixin-scroll-lock
     - https://dimakuzmich.wordpress.com/2013/07/16/prevent-scrolling-of-parent-element-with-javascript/
+- [ ] style refactoring
+  - I'm thinking either styled-component/polished, css-modules, SASS, or some combination
+  - Also auto-prefix with PostCSS (unless using styled-components)
+- [ ] Improve login/authentication UX by not requiring the user to sign in daily due to token
+      expiration
+  - [this](http://stackoverflow.com/a/26834685) method looks simplest
+  - could also look into refresh tokens
 - readme
   - [ ] .env
   - [ ] startup

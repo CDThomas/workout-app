@@ -1,15 +1,24 @@
 import React, { Component, PropTypes } from 'react'
-import { SetItem } from 'components'
+import { SetItem, Loader } from 'components'
 import './styles.css'
 
 const propTypes = {
   sets: PropTypes.array,
-  onDeleteSetClick: PropTypes.func
+  onDeleteSetClick: PropTypes.func,
+  isLoading: PropTypes.bool
 }
 
 class SetList extends Component {
   render () {
-    const { sets, onDeleteSetClick } = this.props
+    const { sets, onDeleteSetClick, isLoading } = this.props
+
+    if (isLoading) {
+      return (
+        <div className='SetList--empty'>
+          <Loader />
+        </div>
+      )
+    }
 
     return (
       <ul className='SetList'>

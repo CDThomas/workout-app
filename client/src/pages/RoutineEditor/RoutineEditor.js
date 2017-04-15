@@ -8,6 +8,7 @@ import {
 } from 'components'
 import './styles.css'
 import { updateRoutine, getRoutine, deleteRoutine } from 'helpers/api'
+import classNames from 'classnames'
 
 const propTypes = {
   match: PropTypes.shape({
@@ -28,7 +29,7 @@ class RoutineEditor extends Component {
       sets: [],
       errors: [],
       info: '',
-      isLoading: false,
+      isLoading: true,
       isDeleteRoutineConfirmOpen: false
     }
 
@@ -50,7 +51,8 @@ class RoutineEditor extends Component {
         this.setState({
           routineId: id,
           routineName: name || '',
-          sets
+          sets,
+          isLoading: false
         })
       })
       // TODO: handle 404 (routine not found)
@@ -153,6 +155,11 @@ class RoutineEditor extends Component {
   }
 
   render () {
+    const nameInputClass = classNames(
+      'RoutineEditor__routineNameInput',
+      { 'RoutineEditor__routineNameInput--disabled': this.state.isLoading }
+    )
+
     return (
       <div className='RoutineEditor'>
         <ExercisePanel
@@ -163,13 +170,18 @@ class RoutineEditor extends Component {
           <div className='RoutineEditor__container'>
             <div className='RoutineEditor__header'>
               <input
-                className='RoutineEditor__routineNameInput'
+                className={nameInputClass}
                 type='text'
                 onChange={this.handleChangeRoutineName}
                 value={this.state.routineName}
+                disabled={this.state.isLoading}
               />
               <div className='RoutineEditor__controls'>
-                <Button onClick={this.handleDeleteRoutineClick} color='red'>
+                <Button
+                  onClick={this.handleDeleteRoutineClick}
+                  color='red'
+                  disabled={this.state.isLoading}
+                >
                   Delete Routine
                 </Button>
                 <ConfirmDialog
@@ -184,6 +196,7 @@ class RoutineEditor extends Component {
                 <Button
                   className='RoutineEditor__saveButton'
                   onClick={this.handleCreateRoutineClick}
+                  disabled={this.state.isLoading}
                 >
                   Save Routine
                 </Button>
@@ -204,6 +217,7 @@ class RoutineEditor extends Component {
             <SetList
               sets={this.state.sets}
               onDeleteSetClick={this.handleDeleteSetClick}
+              isLoading={this.state.isLoading}
             />
           </div>
         </div>

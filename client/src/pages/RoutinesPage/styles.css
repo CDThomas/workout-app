@@ -26,3 +26,8 @@
   display: flex;
   text-decoration: none;
 }
+
+.RoutinesPage__routineList--empty {
+  height: 100px;
+  position: relative;
+}

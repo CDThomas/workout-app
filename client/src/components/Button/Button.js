@@ -2,11 +2,12 @@ import React, { PropTypes } from 'react'
 import classNames from 'classnames'
 import './styles.css'
 
-const { node, func, string, oneOf } = PropTypes
+const { node, func, string, oneOf, bool } = PropTypes
 const propTypes = {
   children: node.isRequired,
   onClick: func,
-  type: string,
+  // type: string,
+  disabled: bool,
   className: string,
   floated: oneOf(['left', 'right']),
   size: oneOf(['small', 'medium']),
@@ -25,13 +26,14 @@ function Button (props) {
     `Button--${props.color}`,
     { 'Button--floatedLeft': props.floated === 'left' },
     { 'Button--floatedRight': props.floated === 'right' },
+    { 'Button--disabled': props.disabled },
     props.className
   )
 
   return (
     <button
+      {...props}
       onClick={props.onClick}
-      type={props.type}
       className={btnClass}
     >
       {props.children}

@@ -6,7 +6,7 @@ const { node, func, string, oneOf, bool } = PropTypes
 const propTypes = {
   children: node.isRequired,
   onClick: func,
-  // type: string,
+  type: string,
   disabled: bool,
   className: string,
   floated: oneOf(['left', 'right']),
@@ -20,11 +20,16 @@ const defaultProps = {
 }
 
 function Button (props) {
+  const {
+    disabled,
+    type,
+    onClick
+  } = props
+
   const btnClass = classNames(
     'Button',
     `Button--${props.size}`,
     `Button--${props.color}`,
-    { 'Button--floatedLeft': props.floated === 'left' },
     { 'Button--floatedRight': props.floated === 'right' },
     { 'Button--disabled': props.disabled },
     props.className
@@ -32,8 +37,9 @@ function Button (props) {
 
   return (
     <button
-      {...props}
-      onClick={props.onClick}
+      disabled={disabled}
+      type={type}
+      onClick={onClick}
       className={btnClass}
     >
       {props.children}

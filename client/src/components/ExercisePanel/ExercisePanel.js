@@ -22,7 +22,8 @@ class ExercisePanel extends Component {
     // This might change.
     this.state = {
       exercises: [],
-      isModalOpen: false
+      isModalOpen: false,
+      isLoading: true
     }
 
     this.handleSearchChange = this.handleSearchChange.bind(this)
@@ -35,7 +36,8 @@ class ExercisePanel extends Component {
     getExercises()
       .then(data => {
         this.setState({
-          exercises: data.exercises || []
+          exercises: data.exercises || [],
+          isLoading: false
         })
       })
       .catch(error => console.warn(error))
@@ -43,11 +45,13 @@ class ExercisePanel extends Component {
 
   handleSearchChange (evt) {
     const query = evt.target.value
+    this.setState({ isLoading: true })
 
     getExercises(query)
       .then(data => {
         this.setState({
-          exercises: data.exercises || []
+          exercises: data.exercises || [],
+          isLoading: false
         })
       })
       .catch(error => console.warn(error))
@@ -78,7 +82,7 @@ class ExercisePanel extends Component {
   }
 
   render () {
-    const { exercises, isModalOpen } = this.state
+    const { exercises, isModalOpen, isLoading } = this.state
     return (
       <Panel className='ExercisePanel'>
         <Panel.Header className='ExercisePanel__header'>
@@ -103,6 +107,7 @@ class ExercisePanel extends Component {
           exercises={exercises}
           onCreateExerciseClick={this.handleCreateExerciseClick}
           onExerciseClick={this.props.onExerciseClick}
+          isLoading={isLoading}
         />
       </Panel>
     )

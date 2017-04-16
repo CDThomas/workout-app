@@ -1,8 +1,8 @@
 // Trying out style-components for this one.
 // I like styled-components except for not-so-great debugging because the class name in inspector
 // is just a random string (cryptic) and the display name in the React Debugger is <Styled.div />
-// I looks like they're improving this with v2 though.
-// See: https://github.com/styled-components/babel-plugin-styled-components
+// I looks like they're fixing this with v2 though
+// See: https://github.com/styled-components/styled-components/pull/227
 
 import styled, { keyframes } from 'styled-components'
 

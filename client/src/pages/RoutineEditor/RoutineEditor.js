@@ -155,16 +155,13 @@ class RoutineEditor extends Component {
   }
 
   render () {
-    const nameInputClass = classNames(
-      'RoutineEditor__routineNameInput',
-      { 'RoutineEditor__routineNameInput--disabled': this.state.isLoading }
-    )
+    const nameInputClass = classNames('RoutineEditor__routineNameInput', {
+      'RoutineEditor__routineNameInput--disabled': this.state.isLoading
+    })
 
     return (
       <div className='RoutineEditor'>
-        <ExercisePanel
-          onExerciseClick={this.handleExerciseClick}
-        />
+        <ExercisePanel onExerciseClick={this.handleExerciseClick} />
 
         <div className='RoutineEditor__exercisePanelOffset'>
           <div className='RoutineEditor__container'>
@@ -203,17 +200,16 @@ class RoutineEditor extends Component {
               </div>
             </div>
 
-            {this.state.info && (
+            {this.state.info &&
               <Message success>
                 {this.state.info}
-              </Message>
-            )}
+              </Message>}
 
-            {this.state.errors && this.state.errors.length > 0 && (
+            {this.state.errors &&
+              this.state.errors.length > 0 &&
               <Message error>
                 {this.state.errors.map(e => e.message).join('. ')}
-              </Message>
-            )}
+              </Message>}
             <SetList
               sets={this.state.sets}
               onDeleteSetClick={this.handleDeleteSetClick}

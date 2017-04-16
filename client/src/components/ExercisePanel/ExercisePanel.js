@@ -1,9 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import {
-  SearchBar,
-  Panel,
-  Heading
-} from 'components'
+import { SearchBar, Panel, Heading } from 'components'
 import ExerciseList from './ExerciseList/ExerciseList'
 import CreateExerciseModal from './CreateExerciseModal/CreateExerciseModal'
 import { getExercises } from 'helpers/api'
@@ -17,9 +13,9 @@ class ExercisePanel extends Component {
   constructor (props) {
     super(props)
 
-    // Setting state from props because these props are only passed on initial load.
-    // So right now there's not a scenario where this component will receive new props.
-    // This might change.
+    // Setting state from props because these props are only passed on initial
+    //   load. So right now there's not a scenario where this component will
+    //   receive new props.
     this.state = {
       exercises: [],
       isModalOpen: false,
@@ -93,7 +89,10 @@ class ExercisePanel extends Component {
             placeholder='Find an exercise...'
           />
           <span className='ExercisePanel__headerText'>or</span>
-          <a className='ExercisePanel__createExerciseLink' onClick={this.handleCreateExerciseClick}>
+          <a
+            className='ExercisePanel__createExerciseLink'
+            onClick={this.handleCreateExerciseClick}
+          >
             create one
           </a>
           <CreateExerciseModal

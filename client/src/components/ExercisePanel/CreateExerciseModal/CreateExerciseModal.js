@@ -43,7 +43,7 @@ class CreateExerciseModal extends Component {
 
   componentDidMount () {
     getMuscles()
-      .then((data) => {
+      .then(data => {
         this.setState({
           muscleOptions: data.muscles,
           mainMuscleWorkedId: data.muscles[0].id
@@ -57,7 +57,9 @@ class CreateExerciseModal extends Component {
     this.setState({
       errors: [],
       name: '',
-      mainMuscleWorkedId: this.state.muscleOptions.length ? this.state.muscleOptions[0].id : null
+      mainMuscleWorkedId: this.state.muscleOptions.length
+        ? this.state.muscleOptions[0].id
+        : null
     })
 
     // Call cb from parent
@@ -91,13 +93,13 @@ class CreateExerciseModal extends Component {
         const response = error.response
         if (response && response.status === 422) {
           response.json().then(body => {
-            this.setState({errors: body.errors})
+            this.setState({ errors: body.errors })
           })
         } else {
           console.error(error)
         }
       })
-      .then(() => this.setState({isSubmitting: false}))
+      .then(() => this.setState({ isSubmitting: false }))
   }
 
   renderForm () {
@@ -126,7 +128,7 @@ class CreateExerciseModal extends Component {
             onChange={this.handleInputChange}
             value={this.state.mainMuscleWorkedId}
           >
-            {this.state.muscleOptions.map((muscle) => {
+            {this.state.muscleOptions.map(muscle => {
               const { id, name } = muscle
               return (
                 <option key={id} value={id}>
@@ -137,15 +139,16 @@ class CreateExerciseModal extends Component {
           </select>
         </Field>
 
-        {this.state.errors.length > 0 && (
+        {this.state.errors.length > 0 &&
           <Message
             error
-            header={this.state.errors.length > 1
-              ? 'There were some errors with your submission:'
-              : 'There was an error with your submission:'}
+            header={
+              this.state.errors.length > 1
+                ? 'There were some errors with your submission:'
+                : 'There was an error with your submission:'
+            }
             list={this.state.errors.map(err => err.message)}
-          />
-        )}
+          />}
 
         <Button type='submit' floated='right'>
           Create

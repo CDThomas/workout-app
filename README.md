@@ -51,3 +51,17 @@ src/
     Button/
     ...
 ```
+
+## Dependencies
+
+### React App
+
+Dependencies for the React app are in `/client/package.json`
+
+Dependencies required for a production build are under `"dependencies"`.This includes Webpack and loader-related dependencies used in the production build.
+
+Dependencies only required for development are under `"devDependencies"`. This includes Dotenv (for handling environment variables in development) and linter-related dependencies.
+
+Why:
+* Including Webpack and loader-related dependencies in `"dependencies"` prevents dependencies from being skipped during `NODE_ENV=production yarn install`
+* Including dependencies not needed for a production build in `"devDependencies"` speeds up build times for deployments and CI

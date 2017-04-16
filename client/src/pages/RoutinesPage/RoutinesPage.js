@@ -1,11 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import {
-  Heading,
-  Loader,
-  Panel,
-  SearchBar,
-  Title
-} from 'components'
+import { Heading, Loader, Panel, SearchBar, Title } from 'components'
 import { Link } from 'react-router-dom'
 import { getRoutines, createRoutine } from 'helpers/api'
 import './styles.css'
@@ -43,7 +37,7 @@ class RoutinesPage extends Component {
     this.setState({ isLoading: true })
 
     getRoutines(query)
-      .then(({routines}) => {
+      .then(({ routines }) => {
         this.setState({
           routines,
           isLoading: false
@@ -99,7 +93,10 @@ class RoutinesPage extends Component {
               autoFocus
             />
             <span className='RoutinesPage__text'>or</span>
-            <a onClick={this.handleCreateRoutineClick} className='RoutinesPage__createRoutineLink'>
+            <a
+              onClick={this.handleCreateRoutineClick}
+              className='RoutinesPage__createRoutineLink'
+            >
               create one
             </a>
           </Panel.Header>

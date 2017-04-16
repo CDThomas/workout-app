@@ -25,6 +25,12 @@
   outline: none;
 }
 
+.RoutineEditor__routineNameInput--disabled {
+  opacity: .45;
+  pointer-events: none;
+  cursor: default;
+}
+
 .RoutineEditor__saveButton {
   margin-left: 10px;
 }

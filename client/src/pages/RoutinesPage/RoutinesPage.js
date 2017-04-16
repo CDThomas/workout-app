@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import {
   Heading,
+  Loader,
   Panel,
   SearchBar,
   Title
@@ -18,7 +19,8 @@ class RoutinesPage extends Component {
     super(props)
 
     this.state = {
-      routines: []
+      routines: [],
+      isLoading: true
     }
 
     this.handleSearchChange = this.handleSearchChange.bind(this)
@@ -28,16 +30,24 @@ class RoutinesPage extends Component {
   componentDidMount () {
     getRoutines()
       .then(({ routines }) => {
-        this.setState({ routines })
+        this.setState({
+          routines,
+          isLoading: false
+        })
       })
       .catch(error => console.warn(error))
   }
 
   handleSearchChange (evt) {
     const query = evt.target.value
+    this.setState({ isLoading: true })
+
     getRoutines(query)
       .then(({routines}) => {
-        this.setState({ routines })
+        this.setState({
+          routines,
+          isLoading: false
+        })
       })
       .catch(error => console.warn(error))
   }
@@ -49,6 +59,31 @@ class RoutinesPage extends Component {
         this.props.history.push(`/routines/${routine.id}`)
       })
       .catch(error => console.warn(error))
+  }
+
+  renderRoutineList () {
+    if (this.state.isLoading) {
+      return (
+        <div className='RoutinesPage__routineList--empty'>
+          <Loader />
+        </div>
+      )
+    }
+
+    return (
+      <Panel.List>
+        {this.state.routines.map(routine => {
+          const { id, name } = routine
+          return (
+            <Panel.ListItem key={id}>
+              <Link to={`/routines/${id}`} className='RoutinesPage__link'>
+                <Title>{name}</Title>
+              </Link>
+            </Panel.ListItem>
+          )
+        })}
+      </Panel.List>
+    )
   }
 
   render () {
@@ -68,18 +103,7 @@ class RoutinesPage extends Component {
               create one
             </a>
           </Panel.Header>
-          <Panel.List>
-            {this.state.routines.map(routine => {
-              const { id, name } = routine
-              return (
-                <Panel.ListItem key={id}>
-                  <Link to={`/routines/${id}`} className='RoutinesPage__link'>
-                    <Title>{name}</Title>
-                  </Link>
-                </Panel.ListItem>
-              )
-            })}
-          </Panel.List>
+          {this.renderRoutineList()}
         </Panel>
       </div>
     )

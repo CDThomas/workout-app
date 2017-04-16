@@ -1,15 +1,25 @@
 import React, { PropTypes } from 'react'
 import ExerciseItem from '../ExerciseItem/ExerciseItem'
+import { Loader } from 'components'
 import './styles.css'
 
 const propTypes = {
   exercises: PropTypes.array,
   // I'll probably remove this cb function and dispatch an action instead if I add Redux
   onCreateExerciseClick: PropTypes.func.isRequired,
-  onExerciseClick: PropTypes.func.isRequired
+  onExerciseClick: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 }
 
-function ExerciseList ({ exercises, onCreateExerciseClick, onExerciseClick }) {
+function ExerciseList ({ exercises, onCreateExerciseClick, onExerciseClick, isLoading }) {
+  if (isLoading) {
+    return (
+      <div className='ExerciseList--empty'>
+        <Loader />
+      </div>
+    )
+  }
+
   if (exercises === undefined || exercises.length === 0) {
     return (
       <div className='ExerciseList--empty'>

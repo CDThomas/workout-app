@@ -75,3 +75,12 @@
 .Button--floatedRight {
   float: right;
 }
+
+.Button--disabled,
+.Button--disabled:hover {
+  cursor: default;
+  opacity: .45;
+  background-image: none;
+  box-shadow: none;
+  pointer-events: none;
+}

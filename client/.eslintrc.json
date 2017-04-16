@@ -1,6 +1,15 @@
 {
-  "extends": ["standard", "standard-react"],
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
   "env": {
     "browser": true
+  },
+  "rules": {
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ]
   }
 }

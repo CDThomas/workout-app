@@ -48,6 +48,6 @@ src/
   shared/
     Title/
     Modal/
-    Buton/
+    Button/
     ...
 ```

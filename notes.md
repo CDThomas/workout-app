@@ -42,8 +42,10 @@
 - [x] user can view routines they have created
   - This is just in a list for now. Might add a details page/modal later if I want more than the
     editing page
+- [x] user can edit routines
 - [x] user can delete a set from a routine
 - [x] user can delete routines
+- [x] routine list empty state (for when no routines have been created or search returns nothing)
 - [ ] make UX for multiple saves while editing a routine more intuitive
   - right now the first success message appears to stay up until there's an error, so it's not clear that
     each save after the first save actually worked
@@ -54,7 +56,6 @@
     - should be useful for 'undo' feature
     - keeping state changes organized and understandable as I add features to the editor
     - routine caching
-- [ ] routine list empty state (for when no routines have been created or search returns nothing)
 - [ ] on routine editor, scroll down if new set is added out of view
 - [ ] User can sort routines list by date created
   - [ ] paginate routines
@@ -64,7 +65,6 @@
     last performed, etc
 - [ ] client-side validation of forms/inputs with feedback for user
 - [ ] ErrorMessage component
-- [ ] user can remove an exercise in the RoutineExerciseList
 - [ ] try using JSON schemas for validation (ex: in POST to routines#create)
   - I think this would be cleaner than `accepts_nested_attributes_for` because the FE can send nicely
     formatted JSON without using rails conventions
@@ -91,7 +91,6 @@
 - [ ] animate search on the exercise list? eh?
 - [ ] animate Message component entering dom
   - https://facebook.github.io/react/docs/animation.html
-- [ ] user can edit routines
 - [ ] add images to exercises
   - I'm thinking google cloud storage because it'd be free
   - can use carrierwave/fog
@@ -103,6 +102,7 @@
 - [ ] webpack optimization stuff
   - lodash
 - [ ] add autoprefixer
+  - will either be handled with PostCSS or by styled-components
 - [ ] Could show user names of similar exercises that have been created while creating an exercise
 - [ ] Favicon
 - [ ] prevent scrolling on parent elements (document body) when ExercisePanel reaches its boundaries

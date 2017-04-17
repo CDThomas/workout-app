@@ -1,3 +1,10 @@
+import qs from 'qs'
+
+function appendQueryString (url, params) {
+  const queryString = qs.stringify(params)
+  return queryString ? `${url}?${queryString}` : url
+}
+
 function status (response) {
   if (response.status >= 200 && response.status < 300) {
     return Promise.resolve(response)
@@ -16,7 +23,8 @@ function json (response) {
 }
 
 export function request (url = '', options = {}) {
-  return fetch(url, options)
-    .then(status)
-    .then(json)
+  const { params } = options
+  const urlWithQueryString = params ? appendQueryString(url, params) : url
+
+  return fetch(urlWithQueryString, options).then(status).then(json)
 }

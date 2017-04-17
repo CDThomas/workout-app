@@ -17,11 +17,9 @@ function authenticatedRequest (endpoint, options = {}) {
 }
 
 export function getExercises (query) {
-  const queryParams = query !== undefined
-    ? `?query=${query}`
-    : ''
-
-  return authenticatedRequest(`/exercises${queryParams}`)
+  return authenticatedRequest(`/exercises`, {
+    params: { query }
+  })
 }
 
 export function createExercise ({ name, mainMuscleWorkedId }) {
@@ -39,11 +37,9 @@ export function getMuscles () {
 }
 
 export function getRoutines (query) {
-  const queryParams = query !== undefined
-    ? `?query=${query}`
-    : ''
-
-  return authenticatedRequest(`/routines${queryParams}`)
+  return authenticatedRequest(`/routines`, {
+    params: { query }
+  })
 }
 
 export function getRoutine (routineId) {

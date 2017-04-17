@@ -1,14 +1,28 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as routinesActionCreators from 'redux/modules/routines'
 import { updateRoutine, getRoutine, deleteRoutine } from 'helpers/api'
 import { RoutineEditor } from 'components'
 
+const { shape, string, object, number, arrayOf, func } = PropTypes
 const propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string.isRequired
+  // React Router
+  match: shape({
+    params: shape({
+      id: string.isRequired
     })
   }),
-  history: PropTypes.object
+  history: object,
+
+  // Redux
+  routine: shape({
+    name: string,
+    id: number
+  }),
+  sets: arrayOf(object)
+  // addRoutine: func.isRequired,
+  // updateRoutine: func.isRequired
 }
 
 class RoutineEditorContainer extends Component {
@@ -37,6 +51,7 @@ class RoutineEditorContainer extends Component {
   componentDidMount () {
     const { id } = this.props.match.params
 
+    // fetchRoutine (thunk)
     getRoutine(id)
       .then(({ routine }) => {
         const { id, name, sets } = routine
@@ -46,12 +61,15 @@ class RoutineEditorContainer extends Component {
           sets,
           isLoading: false
         })
+
+        // this.props.addRoutine({ id, name, sets })
       })
       // TODO: handle 404 (routine not found)
       .catch(error => console.warn(error))
   }
 
   handleExerciseClick (exercise) {
+    // addSet
     const newSet = {
       exerciseName: exercise.name,
       exerciseId: exercise.id,
@@ -64,6 +82,7 @@ class RoutineEditorContainer extends Component {
   }
 
   handleDeleteSetClick (setNumber) {
+    // removeSet or deleteSet
     const { sets } = this.state
     const setIndex = setNumber - 1
     const newSets = [...sets.slice(0, setIndex), ...sets.slice(setIndex + 1)]
@@ -74,12 +93,15 @@ class RoutineEditorContainer extends Component {
   }
 
   handleDeleteRoutineClick () {
+    // This can probably be internal state of a lower component, like the delete
+    // button. Probably won't live in the store.
     this.setState({
       isDeleteRoutineConfirmOpen: true
     })
   }
 
   handleDeleteRoutineConfirm () {
+    // deleteRoutine (thunk)
     deleteRoutine(this.state.routineId)
       .then(() => {
         // TODO: Flash message for successful delete on next route.
@@ -100,18 +122,23 @@ class RoutineEditorContainer extends Component {
   }
 
   handleDeleteRoutineCancel () {
+    // This can probably be internal state of a lower component, like the delete
+    // button. Probably won't live in the store.
     this.setState({
       isDeleteRoutineConfirmOpen: false
     })
   }
 
   handleChangeRoutineName (evt) {
+    // changeRoutineName(routineName, routineId)
     this.setState({
       routineName: evt.target.value
     })
   }
 
+  // This is really saveRoutineClick now
   handleCreateRoutineClick () {
+    // TODO: format this somewhere else (maybe in the api helper)
     const routine = {
       id: this.state.routineId,
       name: this.state.routineName,
@@ -120,6 +147,7 @@ class RoutineEditorContainer extends Component {
 
     this.setState({ isLoading: true })
 
+    // updateRoutine(routine) (thunk)
     updateRoutine(routine)
       .then(({ routine }) => {
         const { name, sets } = routine
@@ -129,6 +157,8 @@ class RoutineEditorContainer extends Component {
           routineName: name,
           sets
         })
+
+        // this.props.updateRoutine(routine)
       })
       .catch(error => {
         const response = error.response
@@ -156,6 +186,9 @@ class RoutineEditorContainer extends Component {
       sets
     } = this.state
 
+    // const { routine, sets } = this.props
+    // const routineName = (routine && routine.name) || ''
+
     return (
       <RoutineEditor
         onExerciseClick={this.handleExerciseClick}
@@ -177,4 +210,19 @@ class RoutineEditorContainer extends Component {
 }
 RoutineEditorContainer.propTypes = propTypes
 
-export default RoutineEditorContainer
+function mapStateToProps ({ routines }, ownProps) {
+  const routineId = ownProps.match.params.id
+  const routine = routines[routineId]
+  return {
+    routine
+    // sets: (routine && routine.sets) || []
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators(routinesActionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  RoutineEditorContainer
+)

@@ -1,44 +1,86 @@
 // start with no client-side cache for simplicity
 
-const ADD_ROUTINE = 'ADD_ROUTINE'
-const ADD_MULTIPLE_ROUTINES = 'ADD_MULTIPLE_ROUTINES'
-const DELETE_ROUTINE = 'DELETE_ROUTINE'
+// const ADD_ROUTINE = 'ADD_ROUTINE'
+// const UPDATE_ROUTINE = 'UPDATE_ROUTINE'
 
-export function addRoutine (routine) {
+const FETCH_ROUTINE_REQUEST = 'FETCH_ROUTINE_REQUEST'
+const FETCH_ROUTINE_SUCCESS = 'FETCH_ROUTINE_SUCCESS'
+const FETCH_ROUTINE_ERROR = 'FETCH_ROUTINE_ERROR'
+
+const UPDATE_ROUTINE_REQUEST = 'UPDATE_ROUTINE_REQUEST'
+const UPDATE_ROUTINE_SUCCESS = 'UPDATE_ROUTINE_SUCCESS'
+const UPDATE_ROUTINE_ERROR = 'UPDATE_ROUTINE_ERROR'
+
+const DELETE_ROUTINE_REQUEST = 'DELETE_ROUTINE_REQUEST'
+const DELETE_ROUTINE_SUCCESS = 'DELETE_ROUTINE_SUCCESS'
+const DELETE_ROUTINE_ERROR = 'DELETE_ROUTINE_ERROR'
+
+// export function addRoutine (routine) {
+//   return {
+//     type: ADD_ROUTINE,
+//     routine
+//   }
+// }
+
+// export function updateRoutine (routine) {
+//   return {
+//     type: UPDATE_ROUTINE,
+//     routine
+//   }
+// }
+
+export function fetchRoutineRequest (routineId) {
   return {
-    type: ADD_ROUTINE,
+    type: FETCH_ROUTINE_REQUEST,
+    routineId: routineId
+  }
+}
+
+export function fetchRoutineSuccess (routine) {
+  return {
+    type: FETCH_ROUTINE_SUCCESS,
     routine
   }
 }
 
-export function addMultipleRoutines (routines) {
+export function fetchRoutineError (error) {
+  console.warn(error)
   return {
-    type: ADD_MULTIPLE_ROUTINES,
-    routines
+    type: FETCH_ROUTINE_ERROR,
+    error: `Error fetching routine: ${error}`
   }
 }
 
-export function deleteRoutine (routineId) {
-  return {
-    type: DELETE_ROUTINE,
-    routineId
-  }
+export function fetchRoutine (routineId) {
+  // Make request
+  // Success
+  // Error
 }
 
-export default function routines (state = {}, action) {
+/*
+  Individual routine state:
+  {
+    isLoading: true, // loading the individual routine
+    error: '',
+    isPersisted: false, // false if the user changes the routine and hasn't persisted,
+    id: 1,
+    name: '',
+    setIds: []
+  }
+*/
+
+const initialState = {
+  isLoading: false, // Loading the list
+  error: ''
+}
+
+export default function routines (state = initialState, action) {
   switch (action.type) {
-    case ADD_ROUTINE:
+    // case ADD_ROUTINE:
+    // case UPDATE_ROUTINE:
+    case FETCH_ROUTINE_SUCCESS:
       return {
         [action.routine.id]: action.routine
-      }
-    case ADD_MULTIPLE_ROUTINES:
-      const routinesById = action.routines.reduce((routines, routine) => {
-        routines[routine.id] = routine
-        return routines
-      }, {})
-
-      return {
-        ...routinesById
       }
     default:
       return state

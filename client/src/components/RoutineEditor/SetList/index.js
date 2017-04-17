@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { Loader } from 'components'
 import SetItem from '../SetItem'
 import styled from 'styled-components'
-import './styles.css'
 
 const propTypes = {
   sets: PropTypes.array,

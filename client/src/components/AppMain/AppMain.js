@@ -5,15 +5,9 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom'
-import {
-  PageHeader,
-  PrivateRoute
-} from 'components'
-import {
-  Login,
-  RoutineEditor,
-  RoutinesPage
-} from 'pages'
+import { PageHeader, PrivateRoute } from 'components'
+import { RoutineEditorContainer } from 'containers'
+import { Login, RoutinesPage } from 'pages'
 import 'normalize.css'
 import './styles.css'
 
@@ -30,7 +24,7 @@ class AppMain extends Component {
             </Switch>
             <PrivateRoute
               path='/routines/:id'
-              component={RoutineEditor}
+              component={RoutineEditorContainer}
             />
             <Route path='/login' component={Login} />
             {/* TODO: not found route */}

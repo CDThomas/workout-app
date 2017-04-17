@@ -1,14 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import {
-  ExercisePanel,
-  SetList,
-  Button,
-  Message,
-  ConfirmDialog
-} from 'components'
-import './styles.css'
 import { updateRoutine, getRoutine, deleteRoutine } from 'helpers/api'
-import classNames from 'classnames'
+import { RoutineEditor } from 'components'
 
 const propTypes = {
   match: PropTypes.shape({
@@ -19,7 +11,7 @@ const propTypes = {
   history: PropTypes.object
 }
 
-class RoutineEditor extends Component {
+class RoutineEditorContainer extends Component {
   constructor (props) {
     super(props)
 
@@ -155,72 +147,34 @@ class RoutineEditor extends Component {
   }
 
   render () {
-    const nameInputClass = classNames('RoutineEditor__routineNameInput', {
-      'RoutineEditor__routineNameInput--disabled': this.state.isLoading
-    })
+    const {
+      routineName,
+      isLoading,
+      isDeleteRoutineConfirmOpen,
+      info,
+      errors,
+      sets
+    } = this.state
 
     return (
-      <div className='RoutineEditor'>
-        <ExercisePanel onExerciseClick={this.handleExerciseClick} />
-
-        <div className='RoutineEditor__exercisePanelOffset'>
-          <div className='RoutineEditor__container'>
-            <div className='RoutineEditor__header'>
-              <input
-                className={nameInputClass}
-                type='text'
-                onChange={this.handleChangeRoutineName}
-                value={this.state.routineName}
-                disabled={this.state.isLoading}
-              />
-              <div className='RoutineEditor__controls'>
-                <Button
-                  onClick={this.handleDeleteRoutineClick}
-                  color='red'
-                  disabled={this.state.isLoading}
-                >
-                  Delete Routine
-                </Button>
-                <ConfirmDialog
-                  text='Are you sure you want to delete this routine?'
-                  confirmButtonText='Delete'
-                  confirmButtonColor='red'
-                  isOpen={this.state.isDeleteRoutineConfirmOpen}
-                  onConfirm={this.handleDeleteRoutineConfirm}
-                  onCancel={this.handleDeleteRoutineCancel}
-                  onRequestClose={this.handleDeleteRoutineCancel}
-                />
-                <Button
-                  className='RoutineEditor__saveButton'
-                  onClick={this.handleCreateRoutineClick}
-                  disabled={this.state.isLoading}
-                >
-                  Save Routine
-                </Button>
-              </div>
-            </div>
-
-            {this.state.info &&
-              <Message success>
-                {this.state.info}
-              </Message>}
-
-            {this.state.errors &&
-              this.state.errors.length > 0 &&
-              <Message error>
-                {this.state.errors.map(e => e.message).join('. ')}
-              </Message>}
-            <SetList
-              sets={this.state.sets}
-              onDeleteSetClick={this.handleDeleteSetClick}
-              isLoading={this.state.isLoading}
-            />
-          </div>
-        </div>
-      </div>
+      <RoutineEditor
+        onExerciseClick={this.handleExerciseClick}
+        onChangeRoutineName={this.handleChangeRoutineName}
+        onDeleteRoutineClick={this.handleDeleteRoutineClick}
+        onDeleteRoutineConfirm={this.handleDeleteRoutineConfirm}
+        onDeleteRoutineCancel={this.handleDeleteRoutineCancel}
+        onCreateRoutineClick={this.handleCreateRoutineClick}
+        onDeleteSetClick={this.handleDeleteSetClick}
+        routineName={routineName}
+        isLoading={isLoading}
+        isDeleteRoutineConfirmOpen={isDeleteRoutineConfirmOpen}
+        info={info}
+        errors={errors}
+        sets={sets}
+      />
     )
   }
 }
-RoutineEditor.propTypes = propTypes
+RoutineEditorContainer.propTypes = propTypes
 
-export default RoutineEditor
+export default RoutineEditorContainer

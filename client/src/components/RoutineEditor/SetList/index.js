@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import { SetItem, Loader } from 'components'
+import { Loader } from 'components'
+import SetItem from '../SetItem'
+import styled from 'styled-components'
 import './styles.css'
 
 const propTypes = {
@@ -8,20 +10,29 @@ const propTypes = {
   isLoading: PropTypes.bool
 }
 
+const List = styled.ul`
+  width: 100%;
+`
+
+const Wrapper = styled.div`
+  position: relative;
+  padding-top: 150px;
+`
+
 class SetList extends Component {
   render () {
     const { sets, onDeleteSetClick, isLoading } = this.props
 
     if (isLoading) {
       return (
-        <div className='SetList--empty'>
+        <Wrapper>
           <Loader />
-        </div>
+        </Wrapper>
       )
     }
 
     return (
-      <ul className='SetList'>
+      <List>
         {sets.map((set, i) => {
           return (
             <SetItem
@@ -32,7 +43,7 @@ class SetList extends Component {
             />
           )
         })}
-      </ul>
+      </List>
     )
   }
 }

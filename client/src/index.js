@@ -1,3 +1,4 @@
+import React from 'react'
 import ReactOnRails from 'react-on-rails'
 import { AppMain } from 'components'
 import { createStore } from 'redux'
@@ -12,7 +13,15 @@ function rootReducer (state = {}, action) {
 
 const store = createStore(rootReducer)
 
+function FitnessApp () {
+  return (
+    <Provider store={store}>
+      <AppMain />
+    </Provider>
+  )
+}
+
 // Register the app with React on Rails which will handle rendering it
 ReactOnRails.register({
-  AppMain
+  FitnessApp
 })

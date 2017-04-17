@@ -1,13 +1,7 @@
 import React, { PropTypes } from 'react'
-import {
-  ExercisePanel,
-  SetList,
-  Button,
-  Message,
-  ConfirmDialog
-} from 'components'
-import classNames from 'classnames'
-import './styles.css'
+import { ExercisePanel, SetList, Message } from 'components'
+import { RoutineEditorHeader } from './components'
+import styled from 'styled-components'
 
 const { func, string, bool, array } = PropTypes
 const propTypes = {
@@ -26,6 +20,14 @@ const propTypes = {
   sets: array.isRequired
 }
 
+const ExercisePanelOffset = styled.div`
+  padding-left: 420px;
+`
+
+const Container = styled.div`
+  padding: 25px 30px;
+`
+
 function RoutineEditor (props) {
   const {
     onExerciseClick,
@@ -43,50 +45,22 @@ function RoutineEditor (props) {
     sets
   } = props
 
-  const nameInputClass = classNames('RoutineEditor__routineNameInput', {
-    'RoutineEditor__routineNameInput--disabled': isLoading
-  })
-
   return (
-    <div className='RoutineEditor'>
+    <div>
       <ExercisePanel onExerciseClick={onExerciseClick} />
 
-      <div className='RoutineEditor__exercisePanelOffset'>
-        <div className='RoutineEditor__container'>
-          <div className='RoutineEditor__header'>
-            <input
-              className={nameInputClass}
-              type='text'
-              onChange={onChangeRoutineName}
-              value={routineName}
-              disabled={isLoading}
-            />
-            <div className='RoutineEditor__controls'>
-              <Button
-                onClick={onDeleteRoutineClick}
-                color='red'
-                disabled={isLoading}
-              >
-                Delete Routine
-              </Button>
-              <ConfirmDialog
-                text='Are you sure you want to delete this routine?'
-                confirmButtonText='Delete'
-                confirmButtonColor='red'
-                isOpen={isDeleteRoutineConfirmOpen}
-                onConfirm={onDeleteRoutineConfirm}
-                onCancel={onDeleteRoutineCancel}
-                onRequestClose={onDeleteRoutineCancel}
-              />
-              <Button
-                className='RoutineEditor__saveButton'
-                onClick={onCreateRoutineClick}
-                disabled={isLoading}
-              >
-                Save Routine
-              </Button>
-            </div>
-          </div>
+      <ExercisePanelOffset>
+        <Container>
+          <RoutineEditorHeader
+            onChangeRoutineName={onChangeRoutineName}
+            onDeleteRoutineClick={onDeleteRoutineClick}
+            onDeleteRoutineConfirm={onDeleteRoutineConfirm}
+            onDeleteRoutineCancel={onDeleteRoutineCancel}
+            onCreateRoutineClick={onCreateRoutineClick}
+            routineName={routineName}
+            isDeleteRoutineConfirmOpen={isDeleteRoutineConfirmOpen}
+            isLoading={isLoading}
+          />
 
           {info &&
             <Message success>
@@ -103,8 +77,8 @@ function RoutineEditor (props) {
             onDeleteSetClick={onDeleteSetClick}
             isLoading={isLoading}
           />
-        </div>
-      </div>
+        </Container>
+      </ExercisePanelOffset>
     </div>
   )
 }

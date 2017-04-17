@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
-import { ExercisePanel, SetList, Message } from 'components'
-import { RoutineEditorHeader } from './components'
+import { ExercisePanel, Message } from 'components'
+import RoutineEditorHeader from './RoutineEditorHeader'
+import SetList from './SetList'
 import styled from 'styled-components'
 
 const { func, string, bool, array } = PropTypes
@@ -72,6 +73,7 @@ function RoutineEditor (props) {
             <Message error>
               {errors.map(e => e.message).join('. ')}
             </Message>}
+
           <SetList
             sets={sets}
             onDeleteSetClick={onDeleteSetClick}

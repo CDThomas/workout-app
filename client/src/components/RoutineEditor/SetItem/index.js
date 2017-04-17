@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Title, Button } from 'components'
-import './styles.css'
+import styled from 'styled-components'
 
 const { string, number, func } = PropTypes
 
@@ -10,6 +10,30 @@ const propTypes = {
   setNumber: number,
   onDeleteClick: func
 }
+
+const ListItem = styled.li`
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  display: flex;
+  flex-direction: column;
+`
+
+const BottomRow = styled.div`
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const MainMuscleWorked = styled.span`
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  color: #999;
+`
 
 class SetItem extends Component {
   constructor (props) {
@@ -25,24 +49,20 @@ class SetItem extends Component {
   render () {
     const { exerciseName, mainMuscleWorked, setNumber } = this.props
     return (
-      <li className='SetItem'>
+      <ListItem>
         <Title>
           <span>{setNumber}. </span>
           <span>{exerciseName}</span>
         </Title>
-        <div className='SetItem__bottomRow'>
-          <span className='SetItem__mainMuscleWorked'>
+        <BottomRow>
+          <MainMuscleWorked>
             {mainMuscleWorked}
-          </span>
-          <Button
-            size='small'
-            color='white'
-            onClick={this.handleDeleteClick}
-          >
+          </MainMuscleWorked>
+          <Button size='small' color='white' onClick={this.handleDeleteClick}>
             Delete
           </Button>
-        </div>
-      </li>
+        </BottomRow>
+      </ListItem>
     )
   }
 }

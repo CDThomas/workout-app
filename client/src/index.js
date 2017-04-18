@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactOnRails from 'react-on-rails'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 import { AppMain } from 'components'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { routines } from 'redux/modules'
 
@@ -11,7 +12,7 @@ function rootReducer (state = {}, action) {
   }
 }
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 function FitnessApp () {
   return (

@@ -2,14 +2,14 @@ import React, { PropTypes } from 'react'
 import { Button, ConfirmDialog } from 'components'
 import styled, { css } from 'styled-components'
 
-const { func, string, bool } = PropTypes
+const { func, bool, object } = PropTypes
 const propTypes = {
   onChangeRoutineName: func.isRequired,
   onDeleteRoutineClick: func.isRequired,
   onDeleteRoutineConfirm: func.isRequired,
   onDeleteRoutineCancel: func.isRequired,
   onCreateRoutineClick: func.isRequired,
-  routineName: string.isRequired,
+  routine: object, // .isRequired,
   isLoading: bool.isRequired,
   isDeleteRoutineConfirmOpen: bool.isRequired
 }
@@ -49,7 +49,7 @@ const SaveButton = styled(Button)`
 function RoutineEditorHeader (props) {
   const {
     onChangeRoutineName,
-    routineName,
+    routine,
     isLoading,
     onDeleteRoutineClick,
     isDeleteRoutineConfirmOpen,
@@ -63,7 +63,7 @@ function RoutineEditorHeader (props) {
       <RoutineNameInput
         type='text'
         onChange={onChangeRoutineName}
-        value={routineName}
+        value={routine ? routine.name : ''}
         disabled={isLoading}
       />
       <div>

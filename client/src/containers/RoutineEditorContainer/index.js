@@ -5,7 +5,7 @@ import * as routinesActionCreators from 'redux/modules/routines'
 import { updateRoutine, getRoutine, deleteRoutine } from 'helpers/api'
 import { RoutineEditor } from 'components'
 
-const { shape, string, object, number, arrayOf, func } = PropTypes
+const { shape, string, object, number, arrayOf, func, bool } = PropTypes
 const propTypes = {
   // React Router
   match: shape({
@@ -20,9 +20,9 @@ const propTypes = {
     name: string,
     id: number
   }),
-  sets: arrayOf(object)
-  // addRoutine: func.isRequired,
-  // updateRoutine: func.isRequired
+  sets: arrayOf(object),
+  isLoading: bool.isRequired,
+  fetchRoutine: func.isRequired
 }
 
 class RoutineEditorContainer extends Component {
@@ -44,28 +44,15 @@ class RoutineEditorContainer extends Component {
     this.handleDeleteSetClick = this.handleDeleteSetClick.bind(this)
     this.handleCreateRoutineClick = this.handleCreateRoutineClick.bind(this)
     this.handleDeleteRoutineClick = this.handleDeleteRoutineClick.bind(this)
-    this.handleDeleteRoutineConfirm = this.handleDeleteRoutineConfirm.bind(this)
+    this.handleDeleteRoutineConfirm = this.handleDeleteRoutineConfirm.bind(
+      this
+    )
     this.handleDeleteRoutineCancel = this.handleDeleteRoutineCancel.bind(this)
   }
 
   componentDidMount () {
     const { id } = this.props.match.params
-
-    // fetchRoutine (thunk)
-    getRoutine(id)
-      .then(({ routine }) => {
-        const { id, name, sets } = routine
-        this.setState({
-          routineId: id,
-          routineName: name || '',
-          sets,
-          isLoading: false
-        })
-
-        // this.props.addRoutine({ id, name, sets })
-      })
-      // TODO: handle 404 (routine not found)
-      .catch(error => console.warn(error))
+    this.props.fetchRoutine(id)
   }
 
   handleExerciseClick (exercise) {
@@ -178,13 +165,15 @@ class RoutineEditorContainer extends Component {
 
   render () {
     const {
-      routineName,
-      isLoading,
+      // routine,
+      // isLoading,
       isDeleteRoutineConfirmOpen,
       info,
-      errors,
-      sets
+      errors
+      // sets
     } = this.state
+
+    const { routine, sets, isLoading } = this.props
 
     // const { routine, sets } = this.props
     // const routineName = (routine && routine.name) || ''
@@ -198,7 +187,7 @@ class RoutineEditorContainer extends Component {
         onDeleteRoutineCancel={this.handleDeleteRoutineCancel}
         onCreateRoutineClick={this.handleCreateRoutineClick}
         onDeleteSetClick={this.handleDeleteSetClick}
-        routineName={routineName}
+        routine={routine}
         isLoading={isLoading}
         isDeleteRoutineConfirmOpen={isDeleteRoutineConfirmOpen}
         info={info}
@@ -214,8 +203,9 @@ function mapStateToProps ({ routines }, ownProps) {
   const routineId = ownProps.match.params.id
   const routine = routines[routineId]
   return {
-    routine
-    // sets: (routine && routine.sets) || []
+    routine,
+    sets: (routine && routine.sets) || [],
+    isLoading: routines.isLoading
   }
 }
 

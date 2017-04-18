@@ -4,7 +4,7 @@ import RoutineEditorHeader from './RoutineEditorHeader'
 import SetList from './SetList'
 import styled from 'styled-components'
 
-const { func, string, bool, array } = PropTypes
+const { func, string, bool, array, object } = PropTypes
 const propTypes = {
   onExerciseClick: func.isRequired,
   onChangeRoutineName: func.isRequired,
@@ -13,7 +13,7 @@ const propTypes = {
   onDeleteRoutineCancel: func.isRequired,
   onCreateRoutineClick: func.isRequired,
   onDeleteSetClick: func.isRequired,
-  routineName: string.isRequired,
+  routine: object, // .isRequired,
   isLoading: bool.isRequired,
   isDeleteRoutineConfirmOpen: bool.isRequired,
   info: string.isRequired,
@@ -39,7 +39,7 @@ function RoutineEditor (props) {
     onCreateRoutineClick,
     onDeleteSetClick,
     isLoading,
-    routineName,
+    routine,
     isDeleteRoutineConfirmOpen,
     info,
     errors,
@@ -58,7 +58,7 @@ function RoutineEditor (props) {
             onDeleteRoutineConfirm={onDeleteRoutineConfirm}
             onDeleteRoutineCancel={onDeleteRoutineCancel}
             onCreateRoutineClick={onCreateRoutineClick}
-            routineName={routineName}
+            routine={routine}
             isDeleteRoutineConfirmOpen={isDeleteRoutineConfirmOpen}
             isLoading={isLoading}
           />

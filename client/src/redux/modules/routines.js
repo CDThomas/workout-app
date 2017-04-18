@@ -1,4 +1,4 @@
-// start with no client-side cache for simplicity
+import { getRoutine } from 'helpers/api'
 
 // const ADD_ROUTINE = 'ADD_ROUTINE'
 // const UPDATE_ROUTINE = 'UPDATE_ROUTINE'
@@ -52,15 +52,20 @@ export function fetchRoutineError (error) {
 }
 
 export function fetchRoutine (routineId) {
-  // Make request
-  // Success
-  // Error
+  return function (dispatch) {
+    dispatch(fetchRoutineRequest())
+
+    return getRoutine(routineId)
+      .then(({ routine }) => dispatch(fetchRoutineSuccess(routine)))
+      .catch(error => dispatch(fetchRoutineError(error)))
+  }
 }
 
 /*
   Individual routine state:
   {
-    isLoading: true, // loading the individual routine
+    isFetching: true, // loading the individual routine
+    isUpdating: false,
     error: '',
     isPersisted: false, // false if the user changes the routine and hasn't persisted,
     id: 1,
@@ -76,11 +81,22 @@ const initialState = {
 
 export default function routines (state = initialState, action) {
   switch (action.type) {
-    // case ADD_ROUTINE:
-    // case UPDATE_ROUTINE:
+    case FETCH_ROUTINE_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      }
     case FETCH_ROUTINE_SUCCESS:
       return {
+        ...state,
+        isLoading: false,
         [action.routine.id]: action.routine
+      }
+    case FETCH_ROUTINE_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
       }
     default:
       return state

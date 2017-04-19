@@ -1,4 +1,5 @@
 import { getRoutine } from 'helpers/api'
+import { addMultipleSets } from './sets'
 
 // const ADD_ROUTINE = 'ADD_ROUTINE'
 // const UPDATE_ROUTINE = 'UPDATE_ROUTINE'
@@ -56,7 +57,10 @@ export function fetchRoutine (routineId) {
     dispatch(fetchRoutineRequest())
 
     return getRoutine(routineId)
-      .then(({ routine }) => dispatch(fetchRoutineSuccess(routine)))
+      .then(({ routine }) => {
+        dispatch(fetchRoutineSuccess(routine))
+        dispatch(addMultipleSets(routine.sets))
+      })
       .catch(error => dispatch(fetchRoutineError(error)))
   }
 }
@@ -87,10 +91,16 @@ export default function routines (state = initialState, action) {
         isLoading: true
       }
     case FETCH_ROUTINE_SUCCESS:
+      // This is where normalizr would come in handy
+      const sets = action.routine && action.routine.sets
+        ? action.routine.sets.map(set => set.id)
+        : []
+      const routine = { ...action.routine, sets }
+
       return {
         ...state,
         isLoading: false,
-        [action.routine.id]: action.routine
+        [action.routine.id]: routine
       }
     case FETCH_ROUTINE_ERROR:
       return {

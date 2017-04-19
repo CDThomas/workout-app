@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as routinesActionCreators from 'redux/modules/routines'
-import { updateRoutine, getRoutine, deleteRoutine } from 'helpers/api'
+import { updateRoutine, deleteRoutine } from 'helpers/api'
 import { RoutineEditor } from 'components'
 
 const { shape, string, object, number, arrayOf, func, bool } = PropTypes
@@ -199,12 +199,16 @@ class RoutineEditorContainer extends Component {
 }
 RoutineEditorContainer.propTypes = propTypes
 
-function mapStateToProps ({ routines }, ownProps) {
+function mapStateToProps ({ routines, sets }, ownProps) {
   const routineId = ownProps.match.params.id
   const routine = routines[routineId]
+  const setIds = routine ? routine.sets : []
+
   return {
     routine,
-    sets: (routine && routine.sets) || [],
+    // Would make more sense to pass down the setIds or move this to a lower container,
+    // but this will work for the moment
+    sets: setIds.map(setId => sets[setId]),
     isLoading: routines.isLoading
   }
 }

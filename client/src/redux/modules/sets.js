@@ -1,4 +1,4 @@
-const ADD_MULTIPLE_SETS = 'ADD_MULTIPLE_SETS'
+import { ADD_MULTIPLE_SETS, DELETE_SET } from './actionTypes'
 
 export function addMultipleSets (sets = []) {
   return {
@@ -6,6 +6,8 @@ export function addMultipleSets (sets = []) {
     sets
   }
 }
+
+export function deleteSet (id) {}
 
 const initialState = {
   isLoading: false

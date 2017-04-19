@@ -1,19 +1,28 @@
 import React from 'react'
 import ReactOnRails from 'react-on-rails'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { AppMain } from 'components'
 import { Provider } from 'react-redux'
-import { routines, sets } from 'redux/modules'
+import { routines, sets, unsavedSets } from 'redux/modules'
 
 function rootReducer (state = {}, action) {
   return {
     routines: routines(state.routines, action),
-    sets: sets(state.sets, action)
+    sets: sets(state.sets, action),
+    unsavedSets: unsavedSets(state.unsavedSets, action)
   }
 }
 
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+const composeEnhancers = typeof window === 'object' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  : compose
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunkMiddleware))
+)
 
 function FitnessApp () {
   return (

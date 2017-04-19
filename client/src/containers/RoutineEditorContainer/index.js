@@ -2,8 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as routinesActionCreators from 'redux/modules/routines'
+import * as setsActionCreators from 'redux/modules/sets'
+import * as unsaveSetsActionCreators from 'redux/modules/unsavedSets'
 import { updateRoutine, deleteRoutine } from 'helpers/api'
 import { RoutineEditor } from 'components'
+import { v4 as uuid } from 'uuid'
+import { values } from 'lodash'
 
 const { shape, string, object, number, arrayOf, func, bool } = PropTypes
 const propTypes = {
@@ -22,7 +26,8 @@ const propTypes = {
   }),
   sets: arrayOf(object),
   isLoading: bool.isRequired,
-  fetchRoutine: func.isRequired
+  fetchRoutine: func.isRequired,
+  addUnsavedSet: func.isRequired
 }
 
 class RoutineEditorContainer extends Component {
@@ -56,16 +61,14 @@ class RoutineEditorContainer extends Component {
   }
 
   handleExerciseClick (exercise) {
-    // addSet
     const newSet = {
       exerciseName: exercise.name,
       exerciseId: exercise.id,
-      mainMuscleWorked: exercise.mainMuscleWorked
+      mainMuscleWorked: exercise.mainMuscleWorked,
+      id: uuid()
     }
 
-    this.setState({
-      sets: [...this.state.sets, newSet]
-    })
+    this.props.addUnsavedSet(newSet)
   }
 
   handleDeleteSetClick (setNumber) {
@@ -199,22 +202,31 @@ class RoutineEditorContainer extends Component {
 }
 RoutineEditorContainer.propTypes = propTypes
 
-function mapStateToProps ({ routines, sets }, ownProps) {
+function mapStateToProps ({ routines, sets, unsavedSets }, ownProps) {
   const routineId = ownProps.match.params.id
   const routine = routines[routineId]
   const setIds = routine ? routine.sets : []
+  const savedSets = setIds.map(setId => sets[setId])
+  const unsavedSetsArr = values(unsavedSets)
 
   return {
     routine,
     // Would make more sense to pass down the setIds or move this to a lower container,
     // but this will work for the moment
-    sets: setIds.map(setId => sets[setId]),
+    sets: [...savedSets, ...unsavedSetsArr],
     isLoading: routines.isLoading
   }
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators(routinesActionCreators, dispatch)
+  return bindActionCreators(
+    {
+      ...routinesActionCreators,
+      ...setsActionCreators,
+      ...unsaveSetsActionCreators
+    },
+    dispatch
+  )
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(

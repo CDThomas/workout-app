@@ -15,6 +15,7 @@ const propTypes = {
   onDeleteSetClick: func.isRequired,
   routine: object, // .isRequired,
   isLoading: bool.isRequired,
+  setsLoading: bool.isRequired,
   isDeleteRoutineConfirmOpen: bool.isRequired,
   info: string.isRequired,
   errors: array.isRequired,
@@ -39,6 +40,7 @@ function RoutineEditor (props) {
     onCreateRoutineClick,
     onDeleteSetClick,
     isLoading,
+    setsLoading,
     routine,
     isDeleteRoutineConfirmOpen,
     info,
@@ -77,7 +79,7 @@ function RoutineEditor (props) {
           <SetList
             sets={sets}
             onDeleteSetClick={onDeleteSetClick}
-            isLoading={isLoading}
+            isLoading={setsLoading}
           />
         </Container>
       </ExercisePanelOffset>

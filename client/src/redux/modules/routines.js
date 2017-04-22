@@ -7,10 +7,10 @@ import {
   UPDATE_ROUTINE_ERROR,
   DELETE_ROUTINE_REQUEST,
   DELETE_ROUTINE_SUCCESS,
-  DELETE_ROUTINE_ERROR
+  DELETE_ROUTINE_ERROR,
+  DELETE_SET
 } from './actionTypes'
 import { getRoutine } from 'helpers/api'
-import { addMultipleSets } from './sets'
 
 export function fetchRoutineRequest (routineId) {
   return {
@@ -41,7 +41,6 @@ export function fetchRoutine (routineId) {
     return getRoutine(routineId)
       .then(({ routine }) => {
         dispatch(fetchRoutineSuccess(routine))
-        dispatch(addMultipleSets(routine.sets))
       })
       .catch(error => dispatch(fetchRoutineError(error)))
   }
@@ -60,8 +59,26 @@ export function fetchRoutine (routineId) {
   }
 */
 
+const initialRoutineState = {
+  setIds: []
+}
+
+function routineReducer (state = initialRoutineState, action) {
+  switch (action.type) {
+    case DELETE_SET:
+      return {
+        ...state,
+        setIds: state.setIds.filter(setId => setId !== action.id)
+      }
+    default:
+      return {
+        ...state
+      }
+  }
+}
+
 const initialState = {
-  isLoading: false, // Loading the list
+  isLoading: true, // Loading the list
   error: ''
 }
 
@@ -74,10 +91,10 @@ export default function routines (state = initialState, action) {
       }
     case FETCH_ROUTINE_SUCCESS:
       // This is where normalizr would come in handy
-      const sets = action.routine && action.routine.sets
+      const setIds = action.routine && action.routine.sets
         ? action.routine.sets.map(set => set.id)
         : []
-      const routine = { ...action.routine, sets }
+      const routine = { ...action.routine, setIds }
 
       return {
         ...state,
@@ -89,6 +106,11 @@ export default function routines (state = initialState, action) {
         ...state,
         isLoading: false,
         error: action.error
+      }
+    case DELETE_SET:
+      return {
+        ...state,
+        [action.routineId]: routineReducer(state[action.routineId], action)
       }
     default:
       return state

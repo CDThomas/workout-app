@@ -26,8 +26,10 @@ const propTypes = {
   }),
   sets: arrayOf(object),
   isLoading: bool.isRequired,
+  setsLoading: bool.isRequired,
   fetchRoutine: func.isRequired,
-  addUnsavedSet: func.isRequired
+  addUnsavedSet: func.isRequired,
+  deleteSet: func.isRequired
 }
 
 class RoutineEditorContainer extends Component {
@@ -65,21 +67,15 @@ class RoutineEditorContainer extends Component {
       exerciseName: exercise.name,
       exerciseId: exercise.id,
       mainMuscleWorked: exercise.mainMuscleWorked,
-      id: uuid()
+      id: uuid(),
+      routineId: this.props.routine.id
     }
 
     this.props.addUnsavedSet(newSet)
   }
 
-  handleDeleteSetClick (setNumber) {
-    // removeSet or deleteSet
-    const { sets } = this.state
-    const setIndex = setNumber - 1
-    const newSets = [...sets.slice(0, setIndex), ...sets.slice(setIndex + 1)]
-
-    this.setState({
-      sets: newSets
-    })
+  handleDeleteSetClick (id, routineId) {
+    this.props.deleteSet(id, routineId)
   }
 
   handleDeleteRoutineClick () {
@@ -176,7 +172,7 @@ class RoutineEditorContainer extends Component {
       // sets
     } = this.state
 
-    const { routine, sets, isLoading } = this.props
+    const { routine, sets, isLoading, setsLoading } = this.props
 
     // const { routine, sets } = this.props
     // const routineName = (routine && routine.name) || ''
@@ -192,6 +188,7 @@ class RoutineEditorContainer extends Component {
         onDeleteSetClick={this.handleDeleteSetClick}
         routine={routine}
         isLoading={isLoading}
+        setsLoading={setsLoading}
         isDeleteRoutineConfirmOpen={isDeleteRoutineConfirmOpen}
         info={info}
         errors={errors}
@@ -205,7 +202,7 @@ RoutineEditorContainer.propTypes = propTypes
 function mapStateToProps ({ routines, sets, unsavedSets }, ownProps) {
   const routineId = ownProps.match.params.id
   const routine = routines[routineId]
-  const setIds = routine ? routine.sets : []
+  const setIds = routine ? routine.setIds : []
   const savedSets = setIds.map(setId => sets[setId])
   const unsavedSetsArr = values(unsavedSets)
 
@@ -214,7 +211,8 @@ function mapStateToProps ({ routines, sets, unsavedSets }, ownProps) {
     // Would make more sense to pass down the setIds or move this to a lower container,
     // but this will work for the moment
     sets: [...savedSets, ...unsavedSetsArr],
-    isLoading: routines.isLoading
+    isLoading: routines.isLoading,
+    setsLoading: sets.isLoading
   }
 }
 

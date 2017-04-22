@@ -1,4 +1,5 @@
 import { ADD_UNSAVED_SET, DELETE_SET } from './actionTypes'
+import { omit } from 'lodash'
 
 export function addUnsavedSet (set) {
   return {
@@ -14,6 +15,8 @@ export default function unsavedSets (state = {}, action) {
         ...state,
         [action.set.id]: action.set
       }
+    case DELETE_SET:
+      return omit(state, action.id)
     default:
       return state
   }

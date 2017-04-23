@@ -8,7 +8,8 @@ import {
   DELETE_ROUTINE_REQUEST,
   DELETE_ROUTINE_SUCCESS,
   DELETE_ROUTINE_ERROR,
-  DELETE_SET
+  DELETE_SET,
+  CHANGE_ROUTINE_NAME
 } from './actionTypes'
 import { getRoutine, deleteRoutine as deleteRoutineHelper } from 'helpers/api'
 import { omit } from 'lodash'
@@ -76,6 +77,14 @@ export function deleteRoutine (routineId) {
   }
 }
 
+export function changeRoutineName (routineId, routineName) {
+  return {
+    type: CHANGE_ROUTINE_NAME,
+    routineId,
+    routineName
+  }
+}
+
 /*
   Individual routine state:
   {
@@ -99,6 +108,11 @@ function routineReducer (state = initialRoutineState, action) {
       return {
         ...state,
         setIds: state.setIds.filter(setId => setId !== action.id)
+      }
+    case CHANGE_ROUTINE_NAME:
+      return {
+        ...state,
+        name: action.routineName
       }
     default:
       return {
@@ -150,6 +164,11 @@ export default function routines (state = initialState, action) {
         error: action.error
       }
     case DELETE_SET:
+      return {
+        ...state,
+        [action.routineId]: routineReducer(state[action.routineId], action)
+      }
+    case CHANGE_ROUTINE_NAME:
       return {
         ...state,
         [action.routineId]: routineReducer(state[action.routineId], action)

@@ -30,7 +30,8 @@ const propTypes = {
   fetchRoutine: func.isRequired,
   deleteRoutine: func.isRequired,
   addUnsavedSet: func.isRequired,
-  deleteSet: func.isRequired
+  deleteSet: func.isRequired,
+  changeRoutineName: func.isRequired
 }
 
 class RoutineEditorContainer extends Component {
@@ -88,15 +89,15 @@ class RoutineEditorContainer extends Component {
   }
 
   handleDeleteRoutineConfirm () {
-    // TODO: Flash message for successful delete on next route.
-    //       Something like a toast.
-    //       Prob will wait until I've implemented redux for this. That should simplify adding
-    //       and clearing toasts.
-
     this.props.deleteRoutine(this.props.routine.id).then(() => {
       console.log(`Routine with ID ${this.state.routineId} deleted.`)
       this.props.history.push('/routines')
     })
+
+    // TODO: Flash message for successful delete on next route.
+    //       Something like a toast.
+    //       Prob will wait until I've implemented redux for this. That should simplify adding
+    //       and clearing toasts.
 
     // TODO: update error handling with Redux
     // .catch(() => {
@@ -116,10 +117,9 @@ class RoutineEditorContainer extends Component {
   }
 
   handleChangeRoutineName (evt) {
-    // changeRoutineName(routineName, routineId)
-    this.setState({
-      routineName: evt.target.value
-    })
+    const routineName = evt.target.value
+    const routineId = this.props.routine.id
+    this.props.changeRoutineName(routineId, routineName)
   }
 
   // This is really saveRoutineClick now

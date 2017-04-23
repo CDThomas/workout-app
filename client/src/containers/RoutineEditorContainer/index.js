@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import * as routinesActionCreators from 'redux/modules/routines'
 import * as setsActionCreators from 'redux/modules/sets'
 import * as unsaveSetsActionCreators from 'redux/modules/unsavedSets'
-import { updateRoutine, deleteRoutine } from 'helpers/api'
+import { updateRoutine } from 'helpers/api'
 import { RoutineEditor } from 'components'
 import { v4 as uuid } from 'uuid'
 import { values } from 'lodash'
@@ -28,6 +28,7 @@ const propTypes = {
   isLoading: bool.isRequired,
   setsLoading: bool.isRequired,
   fetchRoutine: func.isRequired,
+  deleteRoutine: func.isRequired,
   addUnsavedSet: func.isRequired,
   deleteSet: func.isRequired
 }
@@ -87,24 +88,23 @@ class RoutineEditorContainer extends Component {
   }
 
   handleDeleteRoutineConfirm () {
-    // deleteRoutine (thunk)
-    deleteRoutine(this.state.routineId)
-      .then(() => {
-        // TODO: Flash message for successful delete on next route.
-        //       Something like a toast.
-        //       Prob will wait until I've implemented redux for this. That should simplify adding
-        //       and clearing toasts.
-        console.log(`Routine with ID ${this.state.routineId} deleted.`)
+    // TODO: Flash message for successful delete on next route.
+    //       Something like a toast.
+    //       Prob will wait until I've implemented redux for this. That should simplify adding
+    //       and clearing toasts.
 
-        this.props.history.push('/routines')
-      })
-      .catch(() => {
-        console.log('catch cb called')
-        this.setState({
-          errors: [{ message: 'Unable to delete this routine' }],
-          isDeleteRoutineConfirmOpen: false
-        })
-      })
+    this.props.deleteRoutine(this.props.routine.id).then(() => {
+      console.log(`Routine with ID ${this.state.routineId} deleted.`)
+      this.props.history.push('/routines')
+    })
+
+    // TODO: update error handling with Redux
+    // .catch(() => {
+    //   this.setState({
+    //     errors: [{ message: 'Unable to delete this routine' }],
+    //     isDeleteRoutineConfirmOpen: false
+    //   })
+    // })
   }
 
   handleDeleteRoutineCancel () {

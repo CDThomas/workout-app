@@ -10,12 +10,12 @@ import {
   DELETE_ROUTINE_ERROR,
   DELETE_SET
 } from './actionTypes'
-import { getRoutine } from 'helpers/api'
+import { getRoutine, deleteRoutine as deleteRoutineHelper } from 'helpers/api'
+import { omit } from 'lodash'
 
-export function fetchRoutineRequest (routineId) {
+export function fetchRoutineRequest () {
   return {
-    type: FETCH_ROUTINE_REQUEST,
-    routineId: routineId
+    type: FETCH_ROUTINE_REQUEST
   }
 }
 
@@ -43,6 +43,36 @@ export function fetchRoutine (routineId) {
         dispatch(fetchRoutineSuccess(routine))
       })
       .catch(error => dispatch(fetchRoutineError(error)))
+  }
+}
+
+function deleteRoutineRequest (routineId) {
+  return {
+    type: DELETE_ROUTINE_REQUEST
+  }
+}
+
+function deleteRoutineSuccess (routineId) {
+  return {
+    type: DELETE_ROUTINE_SUCCESS,
+    routineId
+  }
+}
+
+function deleteRoutineError (error) {
+  return {
+    type: DELETE_ROUTINE_ERROR,
+    error
+  }
+}
+
+export function deleteRoutine (routineId) {
+  return function (dispatch) {
+    dispatch(deleteRoutineRequest())
+
+    return deleteRoutineHelper(routineId)
+      .then(() => dispatch(deleteRoutineSuccess(routineId)))
+      .catch(error => dispatch(deleteRoutineError(error)))
   }
 }
 
@@ -105,6 +135,18 @@ export default function routines (state = initialState, action) {
       return {
         ...state,
         isLoading: false,
+        error: action.error
+      }
+    case DELETE_ROUTINE_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case DELETE_ROUTINE_SUCCESS:
+      return omit(state, action.routineId)
+    case DELETE_ROUTINE_ERROR:
+      return {
+        ...state,
         error: action.error
       }
     case DELETE_SET:

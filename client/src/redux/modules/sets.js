@@ -3,13 +3,13 @@ import {
   FETCH_ROUTINE_SUCCESS,
   UPDATE_ROUTINE_SUCCESS
 } from './actionTypes'
-import { omit } from 'lodash'
+import { removeSetBySetNumber } from 'helpers/utils'
+import { omit, pick } from 'lodash'
 
-export function deleteSet (id, routineId) {
+export function deleteSet (set, routineId) {
   return {
     type: DELETE_SET,
-    id,
-    routineId
+    set
   }
 }
 
@@ -42,7 +42,24 @@ export default function sets (state = initialState, action) {
         isLoading: false
       }
     case DELETE_SET:
-      return omit(state, action.id)
+      // This is tricky. Could use to find a cleaner, way to do this.
+      // Doing this because I don't want to lose properties that aren't actually
+      // sets (like 'isLoading').
+
+      // The solution is probably separating UI state (like loading) from
+      // entities. That way I now only set objects are in my sets state
+      // TODO: separate UI state form entitiy state
+      const stateWithoutSets = pick(state, Object.keys(initialState))
+
+      // Sets will be anything on the state with a key (id) that doesn't exist in
+      // the reducer's initial state
+      const oldSets = omit(state, Object.keys(initialState))
+      const updatedSets = removeSetBySetNumber(oldSets, action.set.setNumber)
+
+      return {
+        ...stateWithoutSets,
+        ...updatedSets
+      }
     default:
       return state
   }

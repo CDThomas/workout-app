@@ -159,7 +159,7 @@ function routineReducer (state = initialRoutineState, action) {
     case DELETE_SET:
       return {
         ...state,
-        setIds: state.setIds.filter(setId => setId !== action.id)
+        setIds: state.setIds.filter(setId => setId !== action.set.id)
       }
     case CHANGE_ROUTINE_NAME:
       return {
@@ -222,7 +222,10 @@ export default function routines (state = initialState, action) {
     case CHANGE_ROUTINE_NAME:
       return {
         ...state,
-        [action.routineId]: routineReducer(state[action.routineId], action)
+        [action.set.routineId]: routineReducer(
+          state[action.set.routineId],
+          action
+        )
       }
     default:
       return state

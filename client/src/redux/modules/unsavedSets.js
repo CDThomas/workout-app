@@ -3,7 +3,7 @@ import {
   DELETE_SET,
   UPDATE_ROUTINE_SUCCESS
 } from './actionTypes'
-import { omit } from 'lodash'
+import { removeSetBySetNumber } from 'helpers/utils'
 
 export function addUnsavedSet (set) {
   return {
@@ -20,7 +20,7 @@ export default function unsavedSets (state = {}, action) {
         [action.set.id]: action.set
       }
     case DELETE_SET:
-      return omit(state, action.id)
+      return removeSetBySetNumber(state, action.set.setNumber)
     case UPDATE_ROUTINE_SUCCESS:
       return {}
     default:

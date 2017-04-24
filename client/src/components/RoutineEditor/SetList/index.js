@@ -31,9 +31,10 @@ class SetList extends Component {
       )
     }
 
+    const sortedBySetNumber = sets.sort((a, b) => a.setNumber - b.setNumber)
     return (
       <List>
-        {sets.map((set, i) => {
+        {sortedBySetNumber.map((set, i) => {
           return (
             <SetItem
               {...set}

@@ -79,8 +79,8 @@ class RoutineEditorContainer extends Component {
     this.props.addUnsavedSet(newSet)
   }
 
-  handleDeleteSetClick (id, routineId) {
-    this.props.deleteSet(id, routineId)
+  handleDeleteSetClick (set, routineId) {
+    this.props.deleteSet(set, routineId)
   }
 
   handleDeleteRoutineClick () {

@@ -14,8 +14,8 @@ const propTypes = {
   match: shape({
     params: shape({
       id: string.isRequired
-    })
-  }),
+    }).isRequired
+  }).isRequired,
   history: object,
 
   // Redux

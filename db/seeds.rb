@@ -129,3 +129,5 @@ exercises.each do |attributes|
     main_muscle_worked: main_muscle_worked
   )
 end
+
+User.create(email: 'test_user@gmail.com', password: 'secret')

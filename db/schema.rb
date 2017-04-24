@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170424172826) do
+ActiveRecord::Schema.define(version: 20170424174423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170424172826) do
     t.integer  "exercise_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "setNumber"
     t.index ["exercise_id"], name: "index_fa_sets_on_exercise_id", using: :btree
     t.index ["routine_id"], name: "index_fa_sets_on_routine_id", using: :btree
   end

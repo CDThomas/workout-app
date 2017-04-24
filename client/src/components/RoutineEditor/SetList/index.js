@@ -4,6 +4,7 @@ import SetItem from '../SetItem'
 import styled from 'styled-components'
 
 const propTypes = {
+  // TODO: shape
   sets: PropTypes.array.isRequired,
   onDeleteSetClick: PropTypes.func,
   isLoading: PropTypes.bool
@@ -30,7 +31,6 @@ class SetList extends Component {
       )
     }
 
-    // Why is map being called here with undefined values??
     return (
       <List>
         {sets.map((set, i) => {

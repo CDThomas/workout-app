@@ -4,12 +4,11 @@ import { bindActionCreators } from 'redux'
 import * as routinesActionCreators from 'redux/modules/routines'
 import * as setsActionCreators from 'redux/modules/sets'
 import * as unsaveSetsActionCreators from 'redux/modules/unsavedSets'
-import { updateRoutine } from 'helpers/api'
 import { RoutineEditor } from 'components'
 import { v4 as uuid } from 'uuid'
 import { values } from 'lodash'
 
-const { shape, string, object, number, arrayOf, func, bool } = PropTypes
+const { shape, string, object, number, arrayOf, func, bool, array } = PropTypes
 const propTypes = {
   // React Router
   match: shape({
@@ -27,11 +26,14 @@ const propTypes = {
   sets: arrayOf(object),
   isLoading: bool.isRequired,
   setsLoading: bool.isRequired,
+  info: string,
+  errors: array.isRequired,
   fetchRoutine: func.isRequired,
   deleteRoutine: func.isRequired,
   addUnsavedSet: func.isRequired,
   deleteSet: func.isRequired,
-  changeRoutineName: func.isRequired
+  changeRoutineName: func.isRequired,
+  updateRoutine: func.isRequired
 }
 
 class RoutineEditorContainer extends Component {
@@ -51,7 +53,7 @@ class RoutineEditorContainer extends Component {
     this.handleChangeRoutineName = this.handleChangeRoutineName.bind(this)
     this.handleExerciseClick = this.handleExerciseClick.bind(this)
     this.handleDeleteSetClick = this.handleDeleteSetClick.bind(this)
-    this.handleCreateRoutineClick = this.handleCreateRoutineClick.bind(this)
+    this.handleSaveRoutineClick = this.handleSaveRoutineClick.bind(this)
     this.handleDeleteRoutineClick = this.handleDeleteRoutineClick.bind(this)
     this.handleDeleteRoutineConfirm = this.handleDeleteRoutineConfirm.bind(
       this
@@ -89,8 +91,9 @@ class RoutineEditorContainer extends Component {
   }
 
   handleDeleteRoutineConfirm () {
-    this.props.deleteRoutine(this.props.routine.id).then(() => {
-      console.log(`Routine with ID ${this.state.routineId} deleted.`)
+    const { id } = this.props.routine
+    this.props.deleteRoutine(id).then(() => {
+      console.log(`Routine with ID ${id} deleted.`)
       this.props.history.push('/routines')
     })
 
@@ -122,60 +125,25 @@ class RoutineEditorContainer extends Component {
     this.props.changeRoutineName(routineId, routineName)
   }
 
-  // This is really saveRoutineClick now
-  handleCreateRoutineClick () {
+  handleSaveRoutineClick () {
     // TODO: format this somewhere else (maybe in the api helper)
+    const sets = this.props.sets.map(set => {
+      return {
+        exerciseId: set.exerciseId
+      }
+    })
     const routine = {
-      id: this.state.routineId,
-      name: this.state.routineName,
-      fafSetsAttributes: this.state.sets
+      id: this.props.routine.id,
+      name: this.props.routine.name,
+      fafSetsAttributes: sets
     }
 
-    this.setState({ isLoading: true })
-
-    // updateRoutine(routine) (thunk)
-    updateRoutine(routine)
-      .then(({ routine }) => {
-        const { name, sets } = routine
-        this.setState({
-          info: 'Workout was updated successfully!',
-          errors: [],
-          routineName: name,
-          sets
-        })
-
-        // this.props.updateRoutine(routine)
-      })
-      .catch(error => {
-        const response = error.response
-        if (response && response.status === 422) {
-          response.json().then(body => {
-            this.setState({
-              errors: body.errors,
-              info: ''
-            })
-          })
-        } else {
-          console.error(error)
-        }
-      })
-      .then(() => this.setState({ isLoading: false }))
+    this.props.updateRoutine(routine)
   }
 
   render () {
-    const {
-      // routine,
-      // isLoading,
-      isDeleteRoutineConfirmOpen,
-      info,
-      errors
-      // sets
-    } = this.state
-
-    const { routine, sets, isLoading, setsLoading } = this.props
-
-    // const { routine, sets } = this.props
-    // const routineName = (routine && routine.name) || ''
+    const { isDeleteRoutineConfirmOpen } = this.state
+    const { routine, sets, isLoading, setsLoading, info, errors } = this.props
 
     return (
       <RoutineEditor
@@ -184,7 +152,7 @@ class RoutineEditorContainer extends Component {
         onDeleteRoutineClick={this.handleDeleteRoutineClick}
         onDeleteRoutineConfirm={this.handleDeleteRoutineConfirm}
         onDeleteRoutineCancel={this.handleDeleteRoutineCancel}
-        onCreateRoutineClick={this.handleCreateRoutineClick}
+        onSaveRoutineClick={this.handleSaveRoutineClick}
         onDeleteSetClick={this.handleDeleteSetClick}
         routine={routine}
         isLoading={isLoading}
@@ -212,7 +180,9 @@ function mapStateToProps ({ routines, sets, unsavedSets }, ownProps) {
     // but this will work for the moment
     sets: [...savedSets, ...unsavedSetsArr],
     isLoading: routines.isLoading,
-    setsLoading: sets.isLoading
+    setsLoading: sets.isLoading,
+    info: routines.info,
+    errors: routines.errors
   }
 }
 

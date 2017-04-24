@@ -11,13 +11,13 @@ const propTypes = {
   onDeleteRoutineClick: func.isRequired,
   onDeleteRoutineConfirm: func.isRequired,
   onDeleteRoutineCancel: func.isRequired,
-  onCreateRoutineClick: func.isRequired,
+  onSaveRoutineClick: func.isRequired,
   onDeleteSetClick: func.isRequired,
-  routine: object, // .isRequired,
+  routine: object,
   isLoading: bool.isRequired,
   setsLoading: bool.isRequired,
   isDeleteRoutineConfirmOpen: bool.isRequired,
-  info: string.isRequired,
+  info: string,
   errors: array.isRequired,
   sets: array.isRequired
 }
@@ -37,7 +37,7 @@ function RoutineEditor (props) {
     onDeleteRoutineClick,
     onDeleteRoutineConfirm,
     onDeleteRoutineCancel,
-    onCreateRoutineClick,
+    onSaveRoutineClick,
     onDeleteSetClick,
     isLoading,
     setsLoading,
@@ -59,7 +59,7 @@ function RoutineEditor (props) {
             onDeleteRoutineClick={onDeleteRoutineClick}
             onDeleteRoutineConfirm={onDeleteRoutineConfirm}
             onDeleteRoutineCancel={onDeleteRoutineCancel}
-            onCreateRoutineClick={onCreateRoutineClick}
+            onSaveRoutineClick={onSaveRoutineClick}
             routine={routine}
             isDeleteRoutineConfirmOpen={isDeleteRoutineConfirmOpen}
             isLoading={isLoading}

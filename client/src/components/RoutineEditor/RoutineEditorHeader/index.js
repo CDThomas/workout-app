@@ -8,8 +8,8 @@ const propTypes = {
   onDeleteRoutineClick: func.isRequired,
   onDeleteRoutineConfirm: func.isRequired,
   onDeleteRoutineCancel: func.isRequired,
-  onCreateRoutineClick: func.isRequired,
-  routine: object, // .isRequired,
+  onSaveRoutineClick: func.isRequired,
+  routine: object,
   isLoading: bool.isRequired,
   isDeleteRoutineConfirmOpen: bool.isRequired
 }
@@ -55,7 +55,7 @@ function RoutineEditorHeader (props) {
     isDeleteRoutineConfirmOpen,
     onDeleteRoutineConfirm,
     onDeleteRoutineCancel,
-    onCreateRoutineClick
+    onSaveRoutineClick
   } = props
 
   return (
@@ -79,7 +79,7 @@ function RoutineEditorHeader (props) {
           onCancel={onDeleteRoutineCancel}
           onRequestClose={onDeleteRoutineCancel}
         />
-        <SaveButton onClick={onCreateRoutineClick} disabled={isLoading}>
+        <SaveButton onClick={onSaveRoutineClick} disabled={isLoading}>
           Save Routine
         </SaveButton>
       </div>

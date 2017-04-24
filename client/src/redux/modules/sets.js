@@ -1,4 +1,8 @@
-import { DELETE_SET, FETCH_ROUTINE_SUCCESS } from './actionTypes'
+import {
+  DELETE_SET,
+  FETCH_ROUTINE_SUCCESS,
+  UPDATE_ROUTINE_SUCCESS
+} from './actionTypes'
 import { omit } from 'lodash'
 
 export function deleteSet (id, routineId) {
@@ -16,6 +20,7 @@ const initialState = {
 export default function sets (state = initialState, action) {
   switch (action.type) {
     case FETCH_ROUTINE_SUCCESS:
+    case UPDATE_ROUTINE_SUCCESS:
       // TODO: This will need to be setNumber, but not yet in db table.
       //       This works for now because sets happen to always be in the order
       //       that they were created and id's are sequential. This will break

@@ -18,7 +18,7 @@ class RoutinesPage extends Component {
     }
 
     this.handleSearchChange = this.handleSearchChange.bind(this)
-    this.handleCreateRoutineClick = this.handleCreateRoutineClick.bind(this)
+    this.handleSaveRoutineClick = this.handleSaveRoutineClick.bind(this)
   }
 
   componentDidMount () {
@@ -46,7 +46,7 @@ class RoutinesPage extends Component {
       .catch(error => console.warn(error))
   }
 
-  handleCreateRoutineClick (evt) {
+  handleSaveRoutineClick (evt) {
     evt.preventDefault()
     createRoutine()
       .then(({ routine }) => {
@@ -94,7 +94,7 @@ class RoutinesPage extends Component {
             />
             <span className='RoutinesPage__text'>or</span>
             <a
-              onClick={this.handleCreateRoutineClick}
+              onClick={this.handleSaveRoutineClick}
               className='RoutinesPage__createRoutineLink'
             >
               create one

@@ -11,7 +11,11 @@ import {
   DELETE_SET,
   CHANGE_ROUTINE_NAME
 } from './actionTypes'
-import { getRoutine, deleteRoutine as deleteRoutineHelper } from 'helpers/api'
+import {
+  getRoutine,
+  deleteRoutine as deleteRoutineHelper,
+  updateRoutine as updateRoutineHelper
+} from 'helpers/api'
 import { omit } from 'lodash'
 
 export function fetchRoutineRequest () {
@@ -47,7 +51,7 @@ export function fetchRoutine (routineId) {
   }
 }
 
-function deleteRoutineRequest (routineId) {
+function deleteRoutineRequest () {
   return {
     type: DELETE_ROUTINE_REQUEST
   }
@@ -56,6 +60,7 @@ function deleteRoutineRequest (routineId) {
 function deleteRoutineSuccess (routineId) {
   return {
     type: DELETE_ROUTINE_SUCCESS,
+    info: 'Routine successfully deleted',
     routineId
   }
 }
@@ -85,6 +90,49 @@ export function changeRoutineName (routineId, routineName) {
   }
 }
 
+function updateRoutineRequest () {
+  return {
+    type: UPDATE_ROUTINE_REQUEST
+  }
+}
+
+function updateRoutineSuccess (routine) {
+  return {
+    type: UPDATE_ROUTINE_SUCCESS,
+    info: 'Workout updated successfully',
+    routine
+  }
+}
+
+function updateRoutineError (errors) {
+  return {
+    type: UPDATE_ROUTINE_ERROR,
+    errors
+  }
+}
+
+export function updateRoutine (routine) {
+  return function (dispatch) {
+    dispatch(updateRoutineRequest())
+
+    return updateRoutineHelper(routine).then(
+      ({ routine }) => {
+        dispatch(updateRoutineSuccess(routine))
+      },
+      error => {
+        const response = error.response
+        if (response && response.status === 422) {
+          response.json().then(body => {
+            dispatch(updateRoutineError(body.errors))
+          })
+        } else {
+          console.error(error)
+        }
+      }
+    )
+  }
+}
+
 /*
   Individual routine state:
   {
@@ -99,6 +147,8 @@ export function changeRoutineName (routineId, routineName) {
 */
 
 const initialRoutineState = {
+  id: null,
+  name: '',
   setIds: []
 }
 
@@ -122,18 +172,22 @@ function routineReducer (state = initialRoutineState, action) {
 }
 
 const initialState = {
-  isLoading: true, // Loading the list
-  error: ''
+  isLoading: true,
+  info: '',
+  errors: []
 }
 
 export default function routines (state = initialState, action) {
   switch (action.type) {
     case FETCH_ROUTINE_REQUEST:
+    case UPDATE_ROUTINE_REQUEST:
+    case DELETE_ROUTINE_REQUEST:
       return {
         ...state,
         isLoading: true
       }
     case FETCH_ROUTINE_SUCCESS:
+    case UPDATE_ROUTINE_SUCCESS:
       // This is where normalizr would come in handy
       const setIds = action.routine && action.routine.sets
         ? action.routine.sets.map(set => set.id)
@@ -143,31 +197,26 @@ export default function routines (state = initialState, action) {
       return {
         ...state,
         isLoading: false,
+        info: action.info,
+        errors: [],
         [action.routine.id]: routine
       }
     case FETCH_ROUTINE_ERROR:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.error
-      }
-    case DELETE_ROUTINE_REQUEST:
-      return {
-        ...state,
-        isLoading: true
-      }
-    case DELETE_ROUTINE_SUCCESS:
-      return omit(state, action.routineId)
+    case UPDATE_ROUTINE_ERROR:
     case DELETE_ROUTINE_ERROR:
       return {
         ...state,
-        error: action.error
+        isLoading: false,
+        errors: [...action.errors]
+      }
+    case DELETE_ROUTINE_SUCCESS:
+      return {
+        ...omit(state, action.routineId),
+        isLoading: false,
+        info: action.info,
+        errors: []
       }
     case DELETE_SET:
-      return {
-        ...state,
-        [action.routineId]: routineReducer(state[action.routineId], action)
-      }
     case CHANGE_ROUTINE_NAME:
       return {
         ...state,

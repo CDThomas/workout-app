@@ -34,13 +34,11 @@ class SetList extends Component {
     return (
       <List>
         {sets.map((set, i) => {
-          // Manually setting until implemented on backend
-          const setNumber = i + 1
           return (
             <SetItem
               {...set}
               key={set.id}
-              setNumber={setNumber}
+              setNumber={set.setNumber}
               onDeleteClick={onDeleteSetClick}
             />
           )

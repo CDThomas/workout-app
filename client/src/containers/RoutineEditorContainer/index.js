@@ -72,7 +72,8 @@ class RoutineEditorContainer extends Component {
       exerciseId: exercise.id,
       mainMuscleWorked: exercise.mainMuscleWorked,
       id: uuid(),
-      routineId: this.props.routine.id
+      routineId: this.props.routine.id,
+      setNumber: this.props.sets.length + 1
     }
 
     this.props.addUnsavedSet(newSet)
@@ -129,7 +130,8 @@ class RoutineEditorContainer extends Component {
     // TODO: format this somewhere else (maybe in the api helper)
     const sets = this.props.sets.map(set => {
       return {
-        exerciseId: set.exerciseId
+        exerciseId: set.exerciseId,
+        setNumber: set.setNumber
       }
     })
     const routine = {

@@ -1,4 +1,4 @@
-class FafSet < ApplicationRecord
+class FaSet < ApplicationRecord
   belongs_to :routine
   belongs_to :exercise
 

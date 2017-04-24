@@ -135,7 +135,7 @@ class RoutineEditorContainer extends Component {
     const routine = {
       id: this.props.routine.id,
       name: this.props.routine.name,
-      fafSetsAttributes: sets
+      faSetsAttributes: sets
     }
 
     this.props.updateRoutine(routine)

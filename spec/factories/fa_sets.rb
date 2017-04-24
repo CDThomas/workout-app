@@ -1,4 +1,4 @@
 FactoryGirl.define do
-  factory :faf_set do
+  factory :fa_set do
   end
 end

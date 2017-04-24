@@ -1,8 +1,8 @@
 class RoutineSerializer < ActiveModel::Serializer
   attributes :id, :name, :created_at
-  has_many :faf_sets, key: :sets
+  has_many :fa_sets, key: :sets
 
-  class FafSetSerializer < ActiveModel::Serializer
+  class FaSetSerializer < ActiveModel::Serializer
     attributes :id, :routine_id
 
     attribute :exercise_id do

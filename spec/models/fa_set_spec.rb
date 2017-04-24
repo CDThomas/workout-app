@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FafSet, type: :model do
+RSpec.describe FaSet, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:routine) }
     it { is_expected.to validate_presence_of(:exercise) }

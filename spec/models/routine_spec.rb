@@ -18,6 +18,6 @@ RSpec.describe Routine, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:faf_sets) }
+    it { is_expected.to have_many(:fa_sets) }
   end
 end

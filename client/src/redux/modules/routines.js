@@ -43,11 +43,12 @@ export function fetchRoutine (routineId) {
   return function (dispatch) {
     dispatch(fetchRoutineRequest())
 
-    return getRoutine(routineId)
-      .then(({ routine }) => {
+    return getRoutine(routineId).then(
+      ({ routine }) => {
         dispatch(fetchRoutineSuccess(routine))
-      })
-      .catch(error => dispatch(fetchRoutineError(error)))
+      },
+      error => dispatch(fetchRoutineError(error))
+    )
   }
 }
 
@@ -76,9 +77,10 @@ export function deleteRoutine (routineId) {
   return function (dispatch) {
     dispatch(deleteRoutineRequest())
 
-    return deleteRoutineHelper(routineId)
-      .then(() => dispatch(deleteRoutineSuccess(routineId)))
-      .catch(error => dispatch(deleteRoutineError(error)))
+    return deleteRoutineHelper(routineId).then(
+      () => dispatch(deleteRoutineSuccess(routineId)),
+      error => dispatch(deleteRoutineError(error))
+    )
   }
 }
 

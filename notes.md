@@ -59,9 +59,9 @@
     - keeping state changes organized and understandable as I add features to the editor
     - routine caching
 - [ ] Add drag-and-drop support
-  - [ ] Rename 'fafSets' to 'faSets'
-  - [ ] Add setNumber column to FafSets table
-  - [ ] sort the SetItems in SetList by setNumber (rather than ID)
+  - [x] Rename 'fafSets' to 'faSets'
+  - [x] Add setNumber column to FafSets table
+  - [x] sort the SetItems in SetList by setNumber (rather than ID)
   - [ ] Add [ReactDND](http://react-dnd.github.io/react-dnd/)
   - [ ] drag and drop sets to change order
   - [ ] drag exercise from list to place in order in sets on right

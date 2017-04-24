@@ -20,8 +20,8 @@ const propTypes = {
 
   // Redux
   routine: shape({
-    name: string,
-    id: number
+    name: string.isRequired,
+    id: number.isRequired
   }),
   sets: arrayOf(object),
   isLoading: bool.isRequired,

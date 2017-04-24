@@ -3,7 +3,7 @@ class RoutineSerializer < ActiveModel::Serializer
   has_many :fa_sets, key: :sets
 
   class FaSetSerializer < ActiveModel::Serializer
-    attributes :id, :routine_id
+    attributes :id, :routine_id, :set_number
 
     attribute :exercise_id do
       object.exercise.id

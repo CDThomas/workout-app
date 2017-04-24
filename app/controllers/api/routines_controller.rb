@@ -80,7 +80,7 @@ class Api::RoutinesController < Api::BaseController
             #       implement that first (something like a set_number attribute).
           else
             # if there's no id, create a new set
-            routine.fa_sets.create!(exercise_id: fa_set[:exercise_id]) if fa_set[:id] == nil
+            routine.fa_sets.create!(fa_set) if fa_set[:id] == nil
             # TODO: This should throw an error if there's not an exercise with that exercise id
             #       So if the record isn't found.
           end
@@ -104,6 +104,9 @@ class Api::RoutinesController < Api::BaseController
 
   private
     def routine_params
-      params.require(:routine).permit(:name, fa_sets_attributes: [:id, :exercise_id])
+      params.require(:routine).permit(
+        :name,
+        fa_sets_attributes: [:id, :exercise_id, :set_number]
+      )
     end
 end

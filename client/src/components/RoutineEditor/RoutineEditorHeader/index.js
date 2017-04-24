@@ -2,14 +2,14 @@ import React, { PropTypes } from 'react'
 import { Button, ConfirmDialog } from 'components'
 import styled, { css } from 'styled-components'
 
-const { func, string, bool } = PropTypes
+const { func, bool, object } = PropTypes
 const propTypes = {
   onChangeRoutineName: func.isRequired,
   onDeleteRoutineClick: func.isRequired,
   onDeleteRoutineConfirm: func.isRequired,
   onDeleteRoutineCancel: func.isRequired,
-  onCreateRoutineClick: func.isRequired,
-  routineName: string.isRequired,
+  onSaveRoutineClick: func.isRequired,
+  routine: object,
   isLoading: bool.isRequired,
   isDeleteRoutineConfirmOpen: bool.isRequired
 }
@@ -49,13 +49,13 @@ const SaveButton = styled(Button)`
 function RoutineEditorHeader (props) {
   const {
     onChangeRoutineName,
-    routineName,
+    routine,
     isLoading,
     onDeleteRoutineClick,
     isDeleteRoutineConfirmOpen,
     onDeleteRoutineConfirm,
     onDeleteRoutineCancel,
-    onCreateRoutineClick
+    onSaveRoutineClick
   } = props
 
   return (
@@ -63,7 +63,7 @@ function RoutineEditorHeader (props) {
       <RoutineNameInput
         type='text'
         onChange={onChangeRoutineName}
-        value={routineName}
+        value={routine ? routine.name : ''}
         disabled={isLoading}
       />
       <div>
@@ -79,7 +79,7 @@ function RoutineEditorHeader (props) {
           onCancel={onDeleteRoutineCancel}
           onRequestClose={onDeleteRoutineCancel}
         />
-        <SaveButton onClick={onCreateRoutineClick} disabled={isLoading}>
+        <SaveButton onClick={onSaveRoutineClick} disabled={isLoading}>
           Save Routine
         </SaveButton>
       </div>

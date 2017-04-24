@@ -4,19 +4,20 @@ import RoutineEditorHeader from './RoutineEditorHeader'
 import SetList from './SetList'
 import styled from 'styled-components'
 
-const { func, string, bool, array } = PropTypes
+const { func, string, bool, array, object } = PropTypes
 const propTypes = {
   onExerciseClick: func.isRequired,
   onChangeRoutineName: func.isRequired,
   onDeleteRoutineClick: func.isRequired,
   onDeleteRoutineConfirm: func.isRequired,
   onDeleteRoutineCancel: func.isRequired,
-  onCreateRoutineClick: func.isRequired,
+  onSaveRoutineClick: func.isRequired,
   onDeleteSetClick: func.isRequired,
-  routineName: string.isRequired,
+  routine: object,
   isLoading: bool.isRequired,
+  setsLoading: bool.isRequired,
   isDeleteRoutineConfirmOpen: bool.isRequired,
-  info: string.isRequired,
+  info: string,
   errors: array.isRequired,
   sets: array.isRequired
 }
@@ -36,10 +37,11 @@ function RoutineEditor (props) {
     onDeleteRoutineClick,
     onDeleteRoutineConfirm,
     onDeleteRoutineCancel,
-    onCreateRoutineClick,
+    onSaveRoutineClick,
     onDeleteSetClick,
     isLoading,
-    routineName,
+    setsLoading,
+    routine,
     isDeleteRoutineConfirmOpen,
     info,
     errors,
@@ -57,8 +59,8 @@ function RoutineEditor (props) {
             onDeleteRoutineClick={onDeleteRoutineClick}
             onDeleteRoutineConfirm={onDeleteRoutineConfirm}
             onDeleteRoutineCancel={onDeleteRoutineCancel}
-            onCreateRoutineClick={onCreateRoutineClick}
-            routineName={routineName}
+            onSaveRoutineClick={onSaveRoutineClick}
+            routine={routine}
             isDeleteRoutineConfirmOpen={isDeleteRoutineConfirmOpen}
             isLoading={isLoading}
           />
@@ -77,7 +79,7 @@ function RoutineEditor (props) {
           <SetList
             sets={sets}
             onDeleteSetClick={onDeleteSetClick}
-            isLoading={isLoading}
+            isLoading={setsLoading}
           />
         </Container>
       </ExercisePanelOffset>

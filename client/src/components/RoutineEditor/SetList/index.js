@@ -4,7 +4,8 @@ import SetItem from '../SetItem'
 import styled from 'styled-components'
 
 const propTypes = {
-  sets: PropTypes.array,
+  // TODO: shape
+  sets: PropTypes.array.isRequired,
   onDeleteSetClick: PropTypes.func,
   isLoading: PropTypes.bool
 }
@@ -33,11 +34,13 @@ class SetList extends Component {
     return (
       <List>
         {sets.map((set, i) => {
+          // Manually setting until implemented on backend
+          const setNumber = i + 1
           return (
             <SetItem
               {...set}
-              setNumber={i + 1}
-              key={i}
+              key={set.id}
+              setNumber={setNumber}
               onDeleteClick={onDeleteSetClick}
             />
           )

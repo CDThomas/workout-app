@@ -1,14 +1,39 @@
 import React, { Component, PropTypes } from 'react'
-import { updateRoutine, getRoutine, deleteRoutine } from 'helpers/api'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as routinesActionCreators from 'redux/modules/routines'
+import * as setsActionCreators from 'redux/modules/sets'
+import * as unsaveSetsActionCreators from 'redux/modules/unsavedSets'
 import { RoutineEditor } from 'components'
+import { v4 as uuid } from 'uuid'
+import { values } from 'lodash'
 
+const { shape, string, object, number, arrayOf, func, bool, array } = PropTypes
 const propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string.isRequired
-    })
+  // React Router
+  match: shape({
+    params: shape({
+      id: string.isRequired
+    }).isRequired
+  }).isRequired,
+  history: object,
+
+  // Redux
+  routine: shape({
+    name: string.isRequired,
+    id: number.isRequired
   }),
-  history: PropTypes.object
+  sets: arrayOf(object),
+  isLoading: bool.isRequired,
+  setsLoading: bool.isRequired,
+  info: string,
+  errors: array.isRequired,
+  fetchRoutine: func.isRequired,
+  deleteRoutine: func.isRequired,
+  addUnsavedSet: func.isRequired,
+  deleteSet: func.isRequired,
+  changeRoutineName: func.isRequired,
+  updateRoutine: func.isRequired
 }
 
 class RoutineEditorContainer extends Component {
@@ -28,133 +53,97 @@ class RoutineEditorContainer extends Component {
     this.handleChangeRoutineName = this.handleChangeRoutineName.bind(this)
     this.handleExerciseClick = this.handleExerciseClick.bind(this)
     this.handleDeleteSetClick = this.handleDeleteSetClick.bind(this)
-    this.handleCreateRoutineClick = this.handleCreateRoutineClick.bind(this)
+    this.handleSaveRoutineClick = this.handleSaveRoutineClick.bind(this)
     this.handleDeleteRoutineClick = this.handleDeleteRoutineClick.bind(this)
-    this.handleDeleteRoutineConfirm = this.handleDeleteRoutineConfirm.bind(this)
+    this.handleDeleteRoutineConfirm = this.handleDeleteRoutineConfirm.bind(
+      this
+    )
     this.handleDeleteRoutineCancel = this.handleDeleteRoutineCancel.bind(this)
   }
 
   componentDidMount () {
     const { id } = this.props.match.params
-
-    getRoutine(id)
-      .then(({ routine }) => {
-        const { id, name, sets } = routine
-        this.setState({
-          routineId: id,
-          routineName: name || '',
-          sets,
-          isLoading: false
-        })
-      })
-      // TODO: handle 404 (routine not found)
-      .catch(error => console.warn(error))
+    this.props.fetchRoutine(id)
   }
 
   handleExerciseClick (exercise) {
     const newSet = {
       exerciseName: exercise.name,
       exerciseId: exercise.id,
-      mainMuscleWorked: exercise.mainMuscleWorked
+      mainMuscleWorked: exercise.mainMuscleWorked,
+      id: uuid(),
+      routineId: this.props.routine.id
     }
 
-    this.setState({
-      sets: [...this.state.sets, newSet]
-    })
+    this.props.addUnsavedSet(newSet)
   }
 
-  handleDeleteSetClick (setNumber) {
-    const { sets } = this.state
-    const setIndex = setNumber - 1
-    const newSets = [...sets.slice(0, setIndex), ...sets.slice(setIndex + 1)]
-
-    this.setState({
-      sets: newSets
-    })
+  handleDeleteSetClick (id, routineId) {
+    this.props.deleteSet(id, routineId)
   }
 
   handleDeleteRoutineClick () {
+    // This can probably be internal state of a lower component, like the delete
+    // button. Probably won't live in the store.
     this.setState({
       isDeleteRoutineConfirmOpen: true
     })
   }
 
   handleDeleteRoutineConfirm () {
-    deleteRoutine(this.state.routineId)
-      .then(() => {
-        // TODO: Flash message for successful delete on next route.
-        //       Something like a toast.
-        //       Prob will wait until I've implemented redux for this. That should simplify adding
-        //       and clearing toasts.
-        console.log(`Routine with ID ${this.state.routineId} deleted.`)
+    const { id } = this.props.routine
+    this.props.deleteRoutine(id).then(() => {
+      console.log(`Routine with ID ${id} deleted.`)
+      this.props.history.push('/routines')
+    })
 
-        this.props.history.push('/routines')
-      })
-      .catch(() => {
-        console.log('catch cb called')
-        this.setState({
-          errors: [{ message: 'Unable to delete this routine' }],
-          isDeleteRoutineConfirmOpen: false
-        })
-      })
+    // TODO: Flash message for successful delete on next route.
+    //       Something like a toast.
+    //       Prob will wait until I've implemented redux for this. That should simplify adding
+    //       and clearing toasts.
+
+    // TODO: update error handling with Redux
+    // .catch(() => {
+    //   this.setState({
+    //     errors: [{ message: 'Unable to delete this routine' }],
+    //     isDeleteRoutineConfirmOpen: false
+    //   })
+    // })
   }
 
   handleDeleteRoutineCancel () {
+    // This can probably be internal state of a lower component, like the delete
+    // button. Probably won't live in the store.
     this.setState({
       isDeleteRoutineConfirmOpen: false
     })
   }
 
   handleChangeRoutineName (evt) {
-    this.setState({
-      routineName: evt.target.value
-    })
+    const routineName = evt.target.value
+    const routineId = this.props.routine.id
+    this.props.changeRoutineName(routineId, routineName)
   }
 
-  handleCreateRoutineClick () {
+  handleSaveRoutineClick () {
+    // TODO: format this somewhere else (maybe in the api helper)
+    const sets = this.props.sets.map(set => {
+      return {
+        exerciseId: set.exerciseId
+      }
+    })
     const routine = {
-      id: this.state.routineId,
-      name: this.state.routineName,
-      fafSetsAttributes: this.state.sets
+      id: this.props.routine.id,
+      name: this.props.routine.name,
+      fafSetsAttributes: sets
     }
 
-    this.setState({ isLoading: true })
-
-    updateRoutine(routine)
-      .then(({ routine }) => {
-        const { name, sets } = routine
-        this.setState({
-          info: 'Workout was updated successfully!',
-          errors: [],
-          routineName: name,
-          sets
-        })
-      })
-      .catch(error => {
-        const response = error.response
-        if (response && response.status === 422) {
-          response.json().then(body => {
-            this.setState({
-              errors: body.errors,
-              info: ''
-            })
-          })
-        } else {
-          console.error(error)
-        }
-      })
-      .then(() => this.setState({ isLoading: false }))
+    this.props.updateRoutine(routine)
   }
 
   render () {
-    const {
-      routineName,
-      isLoading,
-      isDeleteRoutineConfirmOpen,
-      info,
-      errors,
-      sets
-    } = this.state
+    const { isDeleteRoutineConfirmOpen } = this.state
+    const { routine, sets, isLoading, setsLoading, info, errors } = this.props
 
     return (
       <RoutineEditor
@@ -163,10 +152,11 @@ class RoutineEditorContainer extends Component {
         onDeleteRoutineClick={this.handleDeleteRoutineClick}
         onDeleteRoutineConfirm={this.handleDeleteRoutineConfirm}
         onDeleteRoutineCancel={this.handleDeleteRoutineCancel}
-        onCreateRoutineClick={this.handleCreateRoutineClick}
+        onSaveRoutineClick={this.handleSaveRoutineClick}
         onDeleteSetClick={this.handleDeleteSetClick}
-        routineName={routineName}
+        routine={routine}
         isLoading={isLoading}
+        setsLoading={setsLoading}
         isDeleteRoutineConfirmOpen={isDeleteRoutineConfirmOpen}
         info={info}
         errors={errors}
@@ -177,4 +167,36 @@ class RoutineEditorContainer extends Component {
 }
 RoutineEditorContainer.propTypes = propTypes
 
-export default RoutineEditorContainer
+function mapStateToProps ({ routines, sets, unsavedSets }, ownProps) {
+  const routineId = ownProps.match.params.id
+  const routine = routines[routineId]
+  const setIds = routine ? routine.setIds : []
+  const savedSets = setIds.map(setId => sets[setId])
+  const unsavedSetsArr = values(unsavedSets)
+
+  return {
+    routine,
+    // Would make more sense to pass down the setIds or move this to a lower container,
+    // but this will work for the moment
+    sets: [...savedSets, ...unsavedSetsArr],
+    isLoading: routines.isLoading,
+    setsLoading: sets.isLoading,
+    info: routines.info,
+    errors: routines.errors
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators(
+    {
+      ...routinesActionCreators,
+      ...setsActionCreators,
+      ...unsaveSetsActionCreators
+    },
+    dispatch
+  )
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  RoutineEditorContainer
+)

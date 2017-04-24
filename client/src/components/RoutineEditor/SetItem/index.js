@@ -2,13 +2,17 @@ import React, { Component, PropTypes } from 'react'
 import { Title, Button } from 'components'
 import styled from 'styled-components'
 
-const { string, number, func } = PropTypes
+const { string, number, func, oneOfType } = PropTypes
 
 const propTypes = {
-  exerciseName: string,
-  mainMuscleWorked: string,
-  setNumber: number,
-  onDeleteClick: func
+  exerciseName: string.isRequired,
+  mainMuscleWorked: string.isRequired,
+  // TODO: make this always a string (UUID)
+  // right now only ID's for unsaved routines are strings
+  id: oneOfType([number, string]).isRequired,
+  routineId: number.isRequired,
+  setNumber: number.isRequired,
+  onDeleteClick: func.isRequired
 }
 
 const ListItem = styled.li`
@@ -43,7 +47,7 @@ class SetItem extends Component {
   }
 
   handleDeleteClick () {
-    this.props.onDeleteClick(this.props.setNumber)
+    this.props.onDeleteClick(this.props.id, this.props.routineId)
   }
 
   render () {

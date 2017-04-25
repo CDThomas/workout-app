@@ -49,6 +49,7 @@
     "webpack": "^2.2.1"
   },
   "devDependencies": {
+    "babel-eslint": "6",
     "dotenv": "^4.0.0",
     "eslint": "^3.17.1",
     "eslint-config-standard": "^7.0.1",

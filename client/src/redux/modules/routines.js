@@ -219,13 +219,17 @@ export default function routines (state = initialState, action) {
         errors: []
       }
     case DELETE_SET:
-    case CHANGE_ROUTINE_NAME:
       return {
         ...state,
         [action.set.routineId]: routineReducer(
           state[action.set.routineId],
           action
         )
+      }
+    case CHANGE_ROUTINE_NAME:
+      return {
+        ...state,
+        [action.routineId]: routineReducer(state[action.routineId], action)
       }
     default:
       return state

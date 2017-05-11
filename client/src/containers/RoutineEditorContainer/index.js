@@ -31,7 +31,6 @@ const propTypes = {
   fetchRoutine: func.isRequired,
   deleteRoutine: func.isRequired,
   addUnsavedSet: func.isRequired,
-  deleteSet: func.isRequired,
   changeRoutineName: func.isRequired,
   updateRoutine: func.isRequired
 }
@@ -52,7 +51,6 @@ class RoutineEditorContainer extends Component {
 
     this.handleChangeRoutineName = this.handleChangeRoutineName.bind(this)
     this.handleExerciseClick = this.handleExerciseClick.bind(this)
-    this.handleDeleteSetClick = this.handleDeleteSetClick.bind(this)
     this.handleSaveRoutineClick = this.handleSaveRoutineClick.bind(this)
     this.handleDeleteRoutineClick = this.handleDeleteRoutineClick.bind(this)
     this.handleDeleteRoutineConfirm = this.handleDeleteRoutineConfirm.bind(
@@ -71,15 +69,12 @@ class RoutineEditorContainer extends Component {
       exerciseName: exercise.name,
       exerciseId: exercise.id,
       mainMuscleWorked: exercise.mainMuscleWorked,
-      id: uuid(),
-      routineId: this.props.routine.id
+      id: uuid(), // temp ID used for unsaved sets. Not used after save.
+      routineId: this.props.routine.id,
+      setNumber: this.props.sets.length + 1
     }
 
     this.props.addUnsavedSet(newSet)
-  }
-
-  handleDeleteSetClick (id, routineId) {
-    this.props.deleteSet(id, routineId)
   }
 
   handleDeleteRoutineClick () {
@@ -129,13 +124,14 @@ class RoutineEditorContainer extends Component {
     // TODO: format this somewhere else (maybe in the api helper)
     const sets = this.props.sets.map(set => {
       return {
-        exerciseId: set.exerciseId
+        exerciseId: set.exerciseId,
+        setNumber: set.setNumber
       }
     })
     const routine = {
       id: this.props.routine.id,
       name: this.props.routine.name,
-      fafSetsAttributes: sets
+      faSetsAttributes: sets
     }
 
     this.props.updateRoutine(routine)
@@ -167,9 +163,13 @@ class RoutineEditorContainer extends Component {
 }
 RoutineEditorContainer.propTypes = propTypes
 
-function mapStateToProps ({ routines, sets, unsavedSets }, ownProps) {
+function mapStateToProps ({ routines, sets, unsavedSets, ui }, ownProps) {
   const routineId = ownProps.match.params.id
   const routine = routines[routineId]
+  // TODO: move to SetListContainer
+  // right now this is duplicated because RoutineEditorHeader needs sets as well
+  // ... Well kindof. Some event callbacks use it. Still prob want to move to
+  // RoutineEditorHeaderContainer
   const setIds = routine ? routine.setIds : []
   const savedSets = setIds.map(setId => sets[setId])
   const unsavedSetsArr = values(unsavedSets)
@@ -177,10 +177,11 @@ function mapStateToProps ({ routines, sets, unsavedSets }, ownProps) {
   return {
     routine,
     // Would make more sense to pass down the setIds or move this to a lower container,
-    // but this will work for the moment
+    // but this will work for the moment.
+    // A routineSets selector would prob work.
     sets: [...savedSets, ...unsavedSetsArr],
-    isLoading: routines.isLoading,
-    setsLoading: sets.isLoading,
+    isLoading: ui.routines.isLoading,
+    setsLoading: ui.sets.isLoading,
     info: routines.info,
     errors: routines.errors
   }

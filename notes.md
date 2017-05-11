@@ -52,15 +52,21 @@
 - [x] user can delete a set from a routine
 - [x] user can delete routines
 - [x] routine list empty state (for when no routines have been created or search returns nothing)
-- [ ] add Redux for state management
+- [x] add Redux for state management
   - I think Redux would be a good fit for the routine editor
     - optimistic updates
     - should be useful for 'undo' feature
     - keeping state changes organized and understandable as I add features to the editor
     - routine caching
 - [ ] Add drag-and-drop support
-  - [ ] drag exercise from list to place in order in sets on right
+  - [x] Rename 'fafSets' to 'faSets'
+  - [x] Add setNumber column to FafSets table
+  - [x] sort the SetItems in SetList by setNumber (rather than ID)
+  - [ ] Add [ReactDND](http://react-dnd.github.io/react-dnd/)
   - [ ] drag and drop sets to change order
+  - [ ] drag exercise from list to place in order in sets on right
+    - Will probably do this separately because this will be a large set of
+      changes already
 - [ ] add images to exercises
   - I'm thinking google cloud storage because it'd be free
   - can use carrierwave/fog
@@ -68,7 +74,17 @@
   - or cloudinary
 - [ ] paginate exercises
   - [ ] pagination BE
+    - See https://github.com/rails-api/active_model_serializers/blob/master/docs/howto/add_pagination_links.md
   - [ ] pagination FE (infinate scroll or "load more")
+    - See http://redux.js.org/docs/introduction/Examples.html#real-world
+- [ ] Improve editing saved/unsaved/loading state UX
+  - As a user, I want to be able to easily see if I have unsaved work when I'm
+    editing a routine
+    - prob add the words "Unsaved Changes" to RoutineEditor header, or change
+      the appearance of the save button. Or both
+  - I'm thinking I'll also add a spinner (saving) and a check mark (saved) to
+    RoutineEditorHeader
+    - The checkmark might only display for a few seconds
 - [ ] user can edit exercises
 - [ ] Add tests for more than just models
 - [ ] User can sort routines list by date created

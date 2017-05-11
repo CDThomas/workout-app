@@ -47,7 +47,8 @@ class SetItem extends Component {
   }
 
   handleDeleteClick () {
-    this.props.onDeleteClick(this.props.id, this.props.routineId)
+    const { id, setNumber, routineId } = this.props
+    this.props.onDeleteClick({ id, setNumber, routineId })
   }
 
   render () {

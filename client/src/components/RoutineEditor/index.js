@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { ExercisePanel, Message } from 'components'
 import RoutineEditorHeader from './RoutineEditorHeader'
-import SetList from './SetList'
+import { SetListContainer } from 'containers'
 import styled from 'styled-components'
 
 const { func, string, bool, array, object } = PropTypes
@@ -12,14 +12,11 @@ const propTypes = {
   onDeleteRoutineConfirm: func.isRequired,
   onDeleteRoutineCancel: func.isRequired,
   onSaveRoutineClick: func.isRequired,
-  onDeleteSetClick: func.isRequired,
   routine: object,
   isLoading: bool.isRequired,
-  setsLoading: bool.isRequired,
   isDeleteRoutineConfirmOpen: bool.isRequired,
   info: string,
-  errors: array.isRequired,
-  sets: array.isRequired
+  errors: array.isRequired
 }
 
 const ExercisePanelOffset = styled.div`
@@ -38,15 +35,13 @@ function RoutineEditor (props) {
     onDeleteRoutineConfirm,
     onDeleteRoutineCancel,
     onSaveRoutineClick,
-    onDeleteSetClick,
     isLoading,
-    setsLoading,
     routine,
     isDeleteRoutineConfirmOpen,
     info,
-    errors,
-    sets
+    errors
   } = props
+  const setIds = routine ? routine.setIds : []
 
   return (
     <div>
@@ -76,11 +71,7 @@ function RoutineEditor (props) {
               {errors.map(e => e.message).join('. ')}
             </Message>}
 
-          <SetList
-            sets={sets}
-            onDeleteSetClick={onDeleteSetClick}
-            isLoading={setsLoading}
-          />
+          <SetListContainer setIds={setIds} />
         </Container>
       </ExercisePanelOffset>
     </div>

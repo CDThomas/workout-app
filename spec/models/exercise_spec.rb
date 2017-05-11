@@ -10,6 +10,6 @@ RSpec.describe Exercise, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:main_muscle_worked).class_name('Muscle') }
-    it { is_expected.to have_many(:faf_sets) }
+    it { is_expected.to have_many(:fa_sets) }
   end
 end

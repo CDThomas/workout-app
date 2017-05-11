@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { Loader } from 'components'
-import SetItem from '../SetItem'
+import SetItem from './SetItem'
 import styled from 'styled-components'
 
 const propTypes = {
-  // TODO: shape
   sets: PropTypes.array.isRequired,
   onDeleteSetClick: PropTypes.func,
   isLoading: PropTypes.bool
@@ -31,16 +30,15 @@ class SetList extends Component {
       )
     }
 
+    const sortedBySetNumber = sets.sort((a, b) => a.setNumber - b.setNumber)
     return (
       <List>
-        {sets.map((set, i) => {
-          // Manually setting until implemented on backend
-          const setNumber = i + 1
+        {sortedBySetNumber.map((set, i) => {
           return (
             <SetItem
               {...set}
               key={set.id}
-              setNumber={setNumber}
+              setNumber={set.setNumber}
               onDeleteClick={onDeleteSetClick}
             />
           )

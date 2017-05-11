@@ -34,7 +34,7 @@ class Api::RoutinesController < Api::BaseController
 
     # Another alternative would be updating the routine after each change in the UI automatically,
     # rather than having a "save" button that does all of this. Would I want this if an individual
-    # update fails? So instead, adding a set would just create a new faf_set rather than waiting to
+    # update fails? So instead, adding a set would just create a new fa_set rather than waiting to
     # hit save and checking to whole routine for changes. Same thing with updating other things, like
     # deleting sets, or changing the routine name
 
@@ -57,10 +57,10 @@ class Api::RoutinesController < Api::BaseController
 
       # 2)
       # delete sets that aren't in the request body
-      previous_set_ids = routine.faf_sets.map { |s| s.id }
+      previous_set_ids = routine.fa_sets.map { |s| s.id }
       params_set_ids =
-        if routine_params[:faf_sets_attributes]
-          routine_params[:faf_sets_attributes]
+        if routine_params[:fa_sets_attributes]
+          routine_params[:fa_sets_attributes]
             .select { |s| s[:id] != nil } # sets with ids
             .map { |s| s[:id] }
         else
@@ -68,19 +68,19 @@ class Api::RoutinesController < Api::BaseController
         end
       ids_of_sets_to_delete = previous_set_ids.reject { |id| params_set_ids.include?(id) }
 
-      ids_of_sets_to_delete.each { |id| routine.faf_sets.find(id).destroy! }
+      ids_of_sets_to_delete.each { |id| routine.fa_sets.find(id).destroy! }
 
      # 3)
      # update or create sets included in the request body
-      unless routine_params[:faf_sets_attributes] == nil
-        routine_params[:faf_sets_attributes].each do |faf_set|
-          if faf_set[:id]
+      unless routine_params[:fa_sets_attributes] == nil
+        routine_params[:fa_sets_attributes].each do |fa_set|
+          if fa_set[:id]
             # TODO: update order in routine if changed.
             #       Right now there isn't anything keeping track of the order, so will need to
             #       implement that first (something like a set_number attribute).
           else
             # if there's no id, create a new set
-            routine.faf_sets.create!(exercise_id: faf_set[:exercise_id]) if faf_set[:id] == nil
+            routine.fa_sets.create!(fa_set) if fa_set[:id] == nil
             # TODO: This should throw an error if there's not an exercise with that exercise id
             #       So if the record isn't found.
           end
@@ -104,6 +104,9 @@ class Api::RoutinesController < Api::BaseController
 
   private
     def routine_params
-      params.require(:routine).permit(:name, faf_sets_attributes: [:id, :exercise_id])
+      params.require(:routine).permit(
+        :name,
+        fa_sets_attributes: [:id, :exercise_id, :set_number]
+      )
     end
 end

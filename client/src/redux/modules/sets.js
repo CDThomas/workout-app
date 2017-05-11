@@ -13,11 +13,7 @@ export function deleteSet (set, routineId) {
   }
 }
 
-const initialState = {
-  isLoading: true
-}
-
-export default function sets (state = initialState, action) {
+export default function sets (state = {}, action) {
   switch (action.type) {
     case FETCH_ROUTINE_SUCCESS:
     case UPDATE_ROUTINE_SUCCESS:
@@ -38,10 +34,11 @@ export default function sets (state = initialState, action) {
 
       return {
         ...state,
-        ...setsById,
-        isLoading: false
+        ...setsById
       }
     case DELETE_SET:
+      // TODO: remove because simplified now!
+
       // This is tricky. Could use to find a cleaner, way to do this.
       // Doing this because I don't want to lose properties that aren't actually
       // sets (like 'isLoading').
@@ -49,11 +46,11 @@ export default function sets (state = initialState, action) {
       // The solution is probably separating UI state (like loading) from
       // entities. That way I now only set objects are in my sets state
       // TODO: separate UI state form entitiy state
-      const stateWithoutSets = pick(state, Object.keys(initialState))
+      const stateWithoutSets = pick(state, Object.keys({}))
 
       // Sets will be anything on the state with a key (id) that doesn't exist in
       // the reducer's initial state
-      const oldSets = omit(state, Object.keys(initialState))
+      const oldSets = omit(state, Object.keys({}))
       const updatedSets = removeSetBySetNumber(oldSets, action.set.setNumber)
 
       return {

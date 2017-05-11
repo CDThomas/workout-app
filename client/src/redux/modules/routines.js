@@ -174,7 +174,6 @@ function routineReducer (state = initialRoutineState, action) {
 }
 
 const initialState = {
-  isLoading: true,
   info: '',
   errors: []
 }
@@ -185,8 +184,7 @@ export default function routines (state = initialState, action) {
     case UPDATE_ROUTINE_REQUEST:
     case DELETE_ROUTINE_REQUEST:
       return {
-        ...state,
-        isLoading: true
+        ...state
       }
     case FETCH_ROUTINE_SUCCESS:
     case UPDATE_ROUTINE_SUCCESS:
@@ -198,7 +196,6 @@ export default function routines (state = initialState, action) {
 
       return {
         ...state,
-        isLoading: false,
         info: action.info,
         errors: [],
         [action.routine.id]: routine
@@ -208,13 +205,11 @@ export default function routines (state = initialState, action) {
     case DELETE_ROUTINE_ERROR:
       return {
         ...state,
-        isLoading: false,
         errors: [...action.errors]
       }
     case DELETE_ROUTINE_SUCCESS:
       return {
         ...omit(state, action.routineId),
-        isLoading: false,
         info: action.info,
         errors: []
       }

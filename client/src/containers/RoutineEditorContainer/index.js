@@ -169,7 +169,7 @@ class RoutineEditorContainer extends Component {
 }
 RoutineEditorContainer.propTypes = propTypes
 
-function mapStateToProps ({ routines, sets, unsavedSets }, ownProps) {
+function mapStateToProps ({ routines, sets, unsavedSets, ui }, ownProps) {
   const routineId = ownProps.match.params.id
   const routine = routines[routineId]
   const setIds = routine ? routine.setIds : []
@@ -181,8 +181,8 @@ function mapStateToProps ({ routines, sets, unsavedSets }, ownProps) {
     // Would make more sense to pass down the setIds or move this to a lower container,
     // but this will work for the moment
     sets: [...savedSets, ...unsavedSetsArr],
-    isLoading: routines.isLoading,
-    setsLoading: sets.isLoading,
+    isLoading: ui.routines.isLoading,
+    setsLoading: ui.sets.isLoading,
     info: routines.info,
     errors: routines.errors
   }

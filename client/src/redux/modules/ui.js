@@ -12,6 +12,7 @@ import {
 } from './actionTypes'
 
 // TODO: asdfasd verbose AF
+// TODO: would it make sense to add currentRoutineId here?
 
 function sets (state = { isLoading: true }, action) {
   switch (action.type) {

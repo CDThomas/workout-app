@@ -6,14 +6,6 @@ import { AppMain } from 'components'
 import { Provider } from 'react-redux'
 import { routines, sets, unsavedSets, ui } from 'redux/modules'
 
-// function rootReducer (state = {}, action) {
-//   return {
-//     routines: routines(state.routines, action),
-//     sets: sets(state.sets, action),
-//     unsavedSets: unsavedSets(state.unsavedSets, action)
-//   }
-// }
-
 const composeEnhancers = typeof window === 'object' &&
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

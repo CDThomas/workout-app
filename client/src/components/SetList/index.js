@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { Loader } from 'components'
-import SetItem from '../SetItem'
+import SetItem from './SetItem'
 import styled from 'styled-components'
 
 const propTypes = {
-  // TODO: shape
   sets: PropTypes.array.isRequired,
   onDeleteSetClick: PropTypes.func,
   isLoading: PropTypes.bool
